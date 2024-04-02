@@ -8,4 +8,6 @@
     <children>
         <Label fx:id="label" text="Label" />
     </children>
+    <children>
+    </children
 </StackPane>
