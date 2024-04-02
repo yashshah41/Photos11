@@ -32,13 +32,10 @@ public class Album {
     public void addPhoto(Photo photo) {
         this.photos.add(photo);
     }
-  
-
     public class sorter implements Comparator<Photo> {
         public int compare(Photo x, Photo y) {
-            return x.getDateTime().compareTo(y.getDateTime());
+            return x.getCalendar().compareTo(y.getCalendar());
         }
-
     }
 
 }
