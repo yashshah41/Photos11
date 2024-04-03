@@ -20,7 +20,7 @@ public class Album {
         return toReturn;
     }
 
-    public ArrayList<Photo> getAllPhotos() {
+    public List<Photo> getAllPhotos() {
         return this.photos;
     }
 

@@ -8,21 +8,20 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Photo implements Serializable {
-    private File file;
-    private String path;
-    private List<Tag> tags;
-    private Calendar calendar;
-    private String caption;
-    private Date lastModifiedDate;
-
+    public File file;
+    public String path;
+    public List<Tag> tags;
+    public Calendar calendar;
+    public String caption;
+    public Date lastModifiedDate;
 
     public Photo(File file, List<Tag> tags) {
         this.file = file;
         this.path = this.file.getPath();
         this.lastModifiedDate = new Date(this.file.lastModified());
         this.tags = tags;
-        this.calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);
+        this.calendar = Calendar.getInstance();
     }
 
     public String getPath() {
