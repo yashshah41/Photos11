@@ -16,6 +16,7 @@ public class Photo implements Serializable {
     private Calendar calendar;
     private String caption;
     private transient Image img;
+    private static final long serialVersionUID = -2936687026040726549L;
 
     public Photo(Image img, File file, List<Tag> tags) {
         this.img = img;
