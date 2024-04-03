@@ -3,15 +3,16 @@ package hellofx.app;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class Album {
 
-    public ArrayList<Photo> photos;
+    public List<Photo> photos;
     String name;
 
-    public Album(String userName) {
+    public Album(String userName, List<Photo> photos) {
         this.name = userName;
-        this.photos = new ArrayList<Photo>();
+        this.photos = photos;
     }
 
     public Photo getPhotoByIndex(int index) {

@@ -18,8 +18,7 @@ public class Photo implements Serializable {
     private transient Image img;
     private static final long serialVersionUID = -2936687026040726549L;
 
-    public Photo(Image img, File file, List<Tag> tags) {
-        this.img = img;
+    public Photo(File file, List<Tag> tags) {
         this.file = file;
         this.path = this.file.getPath();
         this.tags = tags;

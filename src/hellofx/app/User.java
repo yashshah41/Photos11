@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
 
-	private String userName;
-	private ArrayList<Album> allAlbums;
+	public String userName;
+	public ArrayList<Album> allAlbums;
 
 	public User(String userName) {
 		this.userName = userName;
@@ -35,7 +35,8 @@ public class User implements Serializable {
 		}
 	}
 	
-	public void renameAlbum(Album album, String newName){
+    public void renameAlbum(Album album, String newName) {
+        int index;
 		if(album != null) {
 			for(int i = 0; i < allAlbums.size(); i++) {
 				if(allAlbums.get(i).name.toLowerCase() == album.name.toLowerCase()) {

@@ -7,11 +7,7 @@ public class LoginController {
 
     @FXML
     private TextField usernameField;
-
-    @FXML
-    private TextField passwordField;
-
-    @FXML
+    
     protected void onLoginButtonClick() {
 
     }
