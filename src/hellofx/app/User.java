@@ -36,7 +36,6 @@ public class User implements Serializable {
 	}
 	
 	public void renameAlbum(Album album, String newName){
-		int index;
 		if(album != null) {
 			for(int i = 0; i < allAlbums.size(); i++) {
 				if(allAlbums.get(i).name.toLowerCase() == album.name.toLowerCase()) {
