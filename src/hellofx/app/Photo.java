@@ -2,8 +2,6 @@ package hellofx.app;
 
 import java.util.List;
 
-import javafx.scene.image.Image;
-
 import java.io.File;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -15,23 +13,16 @@ public class Photo implements Serializable {
     private List<Tag> tags;
     private Calendar calendar;
     private String caption;
-    private transient Image img;
-    private static final long serialVersionUID = -2936687026040726549L;
+    private Date lastModifiedDate;
+
 
     public Photo(File file, List<Tag> tags) {
         this.file = file;
         this.path = this.file.getPath();
+        this.lastModifiedDate = new Date(this.file.lastModified());
         this.tags = tags;
         this.calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);
-    }
-
-    public Image getImage() {
-        return this.img;
-    }
-
-    public void setImage(Image img) {
-        this.img = img;
     }
 
     public String getPath() {
