@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import java.io.IOException;
+import java.util.List;
 
 
 public class LoginController  {
@@ -72,4 +73,8 @@ public class LoginController  {
             }
         }
     }
+
+    public void setData(List<User> asd){
+		this.listOfUsers = FXCollections.observableArrayList(asd);
+	}
 }

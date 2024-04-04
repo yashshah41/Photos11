@@ -103,24 +103,23 @@ public class AlbumNavigator implements java.io.Serializable {
 		if(album.getAllPhotos() == null){
 			return;
 		}
-	    // idk where to go from here
 	}
 
 	public void addPhoto(ActionEvent e) {
 		// figure this out 
 	}
 
-	    public void addCaption(ActionEvent e) {
-	    	String caption = this.capField.getText();
-	    	if(!(caption.equals(null))){
-	    		Photo target = (Photo) photosList.getSelectionModel().getSelectedItem();
-	    		target.setCaption(caption);
-		        photosList.setItems(pictures);
-			    photosList.setItems(pictures);
-			    capField.setText("");
-	    	}
-	    }	   
-	    public void addTag(ActionEvent e) {
+	public void addCaption(ActionEvent e) {
+	    String caption = this.capField.getText();
+	    if(!(caption.equals(null))){
+	    	Photo target = (Photo) photosList.getSelectionModel().getSelectedItem();
+	    	target.setCaption(caption);
+		    photosList.setItems(pictures);
+			photosList.setItems(pictures);
+			capField.setText("");
+		}
+	}	   
+	public void addTag(ActionEvent e) {
 	    	String name = tag.getText();
 	    	String value = this.value.getText();
 	    	if(!(name.equals(null) && value.equals(null))){	    		
