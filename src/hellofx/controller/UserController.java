@@ -49,28 +49,22 @@ public class UserController {
 	
 	ObservableList<Album> show = FXCollections.observableArrayList();
 	
-	List<User> members;
+	List<User> listOfUsers;
 	
 	public void setData(User user,List<User> users){
 	    this.user = user;
-		this.members = users;
-		show = FXCollections.observableArrayList(user.getAlbums());
+		this.listOfUsers = users;
+		show = FXCollections.observableArrayList(user.getAllAlbums());
 		allAlbums.setItems(show);		
 	}
-	public void save() throws IOException{
-		FXMLLoader loader = new FXMLLoader();
-	    loader.setLocation(getClass().getResource("/view/Admin.fxml"));
-	    AdminController admincontroller = loader.getController();
-	    admincontroller.setUsers(this.members);
-	    admincontroller.save();
-	}
+	
 	public void logOut(ActionEvent e)
 			throws IOException{
 				FXMLLoader load = new FXMLLoader();
 			    load.setLocation(getClass().getResource("/view/Login.fxml"));
 			    Parent admin_parent = (Parent)load.load();
 			    LoginController logincontroller = load.getController();
-			    logincontroller.setData(members);
+			    logincontroller.setData(listOfUsers);
 			    Scene admin_scene = new Scene(admin_parent);
 			    Stage photoStage = (Stage)((Node) e.getSource()).getScene().getWindow();
 			    photoStage.hide();
@@ -87,14 +81,31 @@ public class UserController {
 	}
 	public void switchToSearch(ActionEvent e) throws IOException{
 				// to implement
-			}
+	}
+
+
+	
+	public void addAlbum(actionEvent e) throws IOException{
+		Album album = new Album(albumName.getText());
+		show.add(album);
+		allAlbums.setItems(show);
+		this.save();
+	}
 
     public void renameAlbum(ActionEvent e) throws IOException{
     	Album album = (Album)allAlbums.getSelectionModel().getSelectedItem();
     	album.setName(editName.getText());
-    	show.set(show.indexOf(album),  (Album)allAlbums.getSelectionModel().getSelectedItem());
+    	show.set(show.indexOf(album), (Album)allAlbums.getSelectionModel().getSelectedItem());
     	allAlbums.setItems(show);
     	this.save();
     }
+
+	public void save() throws IOException{
+		FXMLLoader loader = new FXMLLoader();
+	    loader.setLocation(getClass().getResource("/view/Admin.fxml"));
+	    AdminController admincontroller = loader.getController();
+	    admincontroller.setUsers(this.listOfUsers);
+	    admincontroller.save();
+	}
 
 }
