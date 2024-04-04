@@ -22,14 +22,10 @@ import javafx.stage.Stage;
 
 
 public class UserController {
-	@FXML
+	
+    @FXML
 	Button deleteButton;
 	
-	@FXML
-	Button searchButton;
-	
-	@FXML
-	Button finishButton;
 	
 	@FXML
 	Button logoutButton;
@@ -48,12 +44,6 @@ public class UserController {
 	
 	@FXML
 	TextField editName;
-	
-	@FXML
-	TextField editNum;
-	
-	@FXML
-	TextField editRange;
 
 	User user;
 	

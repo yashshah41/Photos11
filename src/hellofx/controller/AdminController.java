@@ -35,8 +35,6 @@ public class AdminController {
         String usernameInput = this.username.getText();
 
 
-
-
         ArrayList<Album> albums = new ArrayList<Album>();
         List<Photo> photos = new ArrayList<Photo>();
         File stock1 = new File("/stockImages/imageOne.png");
