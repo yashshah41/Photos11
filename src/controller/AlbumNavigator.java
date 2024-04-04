@@ -1,5 +1,5 @@
-package hellofx.controller;
-import hellofx.app.*;
+package controller;
+import app.*;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,4 +1,4 @@
-package hellofx.controller;
+package controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -6,9 +6,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import hellofx.app.Album;
-import hellofx.app.Photo;
-import hellofx.app.User;
+import app.Album;
+import app.Photo;
+import app.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

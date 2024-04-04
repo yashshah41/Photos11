@@ -1,6 +1,6 @@
-package hellofx.controller;
+package controller;
 
-import hellofx.app.User;
+import app.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

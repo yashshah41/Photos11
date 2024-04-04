@@ -1,4 +1,4 @@
-package hellofx.controller;
+package controller;
 
 public class SearchController {
 
