@@ -1,40 +1,18 @@
 package hellofx.controller;
-
 import hellofx.app.*;
 import javafx.fxml.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import javax.imageio.ImageIO;
 
 public class AlbumNavigator implements java.io.Serializable {
   
@@ -50,16 +28,10 @@ public class AlbumNavigator implements java.io.Serializable {
 	ListView<Tag> tagList;
 	
 	@FXML
-	Button deleteTag;
-	
-	@FXML
 	TextField tag;
 	
 	@FXML
 	Button addTag;
-	
-	@FXML 
-	Label caption;
 
 	@FXML
 	TextField capField;
@@ -80,16 +52,9 @@ public class AlbumNavigator implements java.io.Serializable {
 	ToggleButton prev;
 	
 	@FXML
-	Button moveOrCopy;
-	
-	@FXML
-	Button displayMode;
-	
-	@FXML
 	TextField value;
 	
-	@FXML 
-	Label tagLabel;
+	
 	
 	Album album;
 	
