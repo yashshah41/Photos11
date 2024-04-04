@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 
 public class AdminController {
@@ -23,6 +29,7 @@ public class AdminController {
     ListView<User> users;
 
     ObservableList<User> listOfVisibleUsers = FXCollections.observableArrayList();
+
     public void setUsers(List<User> list) {
         this.listOfVisibleUsers = FXCollections.observableArrayList(list);
         users.setItems(listOfVisibleUsers);
@@ -33,7 +40,6 @@ public class AdminController {
             return;
         }
         String usernameInput = this.username.getText();
-
 
         ArrayList<Album> albums = new ArrayList<Album>();
         List<Photo> photos = new ArrayList<Photo>();
@@ -54,26 +60,38 @@ public class AdminController {
         this.username.clear();
         users.setItems(listOfVisibleUsers);
         this.save();
-    
+
+    }
+
+    public void logOut(ActionEvent e) throws IOException {
+        FXMLLoader load = new FXMLLoader();
+        load.setLocation(getClass().getResource("/view/Login.fxml"));
+        Parent admin_parent = (Parent) load.load();
+        LoginController logincontroller = load.getController();
+        logincontroller.setData(listOfVisibleUsers);
+        Scene admin_scene = new Scene(admin_parent);
+        Stage photoStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        photoStage.hide();
+        photoStage.setScene(admin_scene);
+        photoStage.show();
     }
 
     public void deleteUser(ActionEvent e) {
-		if(listOfVisibleUsers.contains((User) users.getSelectionModel().getSelectedItem())) listOfVisibleUsers.remove(listOfVisibleUsers.get(users.getSelectionModel().getSelectedIndex()));
-		users.setItems(listOfVisibleUsers);
-		this.save();
+        if (listOfVisibleUsers.contains((User) users.getSelectionModel().getSelectedItem()))
+            listOfVisibleUsers.remove(listOfVisibleUsers.get(users.getSelectionModel().getSelectedIndex()));
+        users.setItems(listOfVisibleUsers);
+        this.save();
     }
 
     public void save() {
         try {
-        FileOutputStream fileOut =
-	    new FileOutputStream("users.ser");
-	    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	    out.writeObject(new ArrayList<User> (listOfVisibleUsers));
-	    out.close();
-	    fileOut.close();
+            FileOutputStream fileOut = new FileOutputStream("users.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(new ArrayList<User>(listOfVisibleUsers));
+            out.close();
+            fileOut.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

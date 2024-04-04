@@ -7,7 +7,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
-   <children>
-         <Label text="Photos" styleClass="header-light" />
-   </children>
+     <!-- Title or Header for the login page -->
+    <Label text="Login Page" styleClass="header-label" />
+    
+    <!-- Username Input Field -->
+    <TextField fx:id="usernameField" promptText="Username" maxWidth="200.0"/>
+    
+    <!-- Login Button -->
+    <Button fx:id="logInButton" text="Log In" onAction="#onLoginButtonClick" maxWidth="100.0"/>
 </AnchorPane>
