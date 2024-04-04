@@ -1,26 +1,42 @@
 package hellofx.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import hellofx.app.Album;
 import hellofx.app.Photo;
 import hellofx.app.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
 
 public class AdminController {
 
     @FXML
     TextField username;
+    ListView<User> users;
+
+    ObservableList<User> listOfVisibleUsers = FXCollections.observableArrayList();
+    public void setUsers(List<User> list) {
+        this.listOfVisibleUsers = FXCollections.observableArrayList(list);
+        users.setItems(listOfVisibleUsers);
+    }
 
     public void createUser(ActionEvent event) {
         if (this.username == null) {
             return;
         }
-        String name = this.username.getText();
+        String usernameInput = this.username.getText();
+
+
+
+
         ArrayList<Album> albums = new ArrayList<Album>();
         List<Photo> photos = new ArrayList<Photo>();
         File stock1 = new File("/stockImages/imageOne.png");
@@ -35,14 +51,31 @@ public class AdminController {
         photos.add(new Photo(stock5, null));
         Album album = new Album("Stock Album", photos);
         albums.add(album);
-        User newUser = new User(name);
-        newUser.allAlbums = albums;
-        // idk what to do from here, write it to a file? idk how to do that, also update
-        // the view
+        User newUser = new User(usernameInput, albums);
+        listOfVisibleUsers.add(newUser);
+        this.username.clear();
+        users.setItems(listOfVisibleUsers);
+        this.save();
+    
     }
 
-    public void deleteUser() {
-        System.out.println("Delete User");
+    public void deleteUser(ActionEvent e) {
+		if(listOfVisibleUsers.contains((User) users.getSelectionModel().getSelectedItem())) listOfVisibleUsers.remove(listOfVisibleUsers.get(users.getSelectionModel().getSelectedIndex()));
+		users.setItems(listOfVisibleUsers);
+		this.save();
+    }
+
+    public void save() {
+        try {
+        FileOutputStream fileOut =
+	    new FileOutputStream("users.ser");
+	    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	    out.writeObject(new ArrayList<User> (listOfVisibleUsers));
+	    out.close();
+	    fileOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

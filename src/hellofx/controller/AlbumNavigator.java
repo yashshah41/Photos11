@@ -106,11 +106,11 @@ public class AlbumNavigator implements java.io.Serializable {
 	    // idk where to go from here
 	}
 
-	public void addPhoto(ActionEvent e) throws IOException{
+	public void addPhoto(ActionEvent e) {
 		// figure this out 
 	}
 
-	    public void addCaption(ActionEvent e) throws IOException{
+	    public void addCaption(ActionEvent e) {
 	    	String caption = this.capField.getText();
 	    	if(!(caption.equals(null))){
 	    		Photo target = (Photo) photosList.getSelectionModel().getSelectedItem();
@@ -120,7 +120,7 @@ public class AlbumNavigator implements java.io.Serializable {
 			    capField.setText("");
 	    	}
 	    }	   
-	    public void addTag(ActionEvent e) throws IOException{
+	    public void addTag(ActionEvent e) {
 	    	String name = tag.getText();
 	    	String value = this.value.getText();
 	    	if(!(name.equals(null) && value.equals(null))){	    		
@@ -134,7 +134,7 @@ public class AlbumNavigator implements java.io.Serializable {
 	    	}
 	    }
 
-		public void deleteTag(ActionEvent e) throws IOException {
+		public void deleteTag(ActionEvent e) {
 			Photo target = (Photo) photosList.getSelectionModel().getSelectedItem();
 			Tag selected = (Tag) tagList.getSelectionModel().getSelectedItem();
 			if (target.getTags().contains(selected)) {
@@ -142,10 +142,7 @@ public class AlbumNavigator implements java.io.Serializable {
 				this.user.deleteTag(selected);
 			}
 		}
-		
-	    
-	    
-	 
+
 	    public void updateTag(MouseEvent m){
 	    	Photo photo = (Photo) photosList.getSelectionModel().getSelectedItem();
 	    	tagsInPhoto = FXCollections.observableArrayList(photo.getTags());

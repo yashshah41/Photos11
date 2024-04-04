@@ -15,6 +15,14 @@ public class User implements Serializable {
 		this.allAlbums = new ArrayList<Album>();
 		this.tags = tags;
 	}
+
+	public User(String userName, ArrayList<Album> allAlbums) {
+		this.userName = userName;
+		this.allAlbums = allAlbums;
+		this.tags = new ArrayList<Tag>();	
+	}
+
+
 	public User(String userName) {
 		this.userName = userName;
 		this.allAlbums = new ArrayList<Album>();
@@ -23,6 +31,10 @@ public class User implements Serializable {
 
 	public String getUserName() {
 		return userName;
+	}
+
+	public ArrayList<Album> getAllAlbums() {
+		return this.allAlbums;
 	}
 
 	public List<Tag> getAllTags() {
