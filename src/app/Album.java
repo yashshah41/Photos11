@@ -31,6 +31,9 @@ public class Album {
     public void addPhoto(Photo photo) {
         this.photos.add(photo);
     }
+    public String getName() {
+        return name;
+    }
     public void setName(String name) {
         this.name = name;
     }

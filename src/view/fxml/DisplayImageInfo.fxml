@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<!-- DisplayImageInfo.fxml -->
+<!-- This XML file defines the layout and controls for displaying images along with associated information. -->
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DisplayController">
+   <children>
+      <!-- TextField for displaying image caption -->
+      <TextField fx:id="captionField" layoutX="471.0" layoutY="808.0" />
+      
+      <!-- TextField for displaying image date -->
+      <TextField fx:id="dateField" layoutX="268.0" layoutY="808.0" />
+      
+      <!-- ListView for displaying image tags -->
+      <ListView fx:id="tagListView" layoutX="40.0" layoutY="776.0" prefHeight="65.0" prefWidth="200.0" />
+      
+      <!-- Label indicating the presence of tags -->
+      <Label fx:id="tagsLabel" layoutX="123.0" layoutY="753.0" text="Tags:" />
+      
+      <!-- Label indicating the date of the image -->
+      <Label fx:id="dateLabel" layoutX="335.0" layoutY="787.0" text="Date:" />
+      
+      <!-- Label indicating the caption of the image -->
+      <Label fx:id="captionLabel" layoutX="520.0" layoutY="787.0" text="Caption:" />
+      
+      <!-- Button for displaying the next image -->
+      <Button fx:id="nextButton" layoutX="809.0" layoutY="800.0" mnemonicParsing="false" onAction="#next" text="Next" />
+      
+      <!-- Button for displaying the previous image -->
+      <Button fx:id="prevButton" layoutX="727.0" layoutY="800.0" mnemonicParsing="false" onAction="#prev" text="Prev" />
+      
+      <!-- ImageView for displaying the image -->
+      <ImageView fx:id="imageView" fitHeight="745.0" fitWidth="1286.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+      
+      <!-- Button for returning to the previous screen -->
+      <Button fx:id="backButton" layoutX="907.0" layoutY="800.0" mnemonicParsing="false" onAction="#back" text="Back" />
+   </children>
+</AnchorPane>

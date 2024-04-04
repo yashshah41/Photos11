@@ -6,6 +6,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<!-- Login.fxml -->
+<!-- This XML file defines the layout and controls for logging into the application. -->
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
      <!-- Title or Header for the login page -->
     <Label text="Login Page" styleClass="header-label" />

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<!-- HomePage.fxml -->
+<!-- This XML file defines the layout and controls for the home page of the application. -->
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+   <children>
+      <!-- Label welcoming the user -->
+      <Label alignment="CENTER" layoutX="255.0" layoutY="14.0" prefHeight="41.0" prefWidth="90.0" text="Welcome to Your Space" />
+      
+      <!-- ListView to display user's content -->
+      <ListView fx:id="contentList" layoutX="24.0" layoutY="47.0" prefHeight="310.0" prefWidth="249.0" />
+      
+      <!-- Label indicating the section -->
+      <Label layoutX="101.0" layoutY="26.0" text="Your Content:" />
+      
+      <!-- Text field for user input -->
+      <TextField fx:id="editName" layoutX="399.0" layoutY="55.0" />
+      <TextField fx:id="editNum" layoutX="399.0" layoutY="95.0" />
+      <TextField fx:id="editRange" layoutX="399.0" layoutY="135.0" />
+      
+      <!-- Labels for text fields -->
+      <Label layoutX="345.0" layoutY="60.0" text="Name:" />
+      <Label layoutX="278.0" layoutY="100.0" text="Number of Items:" />
+      <Label layoutX="296.0" layoutY="140.0" text="Range of Dates:" />
+      
+      <!-- Button to delete content -->
+      <Button fx:id="deleteButton" layoutX="14.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteContent" text="Delete" />
+      
+      <!-- Button to create new content -->
+      <Button fx:id="createContent" layoutX="411.0" layoutY="313.0" mnemonicParsing="false" onAction="#createNewContent" prefHeight="27.0" prefWidth="144.0" text="Create New Content" />
+      
+      <!-- Label indicating the section -->
+      <Label layoutX="421.0" layoutY="244.0" prefHeight="17.0" prefWidth="127.0" text="Create New Content:" />
+      
+      <!-- Text field for input -->
+      <TextField fx:id="contentName" layoutX="400.0" layoutY="272.0" promptText="Name" />
+      
+      <!-- Buttons for navigation -->
+      <Button fx:id="viewContent" layoutX="83.0" layoutY="360.0" mnemonicParsing="false" onAction="#viewContent" prefHeight="27.0" prefWidth="98.0" text="View Content" />
+      <Button fx:id="searchButton" layoutX="188.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToSearch" prefHeight="27.0" prefWidth="108.0" text="Search Items" />
+      <Button fx:id="logoutButton" layoutX="8.0" layoutY="8.0" mnemonicParsing="false" onAction="#logOut" text="Logout" />
+      
+      <!-- Label indicating the section -->
+      <Label layoutX="439.0" layoutY="27.0" text="Edit Content:" />
+      
+      <!-- Button to finish editing -->
+      <Button fx:id="finishButton" layoutX="443.0" layoutY="176.0" mnemonicParsing="false" onAction="#renameContent" text="Finish Edit" />
+   </children>
+</AnchorPane>
