@@ -32,6 +32,9 @@ public class User implements Serializable {
 	public String getUserName() {
 		return userName;
 	}
+	public void addAlbum(Album album) {
+		this.allAlbums.add(album);
+	}
 
 	public ArrayList<Album> getAllAlbums() {
 		return this.allAlbums;

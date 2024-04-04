@@ -7,6 +7,22 @@
 
         {
             "type": "java",
+            "name": "Photos11",
+            "request": "launch",
+            "mainClass": "hellofx.app.Photos11",
+            "projectName": "Photos11_8e180cf4",
+            "vmArgs": "--module-path /Users/yashshah/javafx-sdk-22/lib --add-modules javafx.controls,javafx.fxml"
+
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "hellofx.view.Main",
+            "projectName": "Photos11_8e180cf4"
+        },
+        {
+            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "hellofx.Main",
