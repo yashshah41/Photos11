@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Action;
+
 import hellofx.app.Album;
 import hellofx.app.Photo;
 import hellofx.app.User;
@@ -85,7 +87,7 @@ public class UserController {
 
 
 	
-	public void addAlbum(actionEvent e) throws IOException{
+	public void addAlbum(ActionEvent e) throws IOException{
 		Album album = new Album(albumName.getText());
 		show.add(album);
 		allAlbums.setItems(show);
