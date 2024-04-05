@@ -2,10 +2,6 @@
  * The User class represents a user in the application.
  * It contains information about the user's username, their albums, and their tags.
  * Users can create, delete, and rename albums, as well as add and delete tags.
- * 
- * @author [Your Name]
- * @version 1.0
- * @since [Date]
  */
 package app;
 
