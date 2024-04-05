@@ -38,7 +38,7 @@ public class LoginController  {
                 return;
             } else if(usernameField.getText().equals("admin")) {
                 FXMLLoader load = new FXMLLoader();
-			    load.setLocation(getClass().getResource("/src/view/Admin.fxml"));
+			    load.setLocation(getClass().getResource("/view/Admin.fxml"));
 			    Parent admin_parent = (Parent)load.load();
 			    AdminController admincontroller = load.getController();
                 admincontroller.setUsers(listOfUsers);
@@ -56,7 +56,7 @@ public class LoginController  {
                     }
                 }
                 FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("/src/view/HomePage.fxml"));
+				loader.setLocation(getClass().getResource("/view/HomePage.fxml"));
 				Parent user_parent = (Parent)loader.load();
 				UserController usercontroller = loader.getController();
 				usercontroller.setData(a, listOfUsers);
@@ -71,5 +71,6 @@ public class LoginController  {
 
     public void setData(List<User> asd){
 		this.listOfUsers = FXCollections.observableArrayList(asd);
+        System.out.println(listOfUsers);
 	}
 }
