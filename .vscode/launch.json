@@ -4,28 +4,19 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
         {
             "type": "java",
-            "name": "Photos11",
+            "name": "Launch Photos11 (Ayush)",
             "request": "launch",
-            "mainClass": "hellofx.app.Photos11",
+            "mainClass": "app.Photos11",
+            "vmArgs": "--module-path /Users/ayushkgu/javafx-sdk-22/lib --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "Launch Photos11 (Yash)",
+            "request": "launch",
+            "mainClass": "app.Photos11",
             "projectName": "Photos11_8e180cf4",
-            "vmArgs": "--module-path /Users/yashshah/javafx-sdk-22/lib --add-modules javafx.controls,javafx.fxml"
-
-        },
-        {
-            "type": "java",
-            "name": "Main",
-            "request": "launch",
-            "mainClass": "hellofx.view.Main",
-            "projectName": "Photos11_8e180cf4"
-        },
-        {
-            "type": "java",
-            "name": "Launch App",
-            "request": "launch",
-            "mainClass": "hellofx.Main",
             "vmArgs": "--module-path /Users/yashshah/javafx-sdk-22/lib --add-modules javafx.controls,javafx.fxml"
         }
     ]
