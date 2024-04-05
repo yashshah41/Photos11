@@ -17,5 +17,9 @@
         
         <!-- Login Button -->
         <Button fx:id="logInButton" text="Log In" onAction="#onLoginButtonClick" maxWidth="100.0"/>
+
+        <!-- Author Label -->
+        <Label fx:id="authors" text="Created By Ayush Gupta and Yash Shah" />
+
     </VBox>
 </AnchorPane>

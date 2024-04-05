@@ -24,10 +24,10 @@ public class LoginController  {
 
     @FXML
 	Button logInButton;
-	
-    @FXML
-	Label username;
 
+    @FXML
+	Label authors;
+    
 
     ObservableList<User> listOfUsers = FXCollections.observableArrayList();
     
@@ -56,7 +56,7 @@ public class LoginController  {
                     }
                 }
                 FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("/view/UserHome.fxml"));
+				loader.setLocation(getClass().getResource("/view/HomePage.fxml"));
 				Parent user_parent = (Parent)loader.load();
 				UserController usercontroller = loader.getController();
 				usercontroller.setData(a, listOfUsers);
