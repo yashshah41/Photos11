@@ -57,7 +57,7 @@ public class UserController {
 	    this.user = user;
 		this.listOfUsers = users;
 		show = FXCollections.observableArrayList(user.getAllAlbums());
-		allAlbums.setItems(show);		
+		allAlbums.setItems(show);
 	}
 	
 	public void logOut(ActionEvent e)
@@ -81,10 +81,21 @@ public class UserController {
 		allAlbums.setItems(show);
 		this.save(); 
 	}
-	public void switchToSearch(ActionEvent e) throws IOException{
-				// to implement
-	}
 
+	
+	public void switchToSearch(ActionEvent e)
+			throws IOException{
+				FXMLLoader load = new FXMLLoader();
+			    load.setLocation(getClass().getResource("/view/SearchItem.fxml"));
+			    Parent adm_parent = (Parent)load.load();
+			    SearchController SearchController = load.getController();
+			    SearchController.setData(show,user,listOfUsers);
+			    Scene admin_scene = new Scene(adm_parent);
+			    Stage photoStage = (Stage)((Node) e.getSource()).getScene().getWindow();
+			    photoStage.hide();
+			    photoStage.setScene(admin_scene);
+			    photoStage.show();
+			}
 
 	
 	public void addAlbum(ActionEvent e) throws IOException{

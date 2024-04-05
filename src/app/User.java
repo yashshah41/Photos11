@@ -1,3 +1,12 @@
+/**
+ * The User class represents a user in the application.
+ * It contains information about the user's username, their albums, and their tags.
+ * Users can create, delete, and rename albums, as well as add and delete tags.
+ * 
+ * @author [Your Name]
+ * @version 1.0
+ * @since [Date]
+ */
 package app;
 
 import java.io.Serializable;
@@ -6,97 +15,173 @@ import java.util.List;
 
 public class User implements Serializable {
 
-	public String userName;
-	public ArrayList<Album> allAlbums;
-	public List<Tag> tags;
+    /** The username of the user. */
+    public String userName;
 
-	public User(String userName, List<Tag> tags) {
-		this.userName = userName;
-		this.allAlbums = new ArrayList<Album>();
-		this.tags = tags;
-	}
+    /** The list of albums belonging to the user. */
+    public ArrayList<Album> allAlbums;
 
-	public User(String userName, ArrayList<Album> allAlbums) {
-		this.userName = userName;
-		this.allAlbums = allAlbums;
-		this.tags = new ArrayList<Tag>();	
-	}
+    /** The list of tags associated with the user's photos. */
+    public List<Tag> tags;
 
+    /**
+     * Constructor to create a User object with a given username and list of tags.
+     * 
+     * @param userName The username of the user.
+     * @param tags The list of tags associated with the user's photos.
+     */
+    public User(String userName, List<Tag> tags) {
+        this.userName = userName;
+        this.allAlbums = new ArrayList<Album>();
+        this.tags = tags;
+    }
 
-	public User(String userName) {
-		this.userName = userName;
-		this.allAlbums = new ArrayList<Album>();
-		this.tags = new ArrayList<Tag>();	
-	}
+    /**
+     * Constructor to create a User object with a given username and list of albums.
+     * 
+     * @param userName The username of the user.
+     * @param allAlbums The list of albums belonging to the user.
+     */
+    public User(String userName, ArrayList<Album> allAlbums) {
+        this.userName = userName;
+        this.allAlbums = allAlbums;
+        this.tags = new ArrayList<Tag>();
+    }
 
-	public String getUserName() {
-		return userName;
-	}
-	public void addAlbum(Album album) {
-		this.allAlbums.add(album);
-	}
+    /**
+     * Constructor to create a User object with a given username.
+     * 
+     * @param userName The username of the user.
+     */
+    public User(String userName) {
+        this.userName = userName;
+        this.allAlbums = new ArrayList<Album>();
+        this.tags = new ArrayList<Tag>();
+    }
 
-	public ArrayList<Album> getAllAlbums() {
-		return this.allAlbums;
-	}
+    /**
+     * Get the username of the user.
+     * 
+     * @return The username of the user.
+     */
+    public String getUserName() {
+        return userName;
+    }
 
-	public List<Tag> getAllTags() {
-		return this.tags;
-	}
+    /**
+     * Add an album to the list of albums belonging to the user.
+     * 
+     * @param album The album to add.
+     */
+    public void addAlbum(Album album) {
+        this.allAlbums.add(album);
+    }
 
-	public void addTag(Tag tag) {
-		this.tags.add(tag);
-	}
-	public void deleteTag(Tag tag) {
-		this.tags.remove(tag);
-	}
-	
+    /**
+     * Get all the albums belonging to the user.
+     * 
+     * @return The list of albums belonging to the user.
+     */
+    public ArrayList<Album> getAllAlbums() {
+        return this.allAlbums;
+    }
 
-	public ArrayList<Album> getPhotoAlbum() {
-		return allAlbums;
-	}
+    /**
+     * Get all the tags associated with the user's photos.
+     * 
+     * @return The list of tags associated with the user's photos.
+     */
+    public List<Tag> getAllTags() {
+        return this.tags;
+    }
 
-	public void newAlbum(Album album) {
-		boolean exists = false;
-		if (album != null) {
-			for (int i = 0; i < allAlbums.size(); i++) {
-				if (allAlbums.get(i).name.toLowerCase() == album.name.toLowerCase()) {
-					exists = true;
-					break;
-				}
-			}
-		}
-		if (!exists) {
-			allAlbums.add(album);
-		}
-	}
+    /**
+     * Add a tag to the list of tags associated with the user's photos.
+     * 
+     * @param tag The tag to add.
+     */
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+    }
 
-	public void renameAlbum(Album album, String newName) {
-		int index;
-		if (album != null) {
-			for (int i = 0; i < allAlbums.size(); i++) {
-				if (allAlbums.get(i).name.toLowerCase() == album.name.toLowerCase()) {
-					index = i;
-					break;
-				}
-			}
-			album.name = newName;
-		}
+    /**
+     * Delete a tag from the list of tags associated with the user's photos.
+     * 
+     * @param tag The tag to delete.
+     */
+    public void deleteTag(Tag tag) {
+        this.tags.remove(tag);
+    }
 
-	}
+    /**
+     * Get the list of albums belonging to the user.
+     * 
+     * @return The list of albums belonging to the user.
+     */
+    public ArrayList<Album> getPhotoAlbum() {
+        return allAlbums;
+    }
 
-	public void deleteAlbum(Album album) {
-		if (album != null) {
-			for (int i = 0; i < allAlbums.size(); i++) {
-				if (allAlbums.get(i).equals(album)) {
-					allAlbums.remove(i);
-					return;
-				}
-			}
-		}
-	}
+    /**
+     * Create a new album and add it to the list of albums belonging to the user.
+     * 
+     * @param album The new album to create.
+     */
+    public void newAlbum(Album album) {
+        boolean exists = false;
+        if (album != null) {
+            for (int i = 0; i < allAlbums.size(); i++) {
+                if (allAlbums.get(i).name.equalsIgnoreCase(album.name)) {
+                    exists = true;
+                    break;
+                }
+            }
+        }
+        if (!exists) {
+            allAlbums.add(album);
+        }
+    }
 
-	public Album getAlbum(int index) {
-		return this.allAlbums.get(index);
-	}
+    /**
+     * Rename an existing album belonging to the user.
+     * 
+     * @param album The album to rename.
+     * @param newName The new name for the album.
+     */
+    public void renameAlbum(Album album, String newName) {
+        if (album != null) {
+            for (int i = 0; i < allAlbums.size(); i++) {
+                if (allAlbums.get(i).name.equalsIgnoreCase(album.name)) {
+                    album.name = newName;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Delete an existing album belonging to the user.
+     * 
+     * @param album The album to delete.
+     */
+    public void deleteAlbum(Album album) {
+        if (album != null) {
+            for (int i = 0; i < allAlbums.size(); i++) {
+                if (allAlbums.get(i).equals(album)) {
+                    allAlbums.remove(i);
+                    return;
+                }
+            }
+        }
+    }
+
+    /**
+     * Get an album belonging to the user by its index.
+     * 
+     * @param index The index of the album.
+     * @return The album at the specified index.
+     */
+    public Album getAlbum(int index) {
+        return this.allAlbums.get(index);
+    }
 }

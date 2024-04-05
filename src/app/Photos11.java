@@ -1,6 +1,13 @@
+/**
+ * The Photos11 class is the main entry point for the Photos11 application.
+ * It initializes the application by loading user data, setting up the login scene,
+ * and displaying the main application window.
+ * 
+ * @author Ayush Gupta & Yash Shah
+ */
+
 package app;
 
-	
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,41 +21,57 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 public class Photos11 extends Application {
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-	List<User> data = new ArrayList<>();		
-		try {
-		    ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.ser") );
-		    List<User> list = (List<User>) ois.readObject();
-		    data = list;
-		    ois.close();}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		data.add(new User("admin"));
-		     
-	        
-			FXMLLoader loader = new FXMLLoader();
-		    loader.setLocation(getClass().getResource("/view/Login.fxml"));
-		    AnchorPane root = (AnchorPane)loader.load();
-		    LoginController loginController = loader.getController();
-		    loginController.setData(data);
-		    //loginController.changeToAnother(primaryStage);
-			Scene scene = new Scene(root,600,600);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
-			primaryStage.setTitle("Photos13");
-			primaryStage.show();
-		//} catch(Exception e) {
-			//e.printStackTrace();
-		//}
-	}
+
+    /**
+     * The start method is called by the JavaFX application thread to start the application.
+     * It loads user data from a file, initializes the login scene, and displays the main application window.
+     * 
+     * @param primaryStage The primary stage for the application window.
+     * @throws Exception if an error occurs during initialization.
+     */
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        List<User> data = new ArrayList<>();
+        
+        // Attempt to read user data from file
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.ser"));
+            List<User> list = (List<User>) ois.readObject();
+            data = list;
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        // Add admin user if no data exists
+        data.add(new User("admin"));
+        
+        // Load the login scene
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/Login.fxml"));
+        AnchorPane root = (AnchorPane)loader.load();
+        
+        // Pass user data to the login controller
+        LoginController loginController = loader.getController();
+        loginController.setData(data);
+        
+        // Set up the primary stage
+        Scene scene = new Scene(root, 600, 600);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("Photos11");
+        primaryStage.show();
+    }
+    
+    /**
+     * The main method is the entry point of the application.
+     * 
+     * @param args command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
