@@ -59,9 +59,9 @@ public class Photos11 extends Application {
         loginController.setData(data);
         
         // Set up the primary stage
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, 600, 600);
         primaryStage.setScene(scene);
-        primaryStage.setMaximized(true); // Maximize the stage to full screen
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Photos11");
         primaryStage.show();
     }
