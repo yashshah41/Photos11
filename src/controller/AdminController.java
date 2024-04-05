@@ -66,14 +66,14 @@ public class AdminController {
     public void logOut(ActionEvent e) throws IOException {
         FXMLLoader load = new FXMLLoader();
         load.setLocation(getClass().getResource("/view/Login.fxml"));
-        Parent admin_parent = (Parent) load.load();
+        Parent parentView = (Parent) load.load();
         LoginController logincontroller = load.getController();
         logincontroller.setData(listOfVisibleUsers);
-        Scene admin_scene = new Scene(admin_parent);
-        Stage photoStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        photoStage.hide();
-        photoStage.setScene(admin_scene);
-        photoStage.show();
+        Scene adminView = new Scene(parentView);
+        Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        pictureStage.hide();
+        pictureStage.setScene(adminView);
+        pictureStage.show();
     }
 
     public void deleteUser(ActionEvent e) {

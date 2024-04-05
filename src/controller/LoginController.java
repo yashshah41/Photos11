@@ -39,14 +39,14 @@ public class LoginController  {
             } else if(usernameField.getText().equals("admin")) {
                 FXMLLoader load = new FXMLLoader();
 			    load.setLocation(getClass().getResource("/view/Admin.fxml"));
-			    Parent admin_parent = (Parent)load.load();
+			    Parent parentView = (Parent)load.load();
 			    AdminController admincontroller = load.getController();
                 admincontroller.setUsers(listOfUsers);
-                Scene admin_scene = new Scene(admin_parent);
-                Stage photoStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-                photoStage.hide();
-			    photoStage.setScene(admin_scene);
-			    photoStage.show();
+                Scene adminView = new Scene(parentView);
+                Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
+                pictureStage.hide();
+			    pictureStage.setScene(adminView);
+			    pictureStage.show();
             } else {
                 User a = new User(usernameField.getText());
                 for(User u : listOfUsers) {
@@ -60,17 +60,18 @@ public class LoginController  {
 				Parent user_parent = (Parent)loader.load();
 				UserController usercontroller = loader.getController();
 				usercontroller.setData(a, listOfUsers);
-				Scene admin_scene = new Scene(user_parent);
-				Stage photoStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-				photoStage.hide();
-				photoStage.setScene(admin_scene);
-				photoStage.show();
+				Scene adminView = new Scene(user_parent);
+				Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
+				pictureStage.hide();
+				pictureStage.setScene(adminView);
+				pictureStage.show();
             }
         }
     }
 
     public void setData(List<User> asd){
 		this.listOfUsers = FXCollections.observableArrayList(asd);
-        System.out.println(listOfUsers);
+        // System.out.println(listOfUsers);
+        // System.out.println(listOfUsers.get(0).getUserName());
 	}
 }

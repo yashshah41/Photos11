@@ -66,24 +66,24 @@ public class SearchController {
 	List<Photo> photoDis;
 	List<Tag> tagList;
 	
-	ObservableList<Photo> photolisdis = FXCollections.observableArrayList();
+	ObservableList<Photo> searchResults = FXCollections.observableArrayList();
 	
 	public void setData(List<Album> albums, User user, List<User> users){
 		this.totalAlbums = albums;
 		this.user = user;
 		this.users = users;
 	}
-	public void backToUserHome(ActionEvent e) throws IOException{
+	public void backToHome(ActionEvent e) throws IOException{
 		FXMLLoader load = new FXMLLoader();
 	    load.setLocation(getClass().getResource("/view/UserHome.fxml"));
-	    Parent admin_parent = (Parent)load.load();
+	    Parent parentView = (Parent)load.load();
 	    UserController usercontroller = load.getController();
 	    usercontroller.setData(user,users);
-	    Scene admin_scene = new Scene(admin_parent);
-	    Stage photoStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-	    photoStage.hide();
-	    photoStage.setScene(admin_scene);
-	    photoStage.show();
+	    Scene adminView = new Scene(parentView);
+	    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
+	    pictureStage.hide();
+	    pictureStage.setScene(adminView);
+	    pictureStage.show();
 	}
 	public void searchPhotos(ActionEvent e){
 		if(tagName.getText()!=null&&tagValue.getText()!=null){
@@ -127,7 +127,7 @@ public class SearchController {
 					                return cell;
 					            }
 					        });
-							result.setItems(photolisdis);
+							result.setItems(searchResults);
 						}
 					}
 				}
@@ -136,8 +136,6 @@ public class SearchController {
 		
 		
 	}
-	
-	
 	
 
 }

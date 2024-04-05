@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import controller.LoginController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;

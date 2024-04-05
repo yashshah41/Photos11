@@ -46,6 +46,15 @@ public class Photo implements Serializable {
         this.calendar = Calendar.getInstance();
     }
 
+        /**
+     * Get the file of the photograph.
+     * 
+     * @return The file object of of the photograph.
+     */
+    public File getFile() {
+        return this.file;
+    }
+
     /**
      * Get the path of the photograph file.
      * 

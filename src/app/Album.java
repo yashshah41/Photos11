@@ -77,6 +77,15 @@ public class Album {
     }
 
     /**
+     * Remove a photo from the album.
+     * 
+     * @param photo The photo to remove from the album.
+     */
+	public void removePhoto(Photo photo){
+		this.photos.remove(photo);
+	}
+
+    /**
      * Get the name of the album.
      * 
      * @return The name of the album.

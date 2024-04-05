@@ -64,14 +64,14 @@ public class UserController {
 			throws IOException{
 				FXMLLoader load = new FXMLLoader();
 			    load.setLocation(getClass().getResource("/view/Login.fxml"));
-			    Parent admin_parent = (Parent)load.load();
+			    Parent parentView = (Parent)load.load();
 			    LoginController logincontroller = load.getController();
 			    logincontroller.setData(listOfUsers);
-			    Scene admin_scene = new Scene(admin_parent);
-			    Stage photoStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-			    photoStage.hide();
-			    photoStage.setScene(admin_scene);
-			    photoStage.show();
+			    Scene adminView = new Scene(parentView);
+			    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
+			    pictureStage.hide();
+			    pictureStage.setScene(adminView);
+			    pictureStage.show();
 			}
 	
 	public void deleteAlbum(ActionEvent e) throws IOException{
@@ -90,11 +90,11 @@ public class UserController {
 			    Parent adm_parent = (Parent)load.load();
 			    SearchController SearchController = load.getController();
 			    SearchController.setData(show,user,listOfUsers);
-			    Scene admin_scene = new Scene(adm_parent);
-			    Stage photoStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-			    photoStage.hide();
-			    photoStage.setScene(admin_scene);
-			    photoStage.show();
+			    Scene adminView = new Scene(adm_parent);
+			    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
+			    pictureStage.hide();
+			    pictureStage.setScene(adminView);
+			    pictureStage.show();
 			}
 
 	
