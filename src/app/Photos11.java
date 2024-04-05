@@ -35,6 +35,9 @@ public class Photos11 extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         List<User> data = new ArrayList<>();
+
+        // Add admin user if no data exists
+        data.add(new User("admin"));
         
         // Attempt to read user data from file
         try {
@@ -46,9 +49,6 @@ public class Photos11 extends Application {
             e.printStackTrace();
         }
         
-        // Add admin user if no data exists
-        data.add(new User("admin"));
-        
         // Load the login scene
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/Login.fxml"));
@@ -59,9 +59,9 @@ public class Photos11 extends Application {
         loginController.setData(data);
         
         // Set up the primary stage
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        primaryStage.setMaximized(true); // Maximize the stage to full screen
         primaryStage.setTitle("Photos11");
         primaryStage.show();
     }

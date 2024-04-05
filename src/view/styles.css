@@ -1,0 +1,5 @@
+.vbox-center {
+    -fx-translate-x: 50%;
+    -fx-translate-y: 50%;
+    -fx-alignment: center;
+}
