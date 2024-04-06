@@ -1,8 +1,10 @@
 package controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +31,29 @@ public class AdminController {
 
 
     @FXML
-    ListView<User> users = new ListView<User>();
+    ListView<User> users;
 
     ObservableList<User> listOfVisibleUsers = FXCollections.observableArrayList();
+
+    public void initialize() {
+        loadUsersFromFile();
+    }
+
+    private void loadUsersFromFile() {
+        try {
+            File file = new File("users.ser");
+            if (file.exists()) {
+                FileInputStream fileIn = new FileInputStream(file);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                listOfVisibleUsers.addAll((List<User>) in.readObject());
+                in.close();
+                fileIn.close();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            // Handle file loading errors
+            e.printStackTrace();
+        }
+    }
 
     public void setUsers(List<User> list) {
         this.listOfVisibleUsers = FXCollections.observableArrayList(list);
