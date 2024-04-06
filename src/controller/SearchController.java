@@ -77,7 +77,7 @@ public class SearchController {
 		FXMLLoader load = new FXMLLoader();
 	    load.setLocation(getClass().getResource("/view/UserHome.fxml"));
 	    Parent parentView = (Parent)load.load();
-	    UserController usercontroller = load.getController();
+	    HomePageController usercontroller = load.getController();
 	    usercontroller.setData(user,users);
 	    Scene adminView = new Scene(parentView);
 	    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();

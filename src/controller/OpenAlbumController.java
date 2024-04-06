@@ -297,7 +297,7 @@ public class OpenAlbumController {
 			FXMLLoader loader = new FXMLLoader();
 		    loader.setLocation(getClass().getResource("/view/HomePage.fxml"));
 		    Parent parentView = (Parent)loader.load();
-		    UserController usercontroller = loader.getController();
+		    HomePageController usercontroller = loader.getController();
 		    usercontroller.setData(user, members);
 		    Scene adminView = new Scene(parentView);
 		    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();

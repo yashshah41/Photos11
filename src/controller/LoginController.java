@@ -58,7 +58,7 @@ public class LoginController  {
                 FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("/view/HomePage.fxml"));
 				Parent user_parent = (Parent)loader.load();
-				UserController usercontroller = loader.getController();
+				HomePageController usercontroller = loader.getController();
 				usercontroller.setData(a, listOfUsers);
 				Scene adminView = new Scene(user_parent);
 				Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();

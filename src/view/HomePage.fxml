@@ -8,7 +8,7 @@
 <!-- HomePage.fxml -->
 <!-- This XML file defines the layout and controls for the home page of the application. -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
    <children>
       <!-- Label welcoming the user -->
       <Label alignment="CENTER" layoutX="260.0" layoutY="15.0" prefHeight="40.0" prefWidth="90.0" text="Welcome to Your Space" />

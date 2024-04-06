@@ -23,7 +23,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class UserController {
+public class HomePageController {
 	
     @FXML
 	Button deleteButton;
