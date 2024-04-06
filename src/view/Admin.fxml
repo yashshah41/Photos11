@@ -26,7 +26,7 @@
       <Label fx:id="createUserLabel" layoutX="400.0" layoutY="50.0" text="Create New User:" />
       
       <!-- Text field for entering new username -->
-      <TextField fx:id="newUsernameField" layoutX="370.0" layoutY="80.0" promptText="Enter Username" />
+      <TextField fx:id="username" layoutX="370.0" layoutY="80.0" promptText="Enter Username" />
       
       <!-- Button to create new user -->
       <Button fx:id="createUserButton" layoutX="420.0" layoutY="170.0" mnemonicParsing="false" onAction="#createUser" text="Create User" />

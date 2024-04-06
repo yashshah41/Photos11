@@ -42,8 +42,6 @@ public class Photo implements Serializable {
         this.path = this.file.getPath();
         this.lastModifiedDate = new Date(this.file.lastModified());
         this.tags = tags;
-        calendar.set(Calendar.MILLISECOND, 0);
-        this.calendar = Calendar.getInstance();
     }
 
         /**

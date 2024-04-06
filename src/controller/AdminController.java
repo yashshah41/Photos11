@@ -26,7 +26,8 @@ public class AdminController {
 
     @FXML
     TextField username;
-    ListView<User> users;
+
+    ListView<User> users = new ListView<User>();
 
     ObservableList<User> listOfVisibleUsers = FXCollections.observableArrayList();
 
@@ -36,10 +37,13 @@ public class AdminController {
     }
 
     public void createUser(ActionEvent event) {
-        if (this.username == null) {
-            return;
-        }
+
         String usernameInput = this.username.getText();
+        for(User u : listOfVisibleUsers) {
+            if(u.getUserName().equals(usernameInput)) {
+                return;
+            }
+        }
 
         ArrayList<Album> albums = new ArrayList<Album>();
         List<Photo> photos = new ArrayList<Photo>();
@@ -60,7 +64,6 @@ public class AdminController {
         this.username.clear();
         users.setItems(listOfVisibleUsers);
         this.save();
-
     }
 
     public void logOut(ActionEvent e) throws IOException {
@@ -88,6 +91,7 @@ public class AdminController {
             FileOutputStream fileOut = new FileOutputStream("users.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(new ArrayList<User>(listOfVisibleUsers));
+            System.out.println("Success");
             out.close();
             fileOut.close();
         } catch (Exception e) {
