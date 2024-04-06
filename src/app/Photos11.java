@@ -24,39 +24,41 @@ import javafx.scene.layout.AnchorPane;
 public class Photos11 extends Application {
 
     /**
-     * The start method is called by the JavaFX application thread to start the application.
-     * It loads user data from a file, initializes the login scene, and displays the main application window.
+     * The start method is called by the JavaFX application thread to start the
+     * application.
+     * It loads user data from a file, initializes the login scene, and displays the
+     * main application window.
      * 
      * @param primaryStage The primary stage for the application window.
      * @throws Exception if an error occurs during initialization.
      */
-	
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         List<User> data = new ArrayList<>();
 
         // Add admin user if no data exists
         data.add(new User("admin"));
-        
+
         // Attempt to read user data from file
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data.ser"));
-            List<User> list = (List<User>) ois.readObject();
-            data = list;
-            ois.close();
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("users.ser") );
+		    List<User> list = (List<User>) ois.readObject();
+		    data = list;
+		    ois.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         // Load the login scene
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/Login.fxml"));
-        AnchorPane root = (AnchorPane)loader.load();
-        
+        AnchorPane root = (AnchorPane) loader.load();
+
         // Pass user data to the login controller
         LoginController loginController = loader.getController();
         loginController.setData(data);
-        
+
         // Set up the primary stage
         Scene scene = new Scene(root, 600, 600);
         primaryStage.setScene(scene);
@@ -64,7 +66,7 @@ public class Photos11 extends Application {
         primaryStage.setTitle("Photos11");
         primaryStage.show();
     }
-    
+
     /**
      * The main method is the entry point of the application.
      * 

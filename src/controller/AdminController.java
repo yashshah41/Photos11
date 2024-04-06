@@ -27,6 +27,8 @@ public class AdminController {
     @FXML
     TextField username;
 
+
+    @FXML
     ListView<User> users = new ListView<User>();
 
     ObservableList<User> listOfVisibleUsers = FXCollections.observableArrayList();
@@ -60,6 +62,7 @@ public class AdminController {
         Album album = new Album("Stock Album", photos);
         albums.add(album);
         User newUser = new User(usernameInput, albums);
+        System.out.println(newUser.allAlbums.size());
         listOfVisibleUsers.add(newUser);
         this.username.clear();
         users.setItems(listOfVisibleUsers);

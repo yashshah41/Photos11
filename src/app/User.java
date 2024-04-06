@@ -117,6 +117,10 @@ public class User implements Serializable {
     public ArrayList<Album> getPhotoAlbum() {
         return allAlbums;
     }
+    @Override
+    public String toString() {
+        return this.getUserName();
+    }
 
     /**
      * Create a new album and add it to the list of albums belonging to the user.
