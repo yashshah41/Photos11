@@ -45,7 +45,8 @@ public class AdminController {
             if (file.exists()) {
                 FileInputStream fileIn = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
-                listOfVisibleUsers.addAll((List<User>) in.readObject());
+                List<User> loadedUsers = (List<User>) in.readObject();
+                listOfVisibleUsers.addAll(loadedUsers);
                 in.close();
                 fileIn.close();
             }
@@ -54,6 +55,7 @@ public class AdminController {
             e.printStackTrace();
         }
     }
+    
 
     public void setUsers(List<User> list) {
         this.listOfVisibleUsers = FXCollections.observableArrayList(list);

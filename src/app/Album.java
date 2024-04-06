@@ -7,8 +7,8 @@ package app;
 
 import java.util.List;
 import java.util.ArrayList;
-
-public class Album {
+import java.io.Serializable;
+public class Album implements Serializable{
 
     /** The list of photos in the album. */
     public List<Photo> photos;
