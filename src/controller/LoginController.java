@@ -33,41 +33,49 @@ public class LoginController  {
     
 
     public void onLoginButtonClick(ActionEvent e) throws IOException {
-        if((Button)e.getSource()  == logInButton) {
-            if(usernameField.getText().isEmpty()) {
+        if ((Button)e.getSource() == logInButton) {
+            if (usernameField.getText().isEmpty()) {
                 return;
-            } else if(usernameField.getText().equals("admin")) {
+            } else if (usernameField.getText().equals("admin")) {
+                // Redirect to Admin page
                 FXMLLoader load = new FXMLLoader();
-			    load.setLocation(getClass().getResource("/view/Admin.fxml"));
-			    Parent parentView = (Parent)load.load();
-			    AdminController admincontroller = load.getController();
+                load.setLocation(getClass().getResource("/view/Admin.fxml"));
+                Parent parentView = (Parent) load.load();
+                AdminController admincontroller = load.getController();
                 admincontroller.setUsers(listOfUsers);
                 Scene adminView = new Scene(parentView);
-                Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
+                Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 pictureStage.hide();
-			    pictureStage.setScene(adminView);
-			    pictureStage.show();
+                pictureStage.setScene(adminView);
+                pictureStage.show();
             } else {
-                User a = new User(usernameField.getText());
-                for(User u : listOfUsers) {
-                    if(u.equals(a)) {
-                        a = u;
+                // Redirect to Home page
+                String username = usernameField.getText();
+                User foundUser = null;
+                for (User u : listOfUsers) {
+                    if (u.getUserName().equals(username)) {
+                        foundUser = u;
                         break;
                     }
                 }
+                if (foundUser == null) {
+                    // User not found, handle appropriately
+                    return;
+                }
                 FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(getClass().getResource("/view/HomePage.fxml"));
-			    Parent parentView = (Parent)loader.load();
-				HomePageController usercontroller = loader.getController();
-				usercontroller.setData(a, listOfUsers);
-				Scene adminView = new Scene(parentView);
-				Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-				pictureStage.hide();
-				pictureStage.setScene(adminView);
-				pictureStage.show();
+                loader.setLocation(getClass().getResource("/view/HomePage.fxml"));
+                Parent parentView = (Parent) loader.load();
+                HomePageController usercontroller = loader.getController();
+                usercontroller.setData(foundUser, listOfUsers);
+                Scene adminView = new Scene(parentView);
+                Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                pictureStage.hide();
+                pictureStage.setScene(adminView);
+                pictureStage.show();
             }
         }
     }
+    
 
     public void setData(List<User> asd){
 		this.listOfUsers = FXCollections.observableArrayList(asd);

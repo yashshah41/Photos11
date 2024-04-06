@@ -14,7 +14,7 @@
       <Label alignment="CENTER" layoutX="260.0" layoutY="15.0" prefHeight="40.0" prefWidth="90.0" text="Welcome to Your Space" />
       
       <!-- ListView to display user's content -->
-      <ListView fx:id="contentList" layoutX="20.0" layoutY="50.0" prefHeight="310.0" prefWidth="250.0" />
+      <ListView fx:id="allAlbums" layoutX="20.0" layoutY="50.0" prefHeight="310.0" prefWidth="250.0" />
       
       <!-- Label indicating the section -->
       <Label layoutX="100.0" layoutY="30.0" text="Your Content:" />
