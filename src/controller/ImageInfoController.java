@@ -79,7 +79,7 @@ public class ImageInfoController {
 		InputStream instream = new FileInputStream(path);
 		Image image = new Image(instream);
 		picView.setImage(image);
-		System.out.print(photo.lastModifiedDate.toString());
+		// System.out.print(photo.lastModifiedDate.toString());
 		dateField.setText(photo.lastModifiedDate.toString());
 		taglist = FXCollections.observableArrayList(photo.getTags());
 		tagList.setItems(taglist);

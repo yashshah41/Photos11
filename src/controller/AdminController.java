@@ -62,8 +62,14 @@ public class AdminController {
     }
 
     public void createUser(ActionEvent event) {
-
         String usernameInput = this.username.getText();
+
+        // Check if the username is "admin"
+        if (usernameInput.equalsIgnoreCase("admin")) {
+            this.username.clear(); 
+            return; 
+        }
+
         for (User u : listOfVisibleUsers) {
             if (u.getUserName().equals(usernameInput)) {
                 return;
@@ -107,8 +113,7 @@ public class AdminController {
 
     public void deleteUser(ActionEvent e) {
         User selectedUser = users.getSelectionModel().getSelectedItem();
-        // Check if the selected user exists and is not named "admin"
-        if (selectedUser != null && !selectedUser.getUserName().equalsIgnoreCase("admin") && !selectedUser.getUserName().equalsIgnoreCase("stock")) {
+        if (selectedUser != null) {
             listOfVisibleUsers.remove(selectedUser);
             users.setItems(listOfVisibleUsers);
             this.save();
