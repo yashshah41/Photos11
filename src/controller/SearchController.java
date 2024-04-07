@@ -75,7 +75,7 @@ public class SearchController {
 	}
 	public void backToHome(ActionEvent e) throws IOException{
 		FXMLLoader load = new FXMLLoader();
-	    load.setLocation(getClass().getResource("/view/UserHome.fxml"));
+	    load.setLocation(getClass().getResource("/view/HomePage.fxml"));
 	    Parent parentView = (Parent)load.load();
 	    HomePageController usercontroller = load.getController();
 	    usercontroller.setData(user,users);
