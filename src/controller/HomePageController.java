@@ -92,14 +92,15 @@ public class HomePageController {
 		if (albumToDelete != null) {
 			user.getAllAlbums().remove(albumToDelete);
 	
+			show.remove(albumToDelete); 
+	
 			allAlbums.setItems(FXCollections.observableArrayList(
 				user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())));
-			
-			show.removeIf(album -> album.getName().equals(selectedAlbumName));
 	
 			this.save();
 		}
 	}
+	
 	
 
 	public void createNewContent(ActionEvent event) throws IOException {
@@ -157,17 +158,24 @@ public class HomePageController {
 	public void renameContent(ActionEvent event) throws IOException {
 		String selectedAlbumName = allAlbums.getSelectionModel().getSelectedItem();
 		Album albumToRename = user.getAllAlbums().stream()
-			.filter(album -> album.getName().equals(selectedAlbumName))
-			.findFirst()
-			.orElse(null);
+				.filter(album -> album.getName().equals(selectedAlbumName))
+				.findFirst()
+				.orElse(null);
 	
 		if (albumToRename != null) {
-			albumToRename.setName(editName.getText());
-			allAlbums.setItems(FXCollections.observableArrayList(
-				user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())));
+			String newName = editName.getText();
+			boolean nameExists = user.getAllAlbums().stream()
+					.anyMatch(album -> album.getName().equals(newName));
+	
+			if (!nameExists) {
+				albumToRename.setName(newName);
+				allAlbums.setItems(FXCollections.observableArrayList(
+						user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())));
+			} 
 		}
 		this.save();
 	}
+	
 
 	public void logOut(ActionEvent event)
 			throws IOException {
