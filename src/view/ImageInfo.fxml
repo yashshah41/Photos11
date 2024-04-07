@@ -5,37 +5,36 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <AnchorPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImageInfoController">
    <children>
+      <!-- ImageView for displaying the image -->
+<ImageView fx:id="picView" fitHeight="400" fitWidth="400" layoutX="7" layoutY="10" pickOnBounds="true" preserveRatio="true" />
+
       <!-- TextField for displaying image caption -->
-      <TextField fx:id="capField" layoutX="470.0" layoutY="810.0" prefWidth="200.0" />
-      
-      <!-- TextField for displaying image date -->
-      <TextField fx:id="dateField" layoutX="268.0" layoutY="810.0" prefWidth="100.0" />
-      
-      <!-- ListView for displaying image tags -->
-      <ListView fx:id="tagList" layoutX="40.0" layoutY="780.0" prefHeight="70.0" prefWidth="200.0" />
-      
-      <!-- Label indicating the presence of tags -->
-      <Label fx:id="tags" layoutX="40.0" layoutY="750.0" text="Tags:" />
-      
-      <!-- Label indicating the date of the image -->
-      <Label fx:id="dateLabel" layoutX="268.0" layoutY="790.0" text="Date:" />
+      <Label fx:id="capField" layoutX="400.0" layoutY="720.0" prefWidth="200.0" />
       
       <!-- Label indicating the caption of the image -->
-      <Label fx:id="captionLabel" layoutX="470.0" layoutY="790.0" text="Caption:" />
+      <Label fx:id="captionLabel" layoutX="400.0" layoutY="700.0" text="Caption:" />
+
+      <!-- TextField for displaying image date -->
+      <Label fx:id="dateField" layoutX="610.0" layoutY="720.0" prefWidth="100.0" />
+      
+      <!-- Label indicating the date of the image -->
+      <Label fx:id="dateLabel" layoutX="610.0" layoutY="700.0" text="Date:" />
+
+      <!-- ListView for displaying image tags -->
+      <ListView fx:id="tagList" layoutX="50.0" layoutY="720.0" prefHeight="70.0" prefWidth="200.0" />
+      
+      <!-- Label indicating the presence of tags -->
+      <Label fx:id="tags" layoutX="50.0" layoutY="700.0" text="Tags:" />
+
+      <!-- Button for displaying the previous image -->
+      <Button fx:id="prevButton" layoutX="300.0" layoutY="660.0" mnemonicParsing="false" onAction="#prev" text="Prev"/>
       
       <!-- Button for displaying the next image -->
-      <Button fx:id="nextButton" layoutX="810.0" layoutY="700" mnemonicParsing="false" onAction="#next" text="Next"/>
-      
-      <!-- Button for displaying the previous image -->
-      <Button fx:id="prevButton" layoutX="700.0" layoutY="850.0" mnemonicParsing="false" onAction="#prev" text="Prev"/>
-      
-      <!-- ImageView for displaying the image -->
-      <ImageView fx:id="picView" fitHeight="700.0" fitWidth="1286.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="nextButton" layoutX="410.0" layoutY="660.0" mnemonicParsing="false" onAction="#next" text="Next"/>
       
       <!-- Button for returning to the previous screen -->
-      <Button fx:id="backButton" layoutX="920.0" layoutY="850.0" mnemonicParsing="false" onAction="#back" text="Back" prefWidth="100.0" prefHeight="30.0" />
+      <Button fx:id="backButton" layoutX="520.0" layoutY="660.0" mnemonicParsing="false" onAction="#back" text="Back" prefWidth="100.0" prefHeight="30.0" />
    </children>
 </AnchorPane>

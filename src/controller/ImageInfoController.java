@@ -45,13 +45,13 @@ public class ImageInfoController {
 	Label captionLabel;
 
 	@FXML
-	TextField capField;
+	Label capField;
 
 	@FXML
 	Label dateLabel;
 
 	@FXML
-	TextField dateField;
+	Label dateField;
 
 	@FXML
 	Label tags;
@@ -79,9 +79,8 @@ public class ImageInfoController {
 		InputStream instream = new FileInputStream(path);
 		Image image = new Image(instream);
 		picView.setImage(image);
-		System.out.print(photo.getDate().toString());
-		String date = photo.getDate().toString().substring(0, 11);
-		dateField.setText(date);
+		System.out.print(photo.lastModifiedDate.toString());
+		dateField.setText(photo.lastModifiedDate.toString());
 		taglist = FXCollections.observableArrayList(photo.getTags());
 		tagList.setItems(taglist);
 		capField.setText(photo.getCaption());
