@@ -108,7 +108,7 @@ public class AdminController {
     public void deleteUser(ActionEvent e) {
         User selectedUser = users.getSelectionModel().getSelectedItem();
         // Check if the selected user exists and is not named "admin"
-        if (selectedUser != null && !selectedUser.getUserName().equalsIgnoreCase("admin")) {
+        if (selectedUser != null && !selectedUser.getUserName().equalsIgnoreCase("admin") && !selectedUser.getUserName().equalsIgnoreCase("stock")) {
             listOfVisibleUsers.remove(selectedUser);
             users.setItems(listOfVisibleUsers);
             this.save();
