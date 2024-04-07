@@ -30,10 +30,10 @@
       <Button fx:id="addTagButton" layoutX="440.0" layoutY="210.0" mnemonicParsing="false" onAction="#addTag" text="Add Tag" />
 
       <!-- Label indicating the presence of a caption -->
-      <Label fx:id="caption" layoutX="440.0" layoutY="250.0" text="Caption:" />
+      <Label fx:id="captionLabel" layoutX="440.0" layoutY="250.0" text="Caption:" />
 
       <!-- TextField for entering or updating the caption -->
-      <TextField fx:id="capField" layoutX="390.0" layoutY="270.0" />
+      <TextField fx:id="captionField" layoutX="390.0" layoutY="270.0" />
 
       <!-- Button for updating the caption -->
       <Button fx:id="updateCaptionButton" layoutX="410.0" layoutY="300.0" mnemonicParsing="false" onAction="#addCaption" text="Update Caption" />

@@ -312,31 +312,39 @@ public class PhotosInAlbumController {
 		}
 	}
 
-	public void addTag(ActionEvent e) throws IOException {
-		String name = tag.getText();
-		String value = this.newTagValue.getText();
-		if (!(name.equals(null) && value.equals(null))) {
-			for (Tag tag : this.user.getAllTags()) {
-				if (tag.getName().equals(name) && tag.getValue().equals(value)) {
-					e.consume();
-					;
-				}
+	public void addTag(ActionEvent e) throws IOException  {
+		String name = tag.getText().trim(); 
+		String value = this.newTagValue.getText().trim(); 
+	
+		// Ensure the name and value are not empty
+		if (!name.isEmpty() && !value.isEmpty()) {
+			Photo selectedPhoto = imagesList.getSelectionModel().getSelectedItem();
+			if (selectedPhoto == null) {
+				return;
 			}
-
-			List<Photo> photos = new ArrayList<Photo>();
-			Photo tagged = (Photo) imagesList.getSelectionModel().getSelectedItem();
-			photos.add(tagged);
-			Tag newTag = new Tag(name, value, photos);
-			this.user.addTag(newTag);
-			tagged.addTag(newTag);
-			tagsInPhoto.add(newTag);
-			tagList.setItems(tagsInPhoto);
+	
+			// Check if the selected photo already has a tag with the same name and value
+			boolean duplicateExists = selectedPhoto.getTags().stream()
+					.anyMatch(t -> t.getName().equalsIgnoreCase(name) && t.getValue().equalsIgnoreCase(value));
+	
+			if (!duplicateExists) {
+				List<Photo> photosForNewTag = new ArrayList<>();
+				photosForNewTag.add(selectedPhoto); 
+	
+				Tag newTag = new Tag(name, value, photosForNewTag);
+				selectedPhoto.addTag(newTag); 
+				tagsInPhoto.add(newTag); 
+				tagList.setItems(tagsInPhoto); 
+			} 
+	
+			// Clear the input fields
 			tag.setText("");
 			this.newTagValue.setText("");
 			this.save();
-		}
 
+		}
 	}
+	
 
 	public void deleteTag(ActionEvent e) throws IOException {
 		Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
