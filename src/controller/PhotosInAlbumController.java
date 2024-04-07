@@ -160,13 +160,61 @@ public class PhotosInAlbumController {
 	@SuppressWarnings("unchecked")
 	public void addPhoto(ActionEvent e) throws IOException {
 		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter exfilJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-		FileChooser.ExtensionFilter exfilPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-		fileChooser.getExtensionFilters().addAll(exfilJPG, exfilPNG);
 
+		FileChooser.ExtensionFilter exfilJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG", "*.png", "*.bmp", "*.gif");
+	
+		fileChooser.getExtensionFilters().addAll(exfilJPG);
 		File file = fileChooser.showOpenDialog(null);
 		if (file == null) {
 			return;
+		}
+		for (User u : members) {
+			for (Album a : u.getAllAlbums()) {
+				for (Photo p : a.getAllPhotos()) {
+					if (p.getFile().equals(file)) {
+						this.picturesList.add(p);
+						this.album.addPhoto(p);
+						imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>() {
+
+							@Override
+							public ListCell<Photo> call(ListView<Photo> p) {
+				
+								ListCell<Photo> cell = new ListCell<Photo>() {
+				
+									@Override
+									protected void updateItem(Photo t, boolean boo) {
+										super.updateItem(t, boo);
+										if (t != null) {
+											ImageView imageView = new ImageView();
+											String path = t.getFile().getAbsolutePath();
+											InputStream instream = null;
+											try {
+												instream = new FileInputStream(path);
+											} catch (FileNotFoundException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+											Image image = new Image(instream);
+											imageView.setImage(image);
+											imageView.setFitHeight(100);
+											imageView.setFitWidth(100);
+											imageView.setPreserveRatio(true);
+											setText(t.getCaption());
+											setGraphic(imageView);
+										}
+									}
+				
+								};
+								return cell;
+							}
+						});
+						imagesList.setItems(picturesList);
+						this.save();
+						return;
+					}
+				}
+			}
+			
 		}
 
 		ImageView picture = new ImageView();

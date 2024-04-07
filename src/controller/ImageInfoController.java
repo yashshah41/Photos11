@@ -57,9 +57,11 @@ public class ImageInfoController {
 	Label tags;
 
 	@FXML
-	ListView tagList;
+	ListView<Tag> tagList;
 
 	ObservableList<Tag> taglist = FXCollections.observableArrayList();
+	
+	
 	ObservableList<User> members = FXCollections.observableArrayList();
 	Album album;
 	User user;
@@ -80,7 +82,7 @@ public class ImageInfoController {
 		System.out.print(photo.getDate().toString());
 		String date = photo.getDate().toString().substring(0, 11);
 		dateField.setText(date);
-	    taglist = FXCollections.observableArrayList(photo.getTags());
+		taglist = FXCollections.observableArrayList(photo.getTags());
 		tagList.setItems(taglist);
 		capField.setText(photo.getCaption());
 	}

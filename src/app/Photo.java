@@ -77,7 +77,7 @@ public class Photo implements Serializable {
      * @return The creation date of the photograph.
      */
     public Date getDate() {
-        return this.calendar.getTime();
+        return this.lastModifiedDate;
     }
 
     /**
