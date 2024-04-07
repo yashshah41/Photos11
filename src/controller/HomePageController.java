@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.Action;
 
@@ -34,7 +35,7 @@ public class HomePageController {
 	Button openAlbum;
 
 	@FXML
-	ListView allAlbums;
+	ListView<String> allAlbums; // This will now hold Strings
 
 	@FXML
 	Button createAlbum;
@@ -54,9 +55,13 @@ public class HomePageController {
 	public void setData(User user, List<User> users) {
 		this.user = user;
 		this.listOfUsers = users;
-		show = FXCollections.observableArrayList(user.getAllAlbums());
-		allAlbums.setItems(show);
+		// Convert Album objects to their names and create an ObservableList of names
+		ObservableList<String> albumNames = FXCollections.observableArrayList(
+			user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())
+		);
+		allAlbums.setItems(albumNames);
 	}
+	
 
 	public void deleteContent(ActionEvent event) {
 		// Method implementation
