@@ -103,10 +103,12 @@ public class PhotosInAlbumController {
 		this.album = album;
 		this.members = members;
 		this.user = user;
-		if(album.getAllPhotos() == null){
-			return;
+		if(album.getAllPhotos() != null){
+			picturesList = FXCollections.observableArrayList(album.getAllPhotos());
+		} else {
+			// Initialize with an empty list to avoid NullPointerException
+			picturesList = FXCollections.observableArrayList();
 		}
-		picturesList = FXCollections.observableArrayList(album.getAllPhotos());
 		imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){     
 			@Override
 			public ListCell<Photo> call(ListView<Photo> p) {
@@ -142,7 +144,11 @@ public class PhotosInAlbumController {
 		imagesList.getSelectionModel().selectFirst();
 		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
 		if(selected != null){
-			tagsInPhoto = FXCollections.observableArrayList(selected.getTags());
+			if(selected.getTags() != null){
+				tagsInPhoto = FXCollections.observableArrayList(selected.getTags());
+			} else {
+				tagsInPhoto = FXCollections.observableArrayList();
+			}
 			tagList.setItems(tagsInPhoto);
 		}
 	}
