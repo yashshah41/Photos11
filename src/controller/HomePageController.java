@@ -32,19 +32,34 @@ public class HomePageController {
 	Button logoutButton;
 
 	@FXML
+	Button searchButton;
+
+	@FXML
+	Button finishButton;
+
+	@FXML
 	Button openAlbum;
+
+	@FXML
+	Button viewContent;
 
 	@FXML
 	ListView<String> allAlbums; // This will now hold Strings
 
 	@FXML
-	Button createAlbum;
+	Button createContent;
 
 	@FXML
-	TextField albumName;
+	TextField contentName;
 
 	@FXML
 	TextField editName;
+
+	@FXML
+	TextField editNum;
+
+	@FXML
+	TextField editRange;
 
 	User user;
 
@@ -63,36 +78,7 @@ public class HomePageController {
 	}
 	
 
-	public void deleteContent(ActionEvent event) {
-		// Method implementation
-	}
-
-	public void createNewContent(ActionEvent event) {
-		// Method implementation
-	}
-
-	public void viewContent(ActionEvent event) {
-		// Method implementation
-	}
-	public void renameContent(ActionEvent event) {
-		// Method implementation
-	}
-
-	public void logOut(ActionEvent e)
-			throws IOException {
-		FXMLLoader load = new FXMLLoader();
-		load.setLocation(getClass().getResource("/view/Login.fxml"));
-		Parent parentView = (Parent) load.load();
-		LoginController logincontroller = load.getController();
-		logincontroller.setData(listOfUsers);
-		Scene adminView = new Scene(parentView);
-		Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		pictureStage.hide();
-		pictureStage.setScene(adminView);
-		pictureStage.show();
-	}
-
-	public void deleteAlbum(ActionEvent e) throws IOException {
+	public void deleteContent(ActionEvent event) throws IOException {
 		String selectedAlbumName = allAlbums.getSelectionModel().getSelectedItem();
 		Album albumToDelete = user.getAllAlbums().stream()
 			.filter(album -> album.getName().equals(selectedAlbumName))
@@ -104,10 +90,90 @@ public class HomePageController {
 			allAlbums.setItems(FXCollections.observableArrayList(
 				show.stream().map(Album::getName).collect(Collectors.toList())));
 		}
-		this.save();
+		this.save();	
+	}
+
+	public void createNewContent(ActionEvent event) throws IOException {
+		String contentNameText = contentName.getText().trim();
+		boolean albumExists = user.getAllAlbums().stream().anyMatch(album -> album.getName().equalsIgnoreCase(contentNameText));
+	
+		if (!albumExists) {
+			Album newAlbum = new Album(contentNameText);
+			
+			user.getAllAlbums().add(newAlbum); 
+	
+			show.add(newAlbum);
+		
+			ObservableList<String> contentNames = FXCollections.observableArrayList(
+				user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())
+			);
+			allAlbums.setItems(contentNames);
+			this.contentName.clear();
+		
+			this.save();
+		}
 	}
 	
 
+	public void viewContent(ActionEvent event) {
+		Album target = null;
+		if (allAlbums.getSelectionModel().getSelectedItem() != null) {
+			// Check if an item is selected
+			String selectedAlbumName = allAlbums.getSelectionModel().getSelectedItem();
+			target = user.getAllAlbums().stream()
+					.filter(album -> album.getName().equals(selectedAlbumName))
+					.findFirst()
+					.orElse(null);
+		}
+	
+		if (target != null) {
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
+				Parent admin_parent = (Parent) loader.load();
+				OpenAlbumController oacontroller = loader.getController();
+				oacontroller.setData(target, listOfUsers, user);
+				Scene admin_scene = new Scene(admin_parent);
+				Stage photoStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+				photoStage.hide();
+				photoStage.setScene(admin_scene);
+				photoStage.show();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+
+	public void renameContent(ActionEvent event) throws IOException {
+		String selectedAlbumName = allAlbums.getSelectionModel().getSelectedItem();
+		Album albumToRename = user.getAllAlbums().stream()
+			.filter(album -> album.getName().equals(selectedAlbumName))
+			.findFirst()
+			.orElse(null);
+	
+		if (albumToRename != null) {
+			albumToRename.setName(editName.getText());
+			allAlbums.setItems(FXCollections.observableArrayList(
+				user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())));
+		}
+		this.save();
+	}
+
+	public void logOut(ActionEvent event)
+			throws IOException {
+		FXMLLoader load = new FXMLLoader();
+		load.setLocation(getClass().getResource("/view/Login.fxml"));
+		Parent parentView = (Parent) load.load();
+		LoginController logincontroller = load.getController();
+		logincontroller.setData(listOfUsers);
+		Scene adminView = new Scene(parentView);
+		Stage pictureStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		pictureStage.hide();
+		pictureStage.setScene(adminView);
+		pictureStage.show();
+	}
+	
 	public void switchToSearch(ActionEvent e)
 			throws IOException {
 		FXMLLoader load = new FXMLLoader();
@@ -122,46 +188,26 @@ public class HomePageController {
 		pictureStage.show();
 	}
 
-	public void addAlbum(ActionEvent e) throws IOException {
-		String albumNameText = albumName.getText(); 
-	
-		Album newAlbum = new Album(albumNameText);
-		
-		user.getAllAlbums().add(newAlbum); 
-	
-		show.add(newAlbum);
-	
-		ObservableList<String> albumNames = FXCollections.observableArrayList(
-			user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())
-		);
-		allAlbums.setItems(albumNames);
-	
-		this.save();
-	}
-	
-
-	public void renameAlbum(ActionEvent e) throws IOException {
-		String selectedAlbumName = allAlbums.getSelectionModel().getSelectedItem();
-		Album albumToRename = user.getAllAlbums().stream()
-			.filter(album -> album.getName().equals(selectedAlbumName))
-			.findFirst()
-			.orElse(null);
-	
-		if (albumToRename != null) {
-			albumToRename.setName(editName.getText());
-			allAlbums.setItems(FXCollections.observableArrayList(
-				user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())));
-		}
-		this.save();
-	}
-	
-
 	public void save() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/view/Admin.fxml"));
-		AdminController admincontroller = loader.getController();
-		admincontroller.setUsers(this.listOfUsers);
-		admincontroller.save();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Admin.fxml"));
+			Parent root = loader.load(); // This line actually loads the FXML file and initializes the controller
+			AdminController admincontroller = loader.getController();
+			
+			if (admincontroller != null) {
+				admincontroller.setUsers(this.listOfUsers);
+				admincontroller.save();
+			} 
 	}
+
+
+	// public void save() throws IOException {
+	// 	FXMLLoader loader = new FXMLLoader();
+	// 	loader.setLocation(getClass().getResource("/view/Admin.fxml"));
+	// 	AdminController admincontroller = loader.getController();
+	// 	admincontroller.setUsers(this.listOfUsers);
+	// 	admincontroller.save();
+	// }
+
+
 
 }
