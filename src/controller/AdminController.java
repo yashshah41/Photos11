@@ -72,11 +72,11 @@ public class AdminController {
 
         ArrayList<Album> albums = new ArrayList<Album>();
         List<Photo> photos = new ArrayList<Photo>();
-        File stock1 = new File("stockImages/imageOne.png");
-        File stock2 = new File("stockImages/imageTwo.png");
-        File stock3 = new File("stockImages/imageThree.png");
-        File stock4 = new File("stockImages/imageFour.png");
-        File stock5 = new File("stockImages/imageFive.png");
+        File stock1 = new File("data/imageOne.png");
+        File stock2 = new File("data/imageTwo.png");
+        File stock3 = new File("data/imageThree.png");
+        File stock4 = new File("data/imageFour.png");
+        File stock5 = new File("data/imageFive.png");
         photos.add(new Photo(stock1, new ArrayList<Tag>()));
         photos.add(new Photo(stock2, new ArrayList<Tag>()));
         photos.add(new Photo(stock3, new ArrayList<Tag>()));

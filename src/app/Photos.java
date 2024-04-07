@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
-public class Photos11 extends Application {
+public class Photos extends Application {
 
     /**
      * The start method is called by the JavaFX application thread to start the
