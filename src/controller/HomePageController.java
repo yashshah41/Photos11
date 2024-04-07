@@ -80,18 +80,27 @@ public class HomePageController {
 
 	public void deleteContent(ActionEvent event) throws IOException {
 		String selectedAlbumName = allAlbums.getSelectionModel().getSelectedItem();
+		if (selectedAlbumName == null) {
+			return; 
+		}
+	
 		Album albumToDelete = user.getAllAlbums().stream()
-			.filter(album -> album.getName().equals(selectedAlbumName))
-			.findFirst()
-			.orElse(null);
+								   .filter(album -> album.getName().equals(selectedAlbumName))
+								   .findFirst()
+								   .orElse(null);
 	
 		if (albumToDelete != null) {
-			show.remove(albumToDelete);
+			user.getAllAlbums().remove(albumToDelete);
+	
 			allAlbums.setItems(FXCollections.observableArrayList(
-				show.stream().map(Album::getName).collect(Collectors.toList())));
+				user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())));
+			
+			show.removeIf(album -> album.getName().equals(selectedAlbumName));
+	
+			this.save();
 		}
-		this.save();	
 	}
+	
 
 	public void createNewContent(ActionEvent event) throws IOException {
 		String contentNameText = contentName.getText().trim();
