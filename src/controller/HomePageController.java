@@ -174,6 +174,7 @@ public class HomePageController {
 						user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())));
 			} 
 		}
+		this.editName.clear();
 		this.save();
 	}
 	
