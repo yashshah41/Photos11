@@ -93,12 +93,20 @@ public class HomePageController {
 	}
 
 	public void deleteAlbum(ActionEvent e) throws IOException {
-		if (show.contains((Album) allAlbums.getSelectionModel().getSelectedItem())) {
-			show.remove(allAlbums.getSelectionModel().getSelectedIndex());
+		String selectedAlbumName = allAlbums.getSelectionModel().getSelectedItem();
+		Album albumToDelete = user.getAllAlbums().stream()
+			.filter(album -> album.getName().equals(selectedAlbumName))
+			.findFirst()
+			.orElse(null);
+	
+		if (albumToDelete != null) {
+			show.remove(albumToDelete);
+			allAlbums.setItems(FXCollections.observableArrayList(
+				show.stream().map(Album::getName).collect(Collectors.toList())));
 		}
-		allAlbums.setItems(show);
 		this.save();
 	}
+	
 
 	public void switchToSearch(ActionEvent e)
 			throws IOException {
@@ -115,19 +123,38 @@ public class HomePageController {
 	}
 
 	public void addAlbum(ActionEvent e) throws IOException {
-		Album album = new Album(albumName.getText());
-		show.add(album);
-		allAlbums.setItems(show);
+		String albumNameText = albumName.getText(); 
+	
+		Album newAlbum = new Album(albumNameText);
+		
+		user.getAllAlbums().add(newAlbum); 
+	
+		show.add(newAlbum);
+	
+		ObservableList<String> albumNames = FXCollections.observableArrayList(
+			user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())
+		);
+		allAlbums.setItems(albumNames);
+	
 		this.save();
 	}
+	
 
 	public void renameAlbum(ActionEvent e) throws IOException {
-		Album album = (Album) allAlbums.getSelectionModel().getSelectedItem();
-		album.setName(editName.getText());
-		show.set(show.indexOf(album), (Album) allAlbums.getSelectionModel().getSelectedItem());
-		allAlbums.setItems(show);
+		String selectedAlbumName = allAlbums.getSelectionModel().getSelectedItem();
+		Album albumToRename = user.getAllAlbums().stream()
+			.filter(album -> album.getName().equals(selectedAlbumName))
+			.findFirst()
+			.orElse(null);
+	
+		if (albumToRename != null) {
+			albumToRename.setName(editName.getText());
+			allAlbums.setItems(FXCollections.observableArrayList(
+				user.getAllAlbums().stream().map(Album::getName).collect(Collectors.toList())));
+		}
 		this.save();
 	}
+	
 
 	public void save() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
