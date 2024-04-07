@@ -190,7 +190,7 @@ public class HomePageController {
 
 	public void save() throws IOException {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Admin.fxml"));
-			Parent root = loader.load(); // This line actually loads the FXML file and initializes the controller
+			Parent root = loader.load(); 
 			AdminController admincontroller = loader.getController();
 			
 			if (admincontroller != null) {
@@ -198,16 +198,4 @@ public class HomePageController {
 				admincontroller.save();
 			} 
 	}
-
-
-	// public void save() throws IOException {
-	// 	FXMLLoader loader = new FXMLLoader();
-	// 	loader.setLocation(getClass().getResource("/view/Admin.fxml"));
-	// 	AdminController admincontroller = loader.getController();
-	// 	admincontroller.setUsers(this.listOfUsers);
-	// 	admincontroller.save();
-	// }
-
-
-
 }
