@@ -107,11 +107,15 @@ public class AdminController {
     }
 
     public void deleteUser(ActionEvent e) {
-        if (listOfVisibleUsers.contains((User) users.getSelectionModel().getSelectedItem()))
-            listOfVisibleUsers.remove(listOfVisibleUsers.get(users.getSelectionModel().getSelectedIndex()));
-        users.setItems(listOfVisibleUsers);
-        this.save();
+        User selectedUser = users.getSelectionModel().getSelectedItem();
+        // Check if the selected user exists and is not named "admin"
+        if (selectedUser != null && !selectedUser.getUserName().equalsIgnoreCase("admin")) {
+            listOfVisibleUsers.remove(selectedUser);
+            users.setItems(listOfVisibleUsers);
+            this.save();
+        }
     }
+    
 
     public void save() {
         try {
