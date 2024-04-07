@@ -326,42 +326,46 @@ public class PhotosInAlbumController {
 	}
 
 	public void addTag(ActionEvent e) throws IOException {
-        String name = tag.getText().trim();
-        String value = this.newTagValue.getText().trim();
+		String name = tag.getText().trim();
+		String value = this.newTagValue.getText().trim();
+	
+		if (!name.isEmpty() && !value.isEmpty()) {
+			Photo selectedPhoto = imagesList.getSelectionModel().getSelectedItem();
+			if (selectedPhoto == null) {
+				return;
+			}
+	
+			boolean duplicateExists = selectedPhoto.getTags().stream()
+					.anyMatch(t -> t.getName().equalsIgnoreCase(name) && t.getValue().equalsIgnoreCase(value));
+	
+			if (!duplicateExists) {
+				List<Photo> photosForNewTag = new ArrayList<>();
+				photosForNewTag.add(selectedPhoto);
+	
+				Tag newTag = new Tag(name, value, photosForNewTag);
+				selectedPhoto.addTag(newTag);
+				tagsInPhoto.add(newTag);
+				tagList.setItems(tagsInPhoto);
+	
+				user.addTag(newTag); // Add the new tag to the user's collection of tags
+				refreshTagNameList(); // Refresh tag names after adding a new tag
+			}
+	
+			tag.setText("");
+			this.newTagValue.setText("");
+			this.save();
+		}
+	}
+	
 
-        if (!name.isEmpty() && !value.isEmpty()) {
-            Photo selectedPhoto = imagesList.getSelectionModel().getSelectedItem();
-            if (selectedPhoto == null) {
-                return;
-            }
-
-            boolean duplicateExists = selectedPhoto.getTags().stream()
-                    .anyMatch(t -> t.getName().equalsIgnoreCase(name) && t.getValue().equalsIgnoreCase(value));
-
-            if (!duplicateExists) {
-                List<Photo> photosForNewTag = new ArrayList<>();
-                photosForNewTag.add(selectedPhoto);
-
-                Tag newTag = new Tag(name, value, photosForNewTag);
-                selectedPhoto.addTag(newTag);
-                tagsInPhoto.add(newTag);
-                tagList.setItems(tagsInPhoto);
-
-                refreshTagNameList(); // Refresh tag names after adding a new tag
-            }
-
-            tag.setText("");
-            this.newTagValue.setText("");
-            this.save();
-        }
-    }
 	private void refreshTagNameList() {
-        Set<String> uniqueTagNames = user.getAllTags().stream()
-                                          .map(Tag::getName)
-                                          .collect(Collectors.toSet());
-        tagNameList.setItems(FXCollections.observableArrayList(uniqueTagNames));
-        System.out.println("Refreshing tag names, found: " + uniqueTagNames.size() + " unique names");
-    }
+		Set<String> uniqueTagNames = user.getAllTags().stream()
+										  .map(Tag::getName)
+										  .collect(Collectors.toSet());
+		tagNameList.setItems(FXCollections.observableArrayList(uniqueTagNames));
+		System.out.println("Refreshing tag names, found: " + uniqueTagNames.size() + " unique names");
+	}
+	
 
 	public void deleteTag(ActionEvent e) throws IOException {
 		Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
