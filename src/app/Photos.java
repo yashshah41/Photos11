@@ -60,7 +60,7 @@ public class Photos extends Application {
         loginController.setData(data);
 
         // Set up the primary stage
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Photos11");
