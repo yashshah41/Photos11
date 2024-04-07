@@ -11,30 +11,30 @@
 <ImageView fx:id="picView" fitHeight="400" fitWidth="400" layoutX="7" layoutY="10" pickOnBounds="true" preserveRatio="true" />
 
       <!-- TextField for displaying image caption -->
-      <Label fx:id="capField" layoutX="400.0" layoutY="720.0" prefWidth="200.0" />
+      <Label fx:id="capField" layoutX="400.0" layoutY="620.0" prefWidth="200.0" />
       
       <!-- Label indicating the caption of the image -->
-      <Label fx:id="captionLabel" layoutX="400.0" layoutY="700.0" text="Caption:" />
+      <Label fx:id="captionLabel" layoutX="400.0" layoutY="600.0" text="Caption:" />
 
       <!-- TextField for displaying image date -->
-      <Label fx:id="dateField" layoutX="610.0" layoutY="720.0" prefWidth="200.0" />
+      <Label fx:id="dateField" layoutX="610.0" layoutY="620.0" prefWidth="200.0" />
       
       <!-- Label indicating the date of the image -->
-      <Label fx:id="dateLabel" layoutX="610.0" layoutY="700.0" text="Date:" />
+      <Label fx:id="dateLabel" layoutX="610.0" layoutY="600.0" text="Date:" />
 
       <!-- ListView for displaying image tags -->
-      <ListView fx:id="tagList" layoutX="50.0" layoutY="720.0" prefHeight="70.0" prefWidth="200.0" />
+      <ListView fx:id="tagList" layoutX="50.0" layoutY="620.0" prefHeight="70.0" prefWidth="200.0" />
       
       <!-- Label indicating the presence of tags -->
-      <Label fx:id="tags" layoutX="50.0" layoutY="700.0" text="Tags:" />
+      <Label fx:id="tags" layoutX="50.0" layoutY="600.0" text="Tags:" />
 
       <!-- Button for displaying the previous image -->
-      <Button fx:id="prevButton" layoutX="300.0" layoutY="660.0" mnemonicParsing="false" onAction="#prev" text="Prev"/>
+      <Button fx:id="prevButton" layoutX="50.0" layoutY="750.0" mnemonicParsing="false" onAction="#prev" text="Prev"/>
       
       <!-- Button for displaying the next image -->
-      <Button fx:id="nextButton" layoutX="410.0" layoutY="660.0" mnemonicParsing="false" onAction="#next" text="Next"/>
+      <Button fx:id="nextButton" layoutX="150.0" layoutY="750.0" mnemonicParsing="false" onAction="#next" text="Next"/>
       
       <!-- Button for returning to the previous screen -->
-      <Button fx:id="backButton" layoutX="520.0" layoutY="660.0" mnemonicParsing="false" onAction="#back" text="Back" prefWidth="100.0" prefHeight="30.0" />
+      <Button fx:id="backButton" layoutX="300.0" layoutY="750.0" mnemonicParsing="false" onAction="#back" text="Back"  />
    </children>
 </AnchorPane>
