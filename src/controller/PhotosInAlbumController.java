@@ -45,13 +45,13 @@ public class PhotosInAlbumController {
 	@FXML
 	Label tags;
 
-    @FXML
+	@FXML
 	TextField tag;
 
 	@FXML
 	ListView<Tag> tagList;
 
-    @FXML
+	@FXML
 	Button addTagButton;
 
 	@FXML
@@ -60,7 +60,7 @@ public class PhotosInAlbumController {
 	@FXML
 	TextField captionField;
 
-    @FXML 
+	@FXML
 	Label captionLabel;
 
 	@FXML
@@ -72,7 +72,7 @@ public class PhotosInAlbumController {
 	@FXML
 	Button removePhotoButton;
 
-    @FXML
+	@FXML
 	Button backButton;
 
 	@FXML
@@ -90,31 +90,265 @@ public class PhotosInAlbumController {
 	@FXML
 	TextField newTagValue;
 
-	@FXML 
+	@FXML
 	Label tagLabel;
 
 	Album album;
-    ObservableList<Photo> picturesList = FXCollections.observableArrayList();
-    ObservableList<Tag> tagsInPhoto = FXCollections.observableArrayList();
-    List<User> members;
-    User user;
+	ObservableList<Photo> picturesList = FXCollections.observableArrayList();
+	ObservableList<Tag> tagsInPhoto = FXCollections.observableArrayList();
+	List<User> members;
+	User user;
 
-	public void setData(Album album, List<User> members, User user){
+	public void setData(Album album, List<User> members, User user) {
 		this.album = album;
 		this.members = members;
 		this.user = user;
-		if(album.getAllPhotos() != null){
+		if (album.getAllPhotos() != null) {
 			picturesList = FXCollections.observableArrayList(album.getAllPhotos());
 		} else {
 			// Initialize with an empty list to avoid NullPointerException
 			picturesList = FXCollections.observableArrayList();
 		}
-		imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){     
+		imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>() {
 			@Override
 			public ListCell<Photo> call(ListView<Photo> p) {
-				 
-				ListCell<Photo> cell = new ListCell<Photo>(){
-	 
+
+				ListCell<Photo> cell = new ListCell<Photo>() {
+
+					@Override
+					protected void updateItem(Photo t, boolean boo) {
+						super.updateItem(t, boo);
+						setText(null);
+						setGraphic(null);
+						if (t != null) {
+							File file = t.getFile();
+							if (file.exists() && !file.isDirectory()) {
+								try (InputStream instream = new FileInputStream(file)) {
+									Image image = new Image(instream);
+									ImageView imageView = new ImageView(image);
+									imageView.setFitHeight(100);
+									imageView.setFitWidth(100);
+									imageView.setPreserveRatio(true);
+									setText(t.getCaption());
+									setGraphic(imageView);
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							} else {
+								System.err.println("File not found: " + file.getAbsolutePath());
+							}
+						}
+					}
+
+				};
+				return cell;
+			}
+		});
+		imagesList.setItems(picturesList);
+		imagesList.getSelectionModel().selectFirst();
+		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
+		if (selected != null) {
+			if (selected.getTags() != null) {
+				tagsInPhoto = FXCollections.observableArrayList(selected.getTags());
+			} else {
+				tagsInPhoto = FXCollections.observableArrayList();
+			}
+			tagList.setItems(tagsInPhoto);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public void addPhoto(ActionEvent e) throws IOException {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter exfilJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+		FileChooser.ExtensionFilter exfilPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+		fileChooser.getExtensionFilters().addAll(exfilJPG, exfilPNG);
+
+		File file = fileChooser.showOpenDialog(null);
+		if (file == null) {
+			return;
+		}
+
+		ImageView picture = new ImageView();
+		Image image = new Image(file.toURL().toString(), 353, 341, true, true);
+		picture.setImage(image);
+		picture.setFitHeight(341);
+		picture.setFitWidth(353);
+		picture.setPreserveRatio(true);
+		Calendar calendar = Calendar.getInstance();
+		List<Tag> tags = new ArrayList<Tag>();
+		Photo photo = new Photo(file, tags);
+		this.picturesList.add(photo);
+		this.album.addPhoto(photo);
+
+		imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>() {
+
+			@Override
+			public ListCell<Photo> call(ListView<Photo> p) {
+
+				ListCell<Photo> cell = new ListCell<Photo>() {
+
+					@Override
+					protected void updateItem(Photo t, boolean boo) {
+						super.updateItem(t, boo);
+						if (t != null) {
+							ImageView imageView = new ImageView();
+							String path = t.getFile().getAbsolutePath();
+							InputStream instream = null;
+							try {
+								instream = new FileInputStream(path);
+							} catch (FileNotFoundException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							Image image = new Image(instream);
+							imageView.setImage(image);
+							imageView.setFitHeight(100);
+							imageView.setFitWidth(100);
+							imageView.setPreserveRatio(true);
+							setText(t.getCaption());
+							setGraphic(imageView);
+						}
+					}
+
+				};
+				return cell;
+			}
+		});
+		imagesList.setItems(picturesList);
+		this.save();
+	}
+
+	public void addCaption(ActionEvent e) throws IOException {
+		String caption = this.captionField.getText();
+		if (!(caption.equals(null))) {
+			Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
+			target.setCaption(caption);
+			imagesList.setItems(picturesList);
+			imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>() {
+
+				@Override
+				public ListCell<Photo> call(ListView<Photo> p) {
+
+					ListCell<Photo> cell = new ListCell<Photo>() {
+
+						@Override
+						protected void updateItem(Photo t, boolean boo) {
+							super.updateItem(t, boo);
+							if (t != null) {
+								ImageView imageView = new ImageView();
+								String path = t.getFile().getAbsolutePath();
+								InputStream instream = null;
+								try {
+									instream = new FileInputStream(path);
+								} catch (FileNotFoundException e) {
+									e.printStackTrace();
+								}
+								Image image = new Image(instream);
+								imageView.setImage(image);
+								imageView.setFitHeight(100);
+								imageView.setFitWidth(100);
+								imageView.setPreserveRatio(true);
+								setText(t.getCaption());
+								setGraphic(imageView);
+							}
+						}
+
+					};
+					return cell;
+				}
+			});
+			imagesList.setItems(picturesList);
+			captionField.setText("");
+			this.save();
+		}
+	}
+
+	public void addTag(ActionEvent e) throws IOException {
+		String name = tag.getText();
+		String value = this.newTagValue.getText();
+		if (!(name.equals(null) && value.equals(null))) {
+			for (Tag tag : this.user.getAllTags()) {
+				if (tag.getName().equals(name) && tag.getValue().equals(value)) {
+					e.consume();
+					;
+				}
+			}
+
+			List<Photo> photos = new ArrayList<Photo>();
+			Photo tagged = (Photo) imagesList.getSelectionModel().getSelectedItem();
+			photos.add(tagged);
+			Tag newTag = new Tag(name, value, photos);
+			this.user.addTag(newTag);
+			tagged.addTag(newTag);
+			tagsInPhoto.add(newTag);
+			tagList.setItems(tagsInPhoto);
+			tag.setText("");
+			this.newTagValue.setText("");
+			this.save();
+		}
+
+	}
+
+	public void deleteTag(ActionEvent e) throws IOException {
+		Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
+		Tag selected = (Tag) tagList.getSelectionModel().getSelectedItem();
+		if (target.getTags().contains(selected)) {
+			target.removeTag(selected);
+			this.user.deleteTag(selected);
+		}
+		tagsInPhoto = FXCollections.observableArrayList(target.getTags());
+		tagList.setItems(tagsInPhoto);
+		this.save();
+	}
+
+	public void back(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/view/HomePage.fxml"));
+		Parent parentView = (Parent) loader.load();
+		HomePageController usercontroller = loader.getController();
+		usercontroller.setData(user, members);
+		Scene adminView = new Scene(parentView);
+		Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		pictureStage.hide();
+		pictureStage.setScene(adminView);
+		pictureStage.show();
+	}
+
+	public void displayMode(ActionEvent e) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/view/ImageInfo.fxml"));
+		Parent parentView = (Parent) loader.load();
+		ImageInfoController imageInfoController = loader.getController();
+		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
+		imageInfoController.setData(members, selected, album, user);
+		imageInfoController.initalizeImage(selected);
+		Scene adminView = new Scene(parentView, 1300, 850);
+		Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		pictureStage.hide();
+		pictureStage.setScene(adminView);
+		pictureStage.show();
+	}
+
+	public void updateTag(MouseEvent m) {
+		Photo photo = (Photo) imagesList.getSelectionModel().getSelectedItem();
+		tagsInPhoto = FXCollections.observableArrayList(photo.getTags());
+		tagList.setItems(tagsInPhoto);
+	}
+
+	public void removePhoto(ActionEvent e) throws IOException {
+		Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
+		if (this.album.getAllPhotos().contains(target)) {
+			this.album.removePhoto(target);
+		}
+		picturesList.remove(target);
+		imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>() {
+
+			@Override
+			public ListCell<Photo> call(ListView<Photo> p) {
+
+				ListCell<Photo> cell = new ListCell<Photo>() {
+
 					@Override
 					protected void updateItem(Photo t, boolean boo) {
 						super.updateItem(t, boo);
@@ -136,279 +370,49 @@ public class PhotosInAlbumController {
 							setGraphic(imageView);
 						}
 					}
-				};  
+
+				};
 				return cell;
 			}
 		});
 		imagesList.setItems(picturesList);
-		imagesList.getSelectionModel().selectFirst();
+		this.save();
+	}
+
+	public void prevButton(ActionEvent e) {
 		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
-		if(selected != null){
-			if(selected.getTags() != null){
-				tagsInPhoto = FXCollections.observableArrayList(selected.getTags());
-			} else {
-				tagsInPhoto = FXCollections.observableArrayList();
-			}
-			tagList.setItems(tagsInPhoto);
+		if (picturesList.get(0) != selected) {
+			imagesList.getSelectionModel().selectPrevious();
 		}
 	}
-	
 
-	@SuppressWarnings("unchecked")
-	public void addPhoto(ActionEvent e) throws IOException{
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter exfilJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-		FileChooser.ExtensionFilter exfilPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-		fileChooser.getExtensionFilters().addAll(exfilJPG, exfilPNG);
-        
-		File file = fileChooser.showOpenDialog(null);
-		if(file == null){
-			return;
+	public void nextButton(ActionEvent e) {
+		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
+		if (picturesList.get(picturesList.size() - 1) != selected) {
+			imagesList.getSelectionModel().selectNext();
 		}
-		
-		ImageView picture = new ImageView();
-		Image image = new Image(file.toURL().toString(),353,341,true,true);
-		picture.setImage(image);
-	    picture.setFitHeight(341);
-	    picture.setFitWidth(353);
-	    picture.setPreserveRatio(true);
-	    Calendar calendar = Calendar.getInstance();
-	    List<Tag> tags = new ArrayList<Tag>();		
-	    Photo photo = new Photo(file,tags);
-	    this.picturesList.add(photo);
-	    this.album.addPhoto(photo);
-	    
-	    imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){
-	    	 
-            @Override
-            public ListCell<Photo> call(ListView<Photo> p) {
-                 
-                ListCell<Photo> cell = new ListCell<Photo>(){
- 
-                    @Override
-                    protected void updateItem(Photo t, boolean boo) {
-                        super.updateItem(t, boo);
-                        if (t != null) {
-                        	ImageView imageView = new ImageView();
-                        	String path = t.getFile().getAbsolutePath();
-                    		InputStream instream = null;
-							try {
-								instream = new FileInputStream(path);
-							} catch (FileNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-                    		Image image = new Image(instream);
-                        	imageView.setImage(image);
-                        	imageView.setFitHeight(100);
-                        	imageView.setFitWidth(100);
-                        	imageView.setPreserveRatio(true);
-                        	setText(t.getCaption());
-                            setGraphic(imageView);
-                        }
-                    }
- 
-                };  
-                return cell;
-            }
-        });
-	    imagesList.setItems(picturesList);
-	    this.save();
 	}
 
-	    public void addCaption(ActionEvent e) throws IOException{
-	    	String caption = this.captionField.getText();
-	    	if(!(caption.equals(null))){
-	    		Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
-	    		target.setCaption(caption);
-		        imagesList.setItems(picturesList);
-		        imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){
-			    	 
-		            @Override
-		            public ListCell<Photo> call(ListView<Photo> p) {
-		                 
-		                ListCell<Photo> cell = new ListCell<Photo>(){
-		 
-		                    @Override
-		                    protected void updateItem(Photo t, boolean boo) {
-		                        super.updateItem(t, boo);
-		                        if (t != null) {
-		                        	ImageView imageView = new ImageView();
-		                        	String path = t.getFile().getAbsolutePath();
-		                    		InputStream instream = null;
-									try {
-										instream = new FileInputStream(path);
-									} catch (FileNotFoundException e) {
-										e.printStackTrace();
-									}
-		                    		Image image = new Image(instream);
-		                        	imageView.setImage(image);
-		                        	imageView.setFitHeight(100);
-		                        	imageView.setFitWidth(100);
-		                        	imageView.setPreserveRatio(true);
-		                        	setText(t.getCaption());
-		                            setGraphic(imageView);
-		                        }
-		                    }
-		 
-		                };  
-		                return cell;
-		            }
-		        });
-			    imagesList.setItems(picturesList);
-			    captionField.setText("");
-			    this.save();
-	    	}
-	    }
+	public void switchToMC(ActionEvent e) throws IOException {
+		FXMLLoader load = new FXMLLoader();
+		load.setLocation(getClass().getResource("/view/MoveItem.fxml"));
+		Parent parentView = (Parent) load.load();
+		MoveItemController movecontroller = load.getController();
+		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
+		movecontroller.setData(user, album, selected, members);
+		Scene adminView = new Scene(parentView);
+		Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		pictureStage.hide();
+		pictureStage.setScene(adminView);
+		pictureStage.show();
+	}
 
-	    public void addTag(ActionEvent e) throws IOException{
-	    	String name = tag.getText();
-	    	String value = this.newTagValue.getText();
-	    	if(!(name.equals(null) && value.equals(null))){
-	    		for(Tag tag: this.user.getAllTags()){
-	    			if(tag.getName().equals(name) && tag.getValue().equals(value)){
-	    				e.consume();;
-	    			}
-	    		}
-	    		
-	    		List<Photo> photos = new ArrayList<Photo>();
-	    		Photo tagged = (Photo) imagesList.getSelectionModel().getSelectedItem();
-	    		photos.add(tagged);
-	    		Tag newTag = new Tag(name,value, photos);
-	    		this.user.addTag(newTag);
-	    		tagged.addTag(newTag);
-	    		tagsInPhoto.add(newTag);
-	    		tagList.setItems(tagsInPhoto);
-	    		tag.setText("");
-	    		this.newTagValue.setText("");
-	    		this.save();
-	    	}
-
-	    }
-
-	    public void deleteTag(ActionEvent e) throws IOException{
-	    	Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
-	    	Tag selected = (Tag) tagList.getSelectionModel().getSelectedItem();
-	    	if(target.getTags().contains(selected)){
-	    		target.removeTag(selected);
-	    		this.user.deleteTag(selected);
-	    	}
-	    	tagsInPhoto = FXCollections.observableArrayList(target.getTags());
-	    	tagList.setItems(tagsInPhoto);
-	    	this.save();
-	    }
-
-	    public void back(ActionEvent e) throws IOException{
-			FXMLLoader loader = new FXMLLoader();
-		    loader.setLocation(getClass().getResource("/view/HomePage.fxml"));
-		    Parent parentView = (Parent)loader.load();
-		    HomePageController usercontroller = loader.getController();
-		    usercontroller.setData(user, members);
-		    Scene adminView = new Scene(parentView);
-		    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-		    pictureStage.hide();
-		    pictureStage.setScene(adminView);
-		    pictureStage.show();
-	    }
-
-	    public void displayMode(ActionEvent e) throws IOException{
-	    	FXMLLoader loader = new FXMLLoader();
-		    loader.setLocation(getClass().getResource("/view/ImageInfo.fxml"));
-		    Parent parentView = (Parent)loader.load();
-		    ImageInfoController imageInfoController = loader.getController();
-		    Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
-		    imageInfoController.setData(members, selected, album, user);
-		    imageInfoController.initalizeImage(selected);
-		    Scene adminView = new Scene(parentView, 1300, 850);
-		    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-		    pictureStage.hide();
-		    pictureStage.setScene(adminView);
-		    pictureStage.show();
-	    }
-
-	    public void updateTag(MouseEvent m){
-	    	Photo photo = (Photo) imagesList.getSelectionModel().getSelectedItem();
-	    	tagsInPhoto = FXCollections.observableArrayList(photo.getTags());
-	    	tagList.setItems(tagsInPhoto);
-	    }
-
-	    public void removePhoto(ActionEvent e) throws IOException{
-	    	Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
-	        if(this.album.getAllPhotos().contains(target)){
-	        	this.album.removePhoto(target);
-	        }
-	        picturesList.remove(target);
-	        imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){
-		    	 
-	            @Override
-	            public ListCell<Photo> call(ListView<Photo> p) {
-	                 
-	                ListCell<Photo> cell = new ListCell<Photo>(){
-	 
-	                    @Override
-	                    protected void updateItem(Photo t, boolean boo) {
-	                        super.updateItem(t, boo);
-	                        if (t != null) {
-	                        	ImageView imageView = new ImageView();
-	                        	String path = t.getFile().getAbsolutePath();
-	                    		InputStream instream = null;
-								try {
-									instream = new FileInputStream(path);
-								} catch (FileNotFoundException e) {
-									e.printStackTrace();
-								}
-	                    		Image image = new Image(instream);
-	                        	imageView.setImage(image);
-	                        	imageView.setFitHeight(100);
-	                        	imageView.setFitWidth(100);
-	                        	imageView.setPreserveRatio(true);
-	                        	setText(t.getCaption());
-	                            setGraphic(imageView);
-	                        }
-	                    }
-	 
-	                };  
-	                return cell;
-	            }
-	        });
-	        imagesList.setItems(picturesList);
-	        this.save();
-	    }
-
-        public void prevButton(ActionEvent e){
-	    	Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
-	    	if(picturesList.get(0) != selected){
-	    		imagesList.getSelectionModel().selectPrevious();
-	    	}
-	    }
-
-	    public void nextButton(ActionEvent e){
-	    	Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
-	    	if(picturesList.get(picturesList.size()-1) != selected){
-	    		imagesList.getSelectionModel().selectNext();
-	    	}
-	    }
-
-	    public void switchToMC(ActionEvent e) throws IOException{
-	    	FXMLLoader load = new FXMLLoader();
-		    load.setLocation(getClass().getResource("/view/MoveItem.fxml"));
-		    Parent parentView = (Parent)load.load();
-		    MoveItemController movecontroller = load.getController();
-		    Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
-		    movecontroller.setData(user,album,selected,members);
-		    Scene adminView = new Scene(parentView);
-		    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
-		    pictureStage.hide();
-		    pictureStage.setScene(adminView);
-		    pictureStage.show();
-	    }
-	    
-		public void save() throws IOException{
-			FXMLLoader loader = new FXMLLoader();
-		    loader.setLocation(getClass().getResource("/view/Admin.fxml"));
-		    Parent parentView = (Parent)loader.load();
-		    AdminController admincontroller = loader.getController();
-		    admincontroller.setUsers(this.members);
-		    admincontroller.save();
-		}
+	public void save() throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/view/Admin.fxml"));
+		Parent parentView = (Parent) loader.load();
+		AdminController admincontroller = loader.getController();
+		admincontroller.setUsers(this.members);
+		admincontroller.save();
+	}
 }

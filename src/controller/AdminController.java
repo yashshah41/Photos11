@@ -30,7 +30,6 @@ public class AdminController {
     @FXML
     TextField username;
 
-
     @FXML
     ListView<User> users;
 
@@ -56,7 +55,6 @@ public class AdminController {
             e.printStackTrace();
         }
     }
-    
 
     public void setUsers(List<User> list) {
         this.listOfVisibleUsers = FXCollections.observableArrayList(list);
@@ -66,19 +64,19 @@ public class AdminController {
     public void createUser(ActionEvent event) {
 
         String usernameInput = this.username.getText();
-        for(User u : listOfVisibleUsers) {
-            if(u.getUserName().equals(usernameInput)) {
+        for (User u : listOfVisibleUsers) {
+            if (u.getUserName().equals(usernameInput)) {
                 return;
             }
         }
 
         ArrayList<Album> albums = new ArrayList<Album>();
         List<Photo> photos = new ArrayList<Photo>();
-        File stock1 = new File("/stockImages/imageOne.png");
-        File stock2 = new File("/stockImages/imageTwo.png");
-        File stock3 = new File("/stockImages/imageThree.png");
-        File stock4 = new File("/stockImages/imageFour.png");
-        File stock5 = new File("/stockImages/imageFive.png");
+        File stock1 = new File("stockImages/imageOne.png");
+        File stock2 = new File("stockImages/imageTwo.png");
+        File stock3 = new File("stockImages/imageThree.png");
+        File stock4 = new File("stockImages/imageFour.png");
+        File stock5 = new File("stockImages/imageFive.png");
         photos.add(new Photo(stock1, new ArrayList<Tag>()));
         photos.add(new Photo(stock2, new ArrayList<Tag>()));
         photos.add(new Photo(stock3, new ArrayList<Tag>()));
@@ -116,7 +114,6 @@ public class AdminController {
             this.save();
         }
     }
-    
 
     public void save() {
         try {
