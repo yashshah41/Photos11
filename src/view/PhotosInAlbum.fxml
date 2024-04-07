@@ -33,7 +33,7 @@
       <Label fx:id="caption" layoutX="440.0" layoutY="250.0" text="Caption:" />
 
       <!-- TextField for entering or updating the caption -->
-      <TextField fx:id="capField" layoutX="380.0" layoutY="260.0" />
+      <TextField fx:id="capField" layoutX="390.0" layoutY="270.0" />
 
       <!-- Button for updating the caption -->
       <Button fx:id="updateCaptionButton" layoutX="410.0" layoutY="300.0" mnemonicParsing="false" onAction="#addCaption" text="Update Caption" />
