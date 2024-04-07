@@ -6,39 +6,36 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<!-- ImageInfo.fxml -->
-<!-- This XML file defines the layout and controls for displaying images along with associated information. -->
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImageInfoController">
+<AnchorPane prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImageInfoController">
    <children>
       <!-- TextField for displaying image caption -->
-      <TextField fx:id="captionField" layoutX="470.0" layoutY="810.0" />
+      <TextField fx:id="capField" layoutX="470.0" layoutY="810.0" prefWidth="200.0" />
       
       <!-- TextField for displaying image date -->
-      <TextField fx:id="dateField" layoutX="268.0" layoutY="810.0" />
+      <TextField fx:id="dateField" layoutX="268.0" layoutY="810.0" prefWidth="100.0" />
       
       <!-- ListView for displaying image tags -->
-      <ListView fx:id="tagListView" layoutX="40.0" layoutY="780.0" prefHeight="70.0" prefWidth="200.0" />
+      <ListView fx:id="tagList" layoutX="40.0" layoutY="780.0" prefHeight="70.0" prefWidth="200.0" />
       
       <!-- Label indicating the presence of tags -->
-      <Label fx:id="tagsLabel" layoutX="120.0" layoutY="750.0" text="Tags:" />
+      <Label fx:id="tags" layoutX="40.0" layoutY="750.0" text="Tags:" />
       
       <!-- Label indicating the date of the image -->
-      <Label fx:id="dateLabel" layoutX="340.0" layoutY="790.0" text="Date:" />
+      <Label fx:id="dateLabel" layoutX="268.0" layoutY="790.0" text="Date:" />
       
       <!-- Label indicating the caption of the image -->
-      <Label fx:id="captionLabel" layoutX="520.0" layoutY="790.0" text="Caption:" />
+      <Label fx:id="captionLabel" layoutX="470.0" layoutY="790.0" text="Caption:" />
       
       <!-- Button for displaying the next image -->
-      <Button fx:id="nextButton" layoutX="810.0" layoutY="800.0" mnemonicParsing="false" onAction="#next" text="Next" />
+      <Button fx:id="nextButton" layoutX="810.0" layoutY="700" mnemonicParsing="false" onAction="#next" text="Next"/>
       
       <!-- Button for displaying the previous image -->
-      <Button fx:id="prevButton" layoutX="730.0" layoutY="800.0" mnemonicParsing="false" onAction="#prev" text="Prev" />
+      <Button fx:id="prevButton" layoutX="700.0" layoutY="850.0" mnemonicParsing="false" onAction="#prev" text="Prev"/>
       
       <!-- ImageView for displaying the image -->
-      <ImageView fx:id="picView" fitHeight="750.0" fitWidth="1300.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="picView" fitHeight="700.0" fitWidth="1286.0" layoutX="6.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
       
       <!-- Button for returning to the previous screen -->
-      <Button fx:id="backButton" layoutX="910.0" layoutY="800.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button fx:id="backButton" layoutX="920.0" layoutY="850.0" mnemonicParsing="false" onAction="#back" text="Back" prefWidth="100.0" prefHeight="30.0" />
    </children>
 </AnchorPane>
