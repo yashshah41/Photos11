@@ -141,7 +141,7 @@ public class HomePageController {
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
 				Parent admin_parent = (Parent) loader.load();
-				OpenAlbumController oacontroller = loader.getController();
+				PhotosInAlbumController oacontroller = loader.getController();
 				oacontroller.setData(target, listOfUsers, user);
 				Scene admin_scene = new Scene(admin_parent);
 				Stage photoStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -153,6 +153,7 @@ public class HomePageController {
 			}
 		}
 	}
+	
 	
 
 	public void renameContent(ActionEvent event) throws IOException {

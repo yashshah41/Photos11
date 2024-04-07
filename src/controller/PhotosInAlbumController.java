@@ -37,7 +37,7 @@ import javax.imageio.ImageIO;
 
 import app.*;
 
-public class OpenAlbumController {
+public class PhotosInAlbumController {
 
 	@FXML
 	ListView<Photo> imagesList;
@@ -106,48 +106,47 @@ public class OpenAlbumController {
 		if(album.getAllPhotos() == null){
 			return;
 		}
-		picturesList =FXCollections.observableArrayList(album.getAllPhotos());
-		imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){	 
-            @Override
-            public ListCell<Photo> call(ListView<Photo> p) {
-                 
-                ListCell<Photo> cell = new ListCell<Photo>(){
- 
-                    @Override
-                    protected void updateItem(Photo t, boolean boo) {
-                        super.updateItem(t, boo);
-                        if (t != null) {
-                        	ImageView imageView = new ImageView();
-                        	String path = t.getFile().getAbsolutePath();
-                    		InputStream instream = null;
+		picturesList = FXCollections.observableArrayList(album.getAllPhotos());
+		imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){     
+			@Override
+			public ListCell<Photo> call(ListView<Photo> p) {
+				 
+				ListCell<Photo> cell = new ListCell<Photo>(){
+	 
+					@Override
+					protected void updateItem(Photo t, boolean boo) {
+						super.updateItem(t, boo);
+						if (t != null) {
+							ImageView imageView = new ImageView();
+							String path = t.getFile().getAbsolutePath();
+							InputStream instream = null;
 							try {
 								instream = new FileInputStream(path);
 							} catch (FileNotFoundException e) {
 								e.printStackTrace();
 							}
-                    		Image image = new Image(instream);
-                        	imageView.setImage(image);
-                        	imageView.setFitHeight(100);
-                        	imageView.setFitWidth(100);
-                        	imageView.setPreserveRatio(true);
-                        	setText(t.getCaption());
-                            setGraphic(imageView);
-                        }
-                    }
- 
-                };  
-                return cell;
-            }
-        });
-	    imagesList.setItems(picturesList);
-	    imagesList.getSelectionModel().selectFirst();
-	    Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
-	    if(selected != null){
-	    tagsInPhoto = FXCollections.observableArrayList(selected.getTags());
-	    tagList.setItems(tagsInPhoto);
-	    }
-	    
+							Image image = new Image(instream);
+							imageView.setImage(image);
+							imageView.setFitHeight(100);
+							imageView.setFitWidth(100);
+							imageView.setPreserveRatio(true);
+							setText(t.getCaption());
+							setGraphic(imageView);
+						}
+					}
+				};  
+				return cell;
+			}
+		});
+		imagesList.setItems(picturesList);
+		imagesList.getSelectionModel().selectFirst();
+		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
+		if(selected != null){
+			tagsInPhoto = FXCollections.observableArrayList(selected.getTags());
+			tagList.setItems(tagsInPhoto);
+		}
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	public void addPhoto(ActionEvent e) throws IOException{

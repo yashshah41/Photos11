@@ -89,7 +89,7 @@ public class ImageInfoController {
 		FXMLLoader loader = new FXMLLoader();
 	    loader.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
 	    Parent oa_parent = (Parent)loader.load();
-	    OpenAlbumController oacontroller = loader.getController();
+	    PhotosInAlbumController oacontroller = loader.getController();
 	    oacontroller.setData(album, members, user);
 	    Scene admin_scene = new Scene(oa_parent);
 	    Stage photoStage = (Stage)((Node) e.getSource()).getScene().getWindow();

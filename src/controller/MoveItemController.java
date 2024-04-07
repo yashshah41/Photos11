@@ -64,7 +64,7 @@ public class MoveItemController {
 				FXMLLoader load = new FXMLLoader();
 			    load.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
 			    Parent parentView = (Parent)load.load();
-			    OpenAlbumController oacontroller = load.getController();
+			    PhotosInAlbumController oacontroller = load.getController();
 			    oacontroller.setData(album,members,user);
 			    Scene adminView = new Scene(parentView);
 			    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();
@@ -92,7 +92,7 @@ public class MoveItemController {
 		FXMLLoader load = new FXMLLoader();
 	    load.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
 	    Parent parentView = (Parent)load.load();
-	    OpenAlbumController oacontroller = load.getController();
+	    PhotosInAlbumController oacontroller = load.getController();
 	    oacontroller.setData(album, members, user);
 	    Scene adminView = new Scene(parentView);
 	    Stage pictureStage = (Stage)((Node) e.getSource()).getScene().getWindow();

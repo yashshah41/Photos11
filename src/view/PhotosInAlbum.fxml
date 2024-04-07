@@ -9,7 +9,7 @@
 <!-- PhotosInAlbum.fxml -->
 <!-- This XML file defines the layout for managing photos in an album. -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OpenAlbumController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PhotosInAlbumController">
    <children>
       <!-- Button for adding a new photo to the album -->
       <Button fx:id="addPhotoButton" layoutX="15.0" layoutY="350.0" mnemonicParsing="false" onAction="#addPhoto" text="Add Photo" />
@@ -39,10 +39,10 @@
       <Button fx:id="updateCaptionButton" layoutX="410.0" layoutY="300.0" mnemonicParsing="false" onAction="#addCaption" text="Update Caption" />
 
       <!-- ToggleButton for navigating to the next photo -->
-      <ToggleButton fx:id="nextButton" layoutX="230.0" layoutY="350.0" mnemonicParsing="false" onAction="#next" text="Next" />
+      <ToggleButton fx:id="nextButton" layoutX="230.0" layoutY="350.0" mnemonicParsing="false" onAction="#nextButton" text="Next" />
 
       <!-- ToggleButton for navigating to the previous photo -->
-      <ToggleButton fx:id="prevButton" layoutX="280.0" layoutY="350.0" mnemonicParsing="false" onAction="#prev" text="Previous" />
+      <ToggleButton fx:id="prevButton" layoutX="280.0" layoutY="350.0" mnemonicParsing="false" onAction="#prevButton" text="Previous" />
 
       <!-- Button for switching to move or copy mode -->
       <Button fx:id="moveOrCopyButton" layoutX="370.0" layoutY="350.0" mnemonicParsing="false" onAction="#switchToMC" text="Move or Copy" />

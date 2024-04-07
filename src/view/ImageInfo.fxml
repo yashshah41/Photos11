@@ -9,7 +9,7 @@
 <!-- ImageInfo.fxml -->
 <!-- This XML file defines the layout and controls for displaying images along with associated information. -->
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DisplayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ImageInfoController">
    <children>
       <!-- TextField for displaying image caption -->
       <TextField fx:id="captionField" layoutX="470.0" layoutY="810.0" />
