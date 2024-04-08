@@ -95,16 +95,17 @@ public class AdminController {
         photos.add(new Photo(stock5, new ArrayList<Tag>()));
         Album album = new Album("Stock Album", photos);
         albums.add(album);
-        User newUser = new User(usernameInput, albums);
-        // System.out.println(newUser.allAlbums.size());
+        User newUser = new User(usernameInput);
+        if (usernameInput == "stock") {
+            newUser = new User(usernameInput, albums);
+        }
         listOfVisibleUsers.add(newUser);
         this.username.clear();
         users.setItems(listOfVisibleUsers);
         this.save();
     }
 
-    
-    /** 
+    /**
      * @param e
      * @throws IOException
      */

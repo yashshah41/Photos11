@@ -171,6 +171,7 @@ public class PhotosInAlbumController {
 
 		// Populate tagNameList with unique tag names
 		Set<String> uniqueTagNames = user.getAllTags().stream().map(Tag::getName).collect(Collectors.toSet());
+		System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
 		uniqueTagNames.add("location");
 		uniqueTagNames.add("person");
 		uniqueTagNames.add("event");
