@@ -77,7 +77,7 @@ public class ImageInfoController {
 	 * Sets the data for the ImageInfo view, initializes the view components with
 	 * the given photo, album, user, and the list of members.
 	 *
-	 * @param members The list of users of the application.
+	 * @param listOfAlUsers The list of users of the application.
 	 * @param photo   The photo to be displayed.
 	 * @param album   The album containing the photo.
 	 * @param user    The user viewing the photo.

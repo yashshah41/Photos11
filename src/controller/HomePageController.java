@@ -32,7 +32,7 @@ import java.text.SimpleDateFormat;
  * It provides functionalities such as displaying albums, creating new content,
  * and navigating to other pages.
  * 
- * @author Yash Shah & Ayush Gupta
+ * @author Yash Shah and Ayush Gupta
  * @version 1.0
  */
 
@@ -295,7 +295,7 @@ public class HomePageController {
      * @param event The event that triggered the switch to search action.
      * @throws IOException If an I/O error occurs.
      */
-	public void switchToSearch(ActionEvent e)
+	public void switchToSearch(ActionEvent event)
 			throws IOException {
 		FXMLLoader load = new FXMLLoader();
 		load.setLocation(getClass().getResource("/view/SearchItem.fxml"));
@@ -303,7 +303,7 @@ public class HomePageController {
 		SearchController SearchController = load.getController();
 		SearchController.setData(user.getAllAlbums(), user, listOfUsers);
 		Scene adminView = new Scene(adm_parent);
-		Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		Stage pictureStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		pictureStage.hide();
 		pictureStage.setScene(adminView);
 		pictureStage.show();

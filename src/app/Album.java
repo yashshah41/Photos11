@@ -1,9 +1,4 @@
-/**
- * The Album class represents a collection of photographs in the application.
- * It contains a list of photos, along with methods to interact with the collection.
- * 
- * @author Ayush Gupta & Yash Shah
- */
+
 
 package app;
 
@@ -11,6 +6,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.util.Calendar;
+
+
+/**
+ * The Album class represents a collection of photographs in the application.
+ * It contains a list of photos, along with methods to interact with the collection.
+ * 
+ * @author Ayush Gupta and Yash Shah
+ */
+
 
 public class Album implements Serializable{
     private static final long serialVersionUID = 6641189840742017975L;

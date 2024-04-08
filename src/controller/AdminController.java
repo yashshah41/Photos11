@@ -67,6 +67,7 @@ public class AdminController {
             if (file.exists()) {
                 FileInputStream fileIn = new FileInputStream(file);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
+                @SuppressWarnings("unchecked")
                 List<User> loadedUsers = (List<User>) in.readObject();
                 listOfVisibleUsers.addAll(loadedUsers);
                 in.close();
@@ -80,10 +81,10 @@ public class AdminController {
     /**
      * Sets the list of visible users in the ListView component.
      * 
-     * @param list The list of users to display in the ListView.
+     * @param x The list of users to display in the ListView.
      */
-    public void setUsers(List<User> list) {
-        this.listOfVisibleUsers = FXCollections.observableArrayList(list);
+    public void setUsers(List<User> x) {
+        this.listOfVisibleUsers = FXCollections.observableArrayList(x);
         users.setItems(listOfVisibleUsers);
     }
 
@@ -91,9 +92,7 @@ public class AdminController {
      * Handles the creation of a new user account. It checks for duplicates and
      * "admin" as a username,
      * creates a new user with default albums and photos, and updates the view.
-     * 
      * @param event The event that triggers the creation of a new user.
-     * @throws IOException If an I/O error occurs during user creation.
      */
     public void createUser(ActionEvent event) {
         String usernameInput = this.username.getText();
