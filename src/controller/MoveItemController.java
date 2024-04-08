@@ -22,8 +22,16 @@ import javafx.stage.Stage;
 
 import app.*;
 
+/**
+ * Controller for handling the movement and copying of photos between albums.
+ * Provides functionality to move or copy a selected photo to another album,
+ * and to cancel the action or finish and return to the album view.
+ * 
+ * @version 1.0
+ * @author Ayush Gupta
+ */
 public class MoveItemController {
-    @FXML 
+    @FXML
     Button moveButton;
 
     @FXML
@@ -35,7 +43,7 @@ public class MoveItemController {
     @FXML
     Button finishButton;
 
-    @FXML 
+    @FXML
     ListView<Album> itemsToMoveList;
 
     @FXML
@@ -46,18 +54,21 @@ public class MoveItemController {
     Album album;
     Photo currentPhoto;
     List<Album> totalAlbums;
-    
+
     ObservableList<Album> albumsToMove = FXCollections.observableArrayList();
     ObservableList<Album> albumsToCopy = FXCollections.observableArrayList();
-    
-    
-    /** 
-     * @param user
-     * @param album
-     * @param photo
-     * @param members
+
+    /**
+     * Initializes the controller with the user's albums and the photo to be moved
+     * or copied.
+     * Sets up the lists of albums where the photo can be moved or copied.
+     * 
+     * @param user    The current user.
+     * @param album   The current album containing the photo.
+     * @param photo   The photo to be moved or copied.
+     * @param members The list of all users.
      */
-    public void setData(User user, Album album, Photo photo, List<User> members){
+    public void setData(User user, Album album, Photo photo, List<User> members) {
         this.user = user;
         this.album = album;
         this.currentPhoto = photo;
@@ -81,7 +92,7 @@ public class MoveItemController {
                 };
             }
         });
-        
+
         itemsToCopyList.setItems(albumsToCopy);
         itemsToCopyList.setCellFactory(new Callback<ListView<Album>, ListCell<Album>>() {
             @Override
@@ -101,10 +112,12 @@ public class MoveItemController {
         });
     }
 
-    
-    /** 
-     * @param e
-     * @throws IOException
+    /**
+     * Handles the action to cancel moving or copying the photo and returns to the
+     * album view.
+     * 
+     * @param e The event triggered by clicking the cancel button.
+     * @throws IOException If loading the PhotosInAlbum view fails.
      */
     public void cancel(ActionEvent e) throws IOException {
         FXMLLoader load = new FXMLLoader();
@@ -119,10 +132,12 @@ public class MoveItemController {
         pictureStage.show();
     }
 
-    
-    /** 
-     * @param e
-     * @throws IOException
+    /**
+     * Moves the selected photo to the selected album, removing it from the current
+     * album.
+     * 
+     * @param e The event triggered by clicking the move button.
+     * @throws IOException If an IO operation fails during the move.
      */
     public void moveItem(ActionEvent e) throws IOException {
         Album target = (Album) itemsToMoveList.getSelectionModel().getSelectedItem();
@@ -130,16 +145,30 @@ public class MoveItemController {
         album.removePhoto(currentPhoto);
         this.save();
     }
-    
-	public void copyItem(ActionEvent e) throws IOException {
-		Album target = itemsToCopyList.getSelectionModel().getSelectedItem();
-		if (target != album) { 
-			target.addPhoto(currentPhoto);
-			save();
-		} 
-	}
-	
-    
+
+    /**
+     * Copies the selected photo to the selected album, retaining it in the current
+     * album.
+     * 
+     * @param e The event triggered by clicking the copy button.
+     * @throws IOException If an IO operation fails during the copy.
+     */
+    public void copyItem(ActionEvent e) throws IOException {
+        Album target = itemsToCopyList.getSelectionModel().getSelectedItem();
+        if (target != album) {
+            target.addPhoto(currentPhoto);
+            save();
+        }
+    }
+
+    /**
+     * Completes the move or copy action and returns to the album view, saving
+     * changes.
+     * 
+     * @param e The event triggered by clicking the finish button.
+     * @throws IOException If loading the PhotosInAlbum view fails.
+     */
+
     public void finish(ActionEvent e) throws IOException {
         FXMLLoader load = new FXMLLoader();
         load.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
@@ -153,6 +182,13 @@ public class MoveItemController {
         pictureStage.show();
         this.save();
     }
+
+    /**
+     * Saves changes to the users or albums, typically called after a photo is moved
+     * or copied.
+     * 
+     * @throws IOException If an IO operation fails during the save.
+     */
 
     public void save() throws IOException {
         FXMLLoader loader = new FXMLLoader();

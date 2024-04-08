@@ -178,20 +178,17 @@ public class HomePageController {
 	}
 
 	/**
-	 * Handles the creation of a new album. It creates a new album with the name
-	 * provided by the user
-	 * and updates the albums list.
+	 * Handles the creation of new content.
 	 * 
-	 * @param event The action event that triggered the create.
-	 * @throws IOException If there is an issue loading the FXML file during UI
-	 *                     update.
+	 * @param event The event that triggered the create action.
+	 * @throws IOException If an I/O error occurs.
 	 */
 
 	public void createNewContent(ActionEvent event) throws IOException {
 		String contentNameText = contentName.getText().trim();
 		if (contentName.getText().isEmpty() || contentNameText == " ") {
 			return;
-		} 
+		}
 		boolean albumExists = user.getAllAlbums().stream()
 				.anyMatch(album -> album.getName().equalsIgnoreCase(contentNameText));
 		if (!albumExists) {
@@ -211,11 +208,10 @@ public class HomePageController {
 	}
 
 	/**
-	 * Opens the view for the selected album allowing the user to view the contents
-	 * of the album.
-	 * 
-	 * @param event The action event that triggered the view.
-	 */
+     * Handles the viewing of content. It loads the view for the selected album.
+     * 
+     * @param event The event that triggered the view action.
+     */
 
 	public void viewContent(ActionEvent event) {
 		Album target = null;
@@ -244,7 +240,7 @@ public class HomePageController {
 	}
 
 	/**
-	 * Renames the selected album to the new name provided by the user.
+	 * Renames the selected album to the new name provided.
 	 * 
 	 * @param event The action event that triggered the rename.
 	 * @throws IOException If there is an issue loading the FXML file during UI
@@ -294,9 +290,11 @@ public class HomePageController {
 	}
 
 	/**
-	 * @param e
-	 * @throws IOException
-	 */
+     * Switches to the search view.
+     * 
+     * @param event The event that triggered the switch to search action.
+     * @throws IOException If an I/O error occurs.
+     */
 	public void switchToSearch(ActionEvent e)
 			throws IOException {
 		FXMLLoader load = new FXMLLoader();
@@ -311,6 +309,12 @@ public class HomePageController {
 		pictureStage.show();
 	}
 
+
+	/**
+     * Saves the current state, writing to users.ser
+     * 
+     * @throws IOException If an I/O error occurs while saving.
+     */
 	public void save() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Admin.fxml"));
 		Parent root = loader.load();

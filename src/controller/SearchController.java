@@ -1,11 +1,9 @@
 package controller;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
 import java.io.IOException;
-
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -28,7 +26,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.util.Callback;
+
+/**
+ * Controls the search functionality within the application, allowing users to
+ * search for photos
+ * based on dates or tags and to create new albums from the search results.
+ */
 
 public class SearchController {
 	@FXML
@@ -46,9 +49,25 @@ public class SearchController {
 	private List<Album> albums;
 	List<User> users;
 
+	/**
+	 * Initializes the controller class. This method is automatically called
+	 * after the FXML file has been loaded. It sets up the search type choices.
+	 * 
+	 * @version 1.0
+	 * @author Ayush Gupta
+	 */
+
 	public void initialize() {
 		searchType.setItems(FXCollections.observableArrayList("AND", "OR"));
 	}
+
+	/**
+	 * Sets the necessary data for the search functionality.
+	 * 
+	 * @param albums The list of albums to search from.
+	 * @param user   The user performing the search.
+	 * @param users  The list of all users, for saving changes globally.
+	 */
 
 	public void setData(List<Album> albums, User user, List<User> users) {
 		this.albums = albums;
@@ -56,11 +75,24 @@ public class SearchController {
 		this.users = users;
 	}
 
+	/**
+	 * Converts a Date to LocalDate using the system's default zone.
+	 * 
+	 * @param dateToConvert The date to convert.
+	 * @return The corresponding LocalDate.
+	 */
+
 	private LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
 		return dateToConvert.toInstant()
 				.atZone(ZoneId.systemDefault())
 				.toLocalDate();
 	}
+
+	/**
+	 * Searches for photos by a specified date range and displays the results.
+	 * 
+	 * @param event The action event triggering this search.
+	 */
 
 	@FXML
 	private void searchPhotosByDate(ActionEvent event) {
@@ -81,6 +113,12 @@ public class SearchController {
 		displayPhotos(matchedPhotos);
 
 	}
+
+	/**
+	 * Searches for photos by specified tags and displays the results.
+	 * 
+	 * @param event The action event triggering this search.
+	 */
 
 	@FXML
 	private void searchPhotosByTag(ActionEvent event) {
@@ -118,7 +156,14 @@ public class SearchController {
 		displayPhotos(matchedPhotos);
 	}
 
-	private void displayPhotos(List<Photo> photos) {
+	/**
+	 * Displays the search results in a ListView with custom cell formatting to show
+	 * photo thumbnails.
+	 * 
+	 * @param photos The list of photos that matched the search criteria.
+	 */
+
+	public void displayPhotos(List<Photo> photos) {
 		result.setItems(FXCollections.observableArrayList(photos));
 		result.setCellFactory(lv -> new ListCell<Photo>() {
 			@Override
@@ -145,6 +190,13 @@ public class SearchController {
 		});
 	}
 
+	/**
+	 * Creates a new album with the specified name from the search results.
+	 * 
+	 * @param event The action event triggering this operation.
+	 * @throws IOException If there is an issue creating the album.
+	 */
+
 	@FXML
 	private void createAlbum(ActionEvent event) throws IOException {
 		String name = albumName.getText().trim();
@@ -152,9 +204,16 @@ public class SearchController {
 			Album newAlbum = new Album(name, new ArrayList<>(result.getItems()));
 			user.addAlbum(newAlbum);
 			backToHome(event);
+			this.save();
 		}
 	}
 
+	/**
+	 * Returns the user to the home page.
+	 * 
+	 * @param e The action event triggering this operation.
+	 * @throws IOException If there is an issue loading the home page.
+	 */
 	@FXML
 	public void backToHome(ActionEvent e) throws IOException {
 		FXMLLoader load = new FXMLLoader();
@@ -167,6 +226,22 @@ public class SearchController {
 		pictureStage.hide();
 		pictureStage.setScene(adminView);
 		pictureStage.show();
+	}
+
+	/**
+	 * Saves the current state, including any changes made to the users' albums.
+	 */
+
+	public void save() {
+		try {
+			FileOutputStream fileOut = new FileOutputStream("users.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(new ArrayList<User>(users));
+			out.close();
+			fileOut.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -39,62 +39,54 @@ import javax.imageio.ImageIO;
 
 import app.*;
 
+/**
+ * Controller class for managing photos within an album.
+ * This includes displaying photos and their details, adding and removing
+ * photos,
+ * updating photo captions and tags, and navigating between photos.
+ * 
+ * @version 1.0
+ * @author Yash Shah
+ */
+
 public class PhotosInAlbumController {
 
 	@FXML
 	ListView<Photo> imagesList;
-
 	@FXML
 	Label tags;
-
 	@FXML
 	TextField tag;
-
 	@FXML
 	ListView<Tag> tagList;
-
 	@FXML
 	ListView<String> tagNameList;
-
 	@FXML
 	Button addTagButton;
-
 	@FXML
 	Button deleteTagButton;
-
 	@FXML
 	TextField captionField;
-
 	@FXML
 	Label captionLabel;
-
 	@FXML
 	Button updateCaptionButton;
-
 	@FXML
 	Button addPhotoButton;
-
 	@FXML
 	Button removePhotoButton;
-
 	@FXML
 	Button backButton;
-
 	@FXML
 	ToggleButton nextButton;
-
 	@FXML
 	ToggleButton prevButton;
-
 	@FXML
 	Button moveOrCopyButton;
-
 	@FXML
 	Button displayModeButton;
-
 	@FXML
 	TextField newTagValue;
-
 	@FXML
 	Label tagLabel;
 
@@ -104,11 +96,14 @@ public class PhotosInAlbumController {
 	List<User> members;
 	User user;
 
-	
-	/** 
-	 * @param album
-	 * @param members
-	 * @param user
+	/**
+	 * Initializes the controller with data for a specific album, user, and list of
+	 * users.
+	 * It sets up the photo list and tag list views.
+	 * 
+	 * @param album   The album being viewed.
+	 * @param members The list of all users.
+	 * @param user    The current user.
 	 */
 	public void setData(Album album, List<User> members, User user) {
 		this.album = album;
@@ -117,7 +112,6 @@ public class PhotosInAlbumController {
 		if (album.getAllPhotos() != null) {
 			picturesList = FXCollections.observableArrayList(album.getAllPhotos());
 		} else {
-			// Initialize with an empty list to avoid NullPointerException
 			picturesList = FXCollections.observableArrayList();
 		}
 		imagesList.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>() {
@@ -127,12 +121,12 @@ public class PhotosInAlbumController {
 				ListCell<Photo> cell = new ListCell<Photo>() {
 
 					@Override
-					protected void updateItem(Photo t, boolean boo) {
-						super.updateItem(t, boo);
+					protected void updateItem(Photo photoToBeUpdated, boolean val) {
+						super.updateItem(photoToBeUpdated, val);
 						setText(null);
 						setGraphic(null);
-						if (t != null) {
-							File file = t.getFile();
+						if (photoToBeUpdated != null) {
+							File file = photoToBeUpdated.getFile();
 							if (file.exists() && !file.isDirectory()) {
 								try (InputStream instream = new FileInputStream(file)) {
 									Image image = new Image(instream);
@@ -140,7 +134,7 @@ public class PhotosInAlbumController {
 									imageView.setFitHeight(100);
 									imageView.setFitWidth(100);
 									imageView.setPreserveRatio(true);
-									setText(t.getCaption());
+									setText(photoToBeUpdated.getCaption());
 									setGraphic(imageView);
 								} catch (IOException e) {
 									e.printStackTrace();
@@ -169,28 +163,28 @@ public class PhotosInAlbumController {
 			tagList.setItems(tagsInPhoto);
 		}
 
-		// Populate tagNameList with unique tag names
 		Set<String> uniqueTagNames = user.getAllTags().stream().map(Tag::getName).collect(Collectors.toSet());
-				// System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
 
 		uniqueTagNames.add("location");
 		uniqueTagNames.add("person");
 		uniqueTagNames.add("event");
-		// System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
 		tagNameList.setItems(FXCollections.observableArrayList(uniqueTagNames));
 	}
 
-	
-	/** 
-	 * @param e
-	 * @throws IOException
+	/**
+	 * Handles adding a new photo to the album from the filesystem.
+	 * 
+	 * @param e The event triggered by clicking the add photo button.
+	 * @throws IOException If an error occurs during file selection or photo
+	 *                     addition.
 	 */
 	@SuppressWarnings("unchecked")
 	public void addPhoto(ActionEvent e) throws IOException {
 		FileChooser fileChooser = new FileChooser();
 
-		FileChooser.ExtensionFilter exfilJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG", "*.png", "*.bmp", "*.gif");
-	
+		FileChooser.ExtensionFilter exfilJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG", "*.png",
+				"*.bmp", "*.gif");
+
 		fileChooser.getExtensionFilters().addAll(exfilJPG);
 		File file = fileChooser.showOpenDialog(null);
 		if (file == null) {
@@ -206,9 +200,9 @@ public class PhotosInAlbumController {
 
 							@Override
 							public ListCell<Photo> call(ListView<Photo> p) {
-				
+
 								ListCell<Photo> cell = new ListCell<Photo>() {
-				
+
 									@Override
 									protected void updateItem(Photo t, boolean boo) {
 										super.updateItem(t, boo);
@@ -230,7 +224,7 @@ public class PhotosInAlbumController {
 											setGraphic(imageView);
 										}
 									}
-				
+
 								};
 								return cell;
 							}
@@ -241,7 +235,7 @@ public class PhotosInAlbumController {
 					}
 				}
 			}
-			
+
 		}
 
 		ImageView picture = new ImageView();
@@ -293,6 +287,13 @@ public class PhotosInAlbumController {
 		this.save();
 	}
 
+	/**
+	 * Updates the caption of the selected photo.
+	 * 
+	 * @param e The event triggered by clicking the update caption button.
+	 * @throws IOException If an error occurs during caption update.
+	 */
+
 	public void addCaption(ActionEvent e) throws IOException {
 		String caption = this.captionField.getText();
 		if (!(caption.equals(null))) {
@@ -338,59 +339,80 @@ public class PhotosInAlbumController {
 		}
 	}
 
+	/**
+	 * Adds a new tag to the selected photo.
+	 * 
+	 * @param e The event triggered by clicking the add tag button.
+	 * @throws IOException If an error occurs during tag addition.
+	 */
+
 	public void addTag(ActionEvent e) throws IOException {
 		String name = tag.getText().trim();
 		String value = this.newTagValue.getText().trim();
-	
+
 		if (!name.isEmpty() && !value.isEmpty()) {
 			Photo selectedPhoto = imagesList.getSelectionModel().getSelectedItem();
 			if (selectedPhoto == null) {
 				return;
 			}
-	
+
 			boolean duplicateExists = selectedPhoto.getTags().stream()
 					.anyMatch(t -> t.getName().equalsIgnoreCase(name) && t.getValue().equalsIgnoreCase(value));
-	
+
 			if (!duplicateExists) {
 				List<Photo> photosForNewTag = new ArrayList<>();
 				photosForNewTag.add(selectedPhoto);
-	
+
 				Tag newTag = new Tag(name, value, photosForNewTag);
 				selectedPhoto.addTag(newTag);
 				tagsInPhoto.add(newTag);
 				tagList.setItems(tagsInPhoto);
-	
-				user.addTag(newTag); 
-				refreshTagNameList(); 
+
+				user.addTag(newTag);
+				refreshTagNameList();
 			}
-	
+
 			tag.setText("");
 			this.newTagValue.setText("");
 			this.save();
 		}
 	}
 
+	/**
+	 * Handles click event on tagNameList, filling the tag TextField with the
+	 * selected tag name.
+	 * 
+	 * @param event The mouse event triggered by clicking a tag name.
+	 */
 
 	public void tagNameListClicked(MouseEvent event) {
 		if (event.getClickCount() == 1) {
 			String selectedTagName = tagNameList.getSelectionModel().getSelectedItem();
-			tag.setText(selectedTagName); 
+			tag.setText(selectedTagName);
 		}
 	}
-	
 
+	/**
+	 * Refreshes the list of unique tag names available for tagging photos.
+	 */
 	private void refreshTagNameList() {
 		Set<String> uniqueTagNames = user.getAllTags().stream().map(Tag::getName).collect(Collectors.toSet());
-				// System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
+		// System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
 
 		uniqueTagNames.add("location");
 		uniqueTagNames.add("person");
 		uniqueTagNames.add("event");
 		tagNameList.setItems(FXCollections.observableArrayList(uniqueTagNames));
-		// System.out.println("Refreshing tag names, found: " + uniqueTagNames.size() + " unique names");
+		// System.out.println("Refreshing tag names, found: " + uniqueTagNames.size() +
+		// " unique names");
 	}
-	
 
+	/**
+	 * Deletes the selected tag from the selected photo.
+	 * 
+	 * @param e The event triggered by clicking the delete tag button.
+	 * @throws IOException If an error occurs during tag deletion.
+	 */
 	public void deleteTag(ActionEvent e) throws IOException {
 		Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
 		Tag selected = (Tag) tagList.getSelectionModel().getSelectedItem();
@@ -402,6 +424,13 @@ public class PhotosInAlbumController {
 		tagList.setItems(tagsInPhoto);
 		this.save();
 	}
+
+	/**
+	 * Returns to the album view.
+	 * 
+	 * @param e The event triggered by clicking the back button.
+	 * @throws IOException If an error occurs loading the album view.
+	 */
 
 	public void back(ActionEvent e) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -415,6 +444,13 @@ public class PhotosInAlbumController {
 		pictureStage.setScene(adminView);
 		pictureStage.show();
 	}
+
+	/**
+	 * Switches to the detailed image information view for the selected photo.
+	 * 
+	 * @param e The event triggered by clicking the display mode button.
+	 * @throws IOException If an error occurs loading the detailed view.
+	 */
 
 	public void displayMode(ActionEvent e) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
@@ -431,11 +467,24 @@ public class PhotosInAlbumController {
 		pictureStage.show();
 	}
 
+	/**
+	 * Updates the list of tags displayed for the currently selected photo.
+	 * 
+	 * @param m The mouse event triggering the update.
+	 */
+
 	public void updateTag(MouseEvent m) {
 		Photo photo = (Photo) imagesList.getSelectionModel().getSelectedItem();
 		tagsInPhoto = FXCollections.observableArrayList(photo.getTags());
 		tagList.setItems(tagsInPhoto);
 	}
+
+	/**
+	 * Removes the selected photo from the album.
+	 * 
+	 * @param e The event triggered by clicking the remove photo button.
+	 * @throws IOException If an error occurs during photo removal.
+	 */
 
 	public void removePhoto(ActionEvent e) throws IOException {
 		Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
@@ -480,12 +529,24 @@ public class PhotosInAlbumController {
 		this.save();
 	}
 
+	/**
+	 * Selects the previous photo in the album.
+	 * 
+	 * @param e The event triggered by clicking the previous button.
+	 */
+
 	public void prevButton(ActionEvent e) {
 		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
 		if (picturesList.get(0) != selected) {
 			imagesList.getSelectionModel().selectPrevious();
 		}
 	}
+
+	/**
+	 * Selects the next photo in the album.
+	 * 
+	 * @param e The event triggered by clicking the next button.
+	 */
 
 	public void nextButton(ActionEvent e) {
 		Photo selected = (Photo) imagesList.getSelectionModel().getSelectedItem();
@@ -494,6 +555,12 @@ public class PhotosInAlbumController {
 		}
 	}
 
+	/**
+	 * Switches to the move or copy item view for the selected photo.
+	 * 
+	 * @param e The event triggered by clicking the move or copy button.
+	 * @throws IOException If an error occurs loading the move or copy view.
+	 */
 	public void switchToMC(ActionEvent e) throws IOException {
 		FXMLLoader load = new FXMLLoader();
 		load.setLocation(getClass().getResource("/view/MoveItem.fxml"));
@@ -507,6 +574,12 @@ public class PhotosInAlbumController {
 		pictureStage.setScene(adminView);
 		pictureStage.show();
 	}
+
+	/**
+	 * Saves the current state of the album and user data.
+	 * 
+	 * @throws IOException If an error occurs during saving.
+	 */
 
 	public void save() throws IOException {
 		FXMLLoader loader = new FXMLLoader();

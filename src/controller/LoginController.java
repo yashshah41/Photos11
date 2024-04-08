@@ -16,33 +16,42 @@ import javafx.scene.Node;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The LoginController class handles the user login process.
+ * It provides functionality for the login button, differentiating between an
+ * admin user and other users,
+ * and navigating to the appropriate view based on the user type.
+ * 
+ * @version 1.0
+ * @author Yash Shah
+ */
 
-public class LoginController  {
+public class LoginController {
 
     @FXML
     TextField usernameField;
 
     @FXML
-	Button logInButton;
+    Button logInButton;
 
     @FXML
-	Label authors;
-    
+    Label authors;
 
     ObservableList<User> listOfUsers = FXCollections.observableArrayList();
-    
 
-    
-    /** 
-     * @param e
-     * @throws IOException
+    /**
+     * This method is called when the login button is clicked.
+     * It processes the username entered, determines if the user is an admin or not,
+     * and navigates to the correct view based on user type.
+     *
+     * @param e the ActionEvent that triggers this method.
+     * @throws IOException if there is an issue loading the resource files.
      */
     public void onLoginButtonClick(ActionEvent e) throws IOException {
-        if ((Button)e.getSource() == logInButton) {
+        if ((Button) e.getSource() == logInButton) {
             if (usernameField.getText().isEmpty()) {
                 return;
             } else if (usernameField.getText().equals("admin")) {
-                // Redirect to Admin page
                 FXMLLoader load = new FXMLLoader();
                 load.setLocation(getClass().getResource("/view/Admin.fxml"));
                 Parent parentView = (Parent) load.load();
@@ -78,13 +87,14 @@ public class LoginController  {
             }
         }
     }
-    
 
-    
-    /** 
-     * @param asd
+    /**
+     * Sets the list of users for the controller, allowing it to manage which users
+     * can log in.
+     *
+     * @param asd the list of users to be managed by the login controller.
      */
-    public void setData(List<User> asd){
-		this.listOfUsers = FXCollections.observableArrayList(asd);
-	}
+    public void setData(List<User> asd) {
+        this.listOfUsers = FXCollections.observableArrayList(asd);
+    }
 }
