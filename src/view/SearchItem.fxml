@@ -7,7 +7,7 @@
         <DatePicker fx:id="startDatePicker" layoutX="20.0" layoutY="50.0" prefWidth="200.0" promptText="Start Date" />
         <Label layoutX="20.0" layoutY="80.0" text="to" />
         <DatePicker fx:id="endDatePicker" layoutX="20.0" layoutY="100.0" prefWidth="200.0" promptText="End Date" />
-        <Button fx:id="searchByDateButton" layoutX="20.0" layoutY="130.0" text="Search by Date" onAction="#searchByDate" />
+        <Button fx:id="searchByDateButton" layoutX="20.0" layoutY="130.0" text="Search by Date" onAction="#searchPhotosByDate" />
         
         <Label layoutX="20.0" layoutY="170.0" text="Tag 1" />
         <TextField fx:id="tag1" layoutX="20.0" layoutY="190.0" prefWidth="200.0" promptText="Tag Name" />
@@ -21,7 +21,7 @@
         <ComboBox fx:id="searchType" layoutX="20.0" layoutY="350.0" prefWidth="200.0">
         </ComboBox>
         
-        <Button fx:id="searchByTagButton" layoutX="20.0" layoutY="380.0" text="Search by Tag" onAction="#searchByTag" />
+        <Button fx:id="searchByTagButton" layoutX="20.0" layoutY="380.0" text="Search by Tag" onAction="#searchPhotosByTag" />
         
         <ListView fx:id="result" layoutX="240.0" layoutY="50.0" prefHeight="500.0" prefWidth="540.0" />
         
