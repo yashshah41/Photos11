@@ -303,7 +303,7 @@ public class HomePageController {
 		load.setLocation(getClass().getResource("/view/SearchItem.fxml"));
 		Parent adm_parent = (Parent) load.load();
 		SearchController SearchController = load.getController();
-		SearchController.setData(show, user, listOfUsers);
+		SearchController.setData(user.getAllAlbums(), user, listOfUsers);
 		Scene adminView = new Scene(adm_parent);
 		Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		pictureStage.hide();

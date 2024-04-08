@@ -157,4 +157,16 @@ public class SearchController {
 	    pictureStage.show();
 	}
 
+
+	@FXML
+	private void searchByDate(ActionEvent event) {
+		
+	}
+
+	@FXML
+	private void searchByTag(ActionEvent event) {
+		
+	}
+
+
 }

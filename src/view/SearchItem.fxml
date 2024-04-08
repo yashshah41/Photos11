@@ -7,20 +7,21 @@
         <DatePicker fx:id="startDatePicker" layoutX="20.0" layoutY="50.0" prefWidth="200.0" promptText="Start Date" />
         <Label layoutX="20.0" layoutY="80.0" text="to" />
         <DatePicker fx:id="endDatePicker" layoutX="20.0" layoutY="100.0" prefWidth="200.0" promptText="End Date" />
+        <Button fx:id="searchByDateButton" layoutX="20.0" layoutY="130.0" text="Search by Date" onAction="#searchByDate" />
         
-        <Label layoutX="20.0" layoutY="130.0" text="Tag 1" />
-        <TextField fx:id="tag1" layoutX="20.0" layoutY="150.0" prefWidth="200.0" promptText="Tag Name" />
-        <TextField fx:id="value1" layoutX="20.0" layoutY="180.0" prefWidth="200.0" promptText="Tag Value" />
+        <Label layoutX="20.0" layoutY="170.0" text="Tag 1" />
+        <TextField fx:id="tag1" layoutX="20.0" layoutY="190.0" prefWidth="200.0" promptText="Tag Name" />
+        <TextField fx:id="value1" layoutX="20.0" layoutY="220.0" prefWidth="200.0" promptText="Tag Value" />
         
-        <Label layoutX="20.0" layoutY="210.0" text="Tag 2" />
-        <TextField fx:id="tag2" layoutX="20.0" layoutY="230.0" prefWidth="200.0" promptText="Tag Name" />
-        <TextField fx:id="value2" layoutX="20.0" layoutY="260.0" prefWidth="200.0" promptText="Tag Value" />
+        <Label layoutX="20.0" layoutY="250.0" text="Tag 2" />
+        <TextField fx:id="tag2" layoutX="20.0" layoutY="270.0" prefWidth="200.0" promptText="Tag Name" />
+        <TextField fx:id="value2" layoutX="20.0" layoutY="300.0" prefWidth="200.0" promptText="Tag Value" />
         
-        <Label layoutX="20.0" layoutY="290.0" text="Search Type" />
-        <ComboBox fx:id="searchType" layoutX="20.0" layoutY="310.0" prefWidth="200.0">
+        <Label layoutX="20.0" layoutY="330.0" text="Search Type if 2 Tags" />
+        <ComboBox fx:id="searchType" layoutX="20.0" layoutY="350.0" prefWidth="200.0">
         </ComboBox>
         
-         <Button fx:id="searchButton" layoutX="20.0" layoutY="340.0" text="Search" onAction="#searchPhotos" />
+        <Button fx:id="searchByTagButton" layoutX="20.0" layoutY="380.0" text="Search by Tag" onAction="#searchByTag" />
         
         <ListView fx:id="result" layoutX="240.0" layoutY="50.0" prefHeight="500.0" prefWidth="540.0" />
         
