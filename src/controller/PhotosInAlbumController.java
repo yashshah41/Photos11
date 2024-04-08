@@ -171,12 +171,12 @@ public class PhotosInAlbumController {
 
 		// Populate tagNameList with unique tag names
 		Set<String> uniqueTagNames = user.getAllTags().stream().map(Tag::getName).collect(Collectors.toSet());
-				System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
+				// System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
 
 		uniqueTagNames.add("location");
 		uniqueTagNames.add("person");
 		uniqueTagNames.add("event");
-		System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
+		// System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
 		tagNameList.setItems(FXCollections.observableArrayList(uniqueTagNames));
 	}
 
@@ -381,7 +381,7 @@ public class PhotosInAlbumController {
 
 	private void refreshTagNameList() {
 		Set<String> uniqueTagNames = user.getAllTags().stream().map(Tag::getName).collect(Collectors.toSet());
-				System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
+				// System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
 
 		uniqueTagNames.add("location");
 		uniqueTagNames.add("person");
