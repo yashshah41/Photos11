@@ -125,7 +125,7 @@ public class AdminController {
             FileOutputStream fileOut = new FileOutputStream("users.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(new ArrayList<User>(listOfVisibleUsers));
-            System.out.println("Success");
+            // System.out.println("Success");
             out.close();
             fileOut.close();
         } catch (Exception e) {

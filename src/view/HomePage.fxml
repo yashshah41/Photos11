@@ -21,13 +21,13 @@
       
       <!-- Text field for user input -->
       <TextField fx:id="editName" layoutX="400.0" layoutY="60.0" />
-      <TextField fx:id="editNum" layoutX="400.0" layoutY="100.0" />
-      <TextField fx:id="editRange" layoutX="400.0" layoutY="140.0" />
+      <Label fx:id="NumOfItems" layoutX="410.0" layoutY="150.0" />
+      <Label fx:id="DateRange" layoutX="400.0" layoutY="190.0" />
       
       <!-- Labels for text fields -->
       <Label layoutX="350.0" layoutY="60.0" text="Name:" />
-      <Label layoutX="280.0" layoutY="100.0" text="Number of Items:" />
-      <Label layoutX="300.0" layoutY="140.0" text="Range of Dates:" />
+      <Label layoutX="290.0" layoutY="150.0" text="Number of Items:" />
+      <Label layoutX="300.0" layoutY="190.0" text="Range of Dates:" />
       
       <!-- Button to delete content -->
       <Button fx:id="deleteButton" layoutX="15.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteContent" text="Delete" />
@@ -50,6 +50,6 @@
       <Label layoutX="440.0" layoutY="30.0" text="Edit Content:" />
       
       <!-- Button to finish editing -->
-      <Button fx:id="finishButton" layoutX="440.0" layoutY="180.0" mnemonicParsing="false" onAction="#renameContent" text="Finish Edit" />
+      <Button fx:id="finishButton" layoutX="440.0" layoutY="90.0" mnemonicParsing="false" onAction="#renameContent" text="Finish Edit" />
    </children>
 </AnchorPane>

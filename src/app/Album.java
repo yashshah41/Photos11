@@ -8,7 +8,11 @@ package app;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.Calendar;
+
 public class Album implements Serializable{
+    private static final long serialVersionUID = 6641189840742017975L;
+
 
     /** The list of photos in the album. */
     public List<Photo> photos;
@@ -101,5 +105,45 @@ public class Album implements Serializable{
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+   /**
+     * Get start date based on last modified dates of photos.
+     *
+     * @return The start date Calendar of the album.
+     */
+    public Calendar getStartDate() {
+        if (photos.isEmpty()) {
+            return null;
+        }
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.setTime(photos.get(0).lastModifiedDate);
+        for (Photo photo : photos) {
+            if (photo.lastModifiedDate.before(startDate.getTime())) {
+                startDate.setTime(photo.lastModifiedDate);
+            }
+        }
+        return startDate;
+    }
+
+    /**
+     * Get end date based on last modified dates of photos.
+     *
+     * @return The end date Calendar of the album.
+     */
+    public Calendar getEndDate() {
+        if (photos.isEmpty()) {
+            return null;
+        }
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(photos.get(0).lastModifiedDate);
+        for (Photo photo : photos) {
+            if (photo.lastModifiedDate.after(endDate.getTime())) {
+                endDate.setTime(photo.lastModifiedDate);
+            }
+        }
+        return endDate;
     }
 }

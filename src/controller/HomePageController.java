@@ -19,9 +19,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 public class HomePageController {
 
@@ -44,7 +47,7 @@ public class HomePageController {
 	Button viewContent;
 
 	@FXML
-	ListView<String> allAlbums; // This will now hold Strings
+	ListView<String> allAlbums; 
 
 	@FXML
 	Button createContent;
@@ -56,16 +59,49 @@ public class HomePageController {
 	TextField editName;
 
 	@FXML
-	TextField editNum;
+	Label NumOfItems;
 
 	@FXML
-	TextField editRange;
+	Label DateRange;
 
 	User user;
 
 	ObservableList<Album> show = FXCollections.observableArrayList();
 
 	List<User> listOfUsers;
+
+	public void initialize() {
+        allAlbums.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                updateAlbumDetails(newValue);
+            }
+        });
+    }
+
+     private void updateAlbumDetails(String albumName) {
+        Album selectedAlbum = user.getAllAlbums().stream()
+                .filter(album -> album.getName().equals(albumName))
+                .findFirst()
+                .orElse(null);
+
+        if (selectedAlbum != null) {
+            NumOfItems.setText(String.valueOf(selectedAlbum.getCount()));
+
+           
+            Calendar startDate = selectedAlbum.getStartDate();
+            Calendar endDate = selectedAlbum.getEndDate();
+            if (startDate != null && endDate != null) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+                String dateRange = dateFormat.format(startDate.getTime()) + " - " + dateFormat.format(endDate.getTime());
+                DateRange.setText(dateRange);
+            } else {
+                DateRange.setText("Date Range Not Available");
+            }
+        } else {
+            NumOfItems.setText("");
+            DateRange.setText("");
+        }
+    }
 
 	public void setData(User user, List<User> users) {
 		this.user = user;
