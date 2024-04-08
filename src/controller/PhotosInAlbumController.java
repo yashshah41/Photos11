@@ -347,13 +347,21 @@ public class PhotosInAlbumController {
 				tagsInPhoto.add(newTag);
 				tagList.setItems(tagsInPhoto);
 	
-				user.addTag(newTag); // Add the new tag to the user's collection of tags
-				refreshTagNameList(); // Refresh tag names after adding a new tag
+				user.addTag(newTag); 
+				refreshTagNameList(); 
 			}
 	
 			tag.setText("");
 			this.newTagValue.setText("");
 			this.save();
+		}
+	}
+
+
+	public void tagNameListClicked(MouseEvent event) {
+		if (event.getClickCount() == 1) {
+			String selectedTagName = tagNameList.getSelectionModel().getSelectedItem();
+			tag.setText(selectedTagName); 
 		}
 	}
 	
@@ -363,7 +371,7 @@ public class PhotosInAlbumController {
 										  .map(Tag::getName)
 										  .collect(Collectors.toSet());
 		tagNameList.setItems(FXCollections.observableArrayList(uniqueTagNames));
-		System.out.println("Refreshing tag names, found: " + uniqueTagNames.size() + " unique names");
+		// System.out.println("Refreshing tag names, found: " + uniqueTagNames.size() + " unique names");
 	}
 	
 
