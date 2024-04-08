@@ -32,6 +32,11 @@ public class LoginController  {
     ObservableList<User> listOfUsers = FXCollections.observableArrayList();
     
 
+    
+    /** 
+     * @param e
+     * @throws IOException
+     */
     public void onLoginButtonClick(ActionEvent e) throws IOException {
         if ((Button)e.getSource() == logInButton) {
             if (usernameField.getText().isEmpty()) {
@@ -49,7 +54,6 @@ public class LoginController  {
                 pictureStage.setScene(adminView);
                 pictureStage.show();
             } else {
-                // Redirect to Home page
                 String username = usernameField.getText();
                 User foundUser = null;
                 for (User u : listOfUsers) {
@@ -59,7 +63,6 @@ public class LoginController  {
                     }
                 }
                 if (foundUser == null) {
-                    // User not found, handle appropriately
                     return;
                 }
                 FXMLLoader loader = new FXMLLoader();
@@ -77,9 +80,11 @@ public class LoginController  {
     }
     
 
+    
+    /** 
+     * @param asd
+     */
     public void setData(List<User> asd){
 		this.listOfUsers = FXCollections.observableArrayList(asd);
-        // System.out.println(listOfUsers);
-        // System.out.println(listOfUsers.get(0).getUserName());
 	}
 }

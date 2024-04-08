@@ -50,6 +50,13 @@ public class MoveItemController {
     ObservableList<Album> albumsToMove = FXCollections.observableArrayList();
     ObservableList<Album> albumsToCopy = FXCollections.observableArrayList();
     
+    
+    /** 
+     * @param user
+     * @param album
+     * @param photo
+     * @param members
+     */
     public void setData(User user, Album album, Photo photo, List<User> members){
         this.user = user;
         this.album = album;
@@ -94,6 +101,11 @@ public class MoveItemController {
         });
     }
 
+    
+    /** 
+     * @param e
+     * @throws IOException
+     */
     public void cancel(ActionEvent e) throws IOException {
         FXMLLoader load = new FXMLLoader();
         load.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
@@ -107,6 +119,11 @@ public class MoveItemController {
         pictureStage.show();
     }
 
+    
+    /** 
+     * @param e
+     * @throws IOException
+     */
     public void moveItem(ActionEvent e) throws IOException {
         Album target = (Album) itemsToMoveList.getSelectionModel().getSelectedItem();
         target.addPhoto(currentPhoto);

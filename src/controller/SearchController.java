@@ -68,11 +68,22 @@ public class SearchController {
 	
 	ObservableList<Photo> searchResults = FXCollections.observableArrayList();
 	
+	
+	/** 
+	 * @param albums
+	 * @param user
+	 * @param users
+	 */
 	public void setData(List<Album> albums, User user, List<User> users){
 		this.totalAlbums = albums;
 		this.user = user;
 		this.users = users;
 	}
+	
+	/** 
+	 * @param e
+	 * @throws IOException
+	 */
 	public void backToHome(ActionEvent e) throws IOException{
 		FXMLLoader load = new FXMLLoader();
 	    load.setLocation(getClass().getResource("/view/HomePage.fxml"));
@@ -86,7 +97,7 @@ public class SearchController {
 	    pictureStage.show();
 	}
 	public void searchPhotos(ActionEvent e){
-		if(tagName.getText()!=null&&tagValue.getText()!=null){
+		if(tagName.getText()!=null && tagValue.getText()!=null){
 			String nameGet = tagName.getText();
 			String valueGet= tagValue.getText();
 			
@@ -94,7 +105,9 @@ public class SearchController {
 				for(int j=0; j<totalAlbums.get(i).getAllPhotos().size();j++){
 					for(int z=0; z<totalAlbums.get(i).getAllPhotos().get(j).getTags().size();z++){
 						if(nameGet.equals(totalAlbums.get(i).getAllPhotos().get(j).getTags().get(z).getName())
-						&&valueGet.equals(totalAlbums.get(i).getAllPhotos().get(j).getTags().get(z).getValue())){
+								&& valueGet
+										.equals(totalAlbums.get(i).getAllPhotos().get(j).getTags().get(z).getValue())) {
+							System.out.println("Found");
 							result.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){	 
 					            @Override
 					            public ListCell<Photo> call(ListView<Photo> p) {

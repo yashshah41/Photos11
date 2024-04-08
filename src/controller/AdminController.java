@@ -51,23 +51,28 @@ public class AdminController {
                 fileIn.close();
             }
         } catch (IOException | ClassNotFoundException e) {
-            // Handle file loading errors
             e.printStackTrace();
         }
     }
 
+    /**
+     * @param list
+     */
     public void setUsers(List<User> list) {
         this.listOfVisibleUsers = FXCollections.observableArrayList(list);
         users.setItems(listOfVisibleUsers);
     }
 
+    /**
+     * @param event
+     */
     public void createUser(ActionEvent event) {
         String usernameInput = this.username.getText();
 
         // Check if the username is "admin"
         if (usernameInput.equalsIgnoreCase("admin")) {
-            this.username.clear(); 
-            return; 
+            this.username.clear();
+            return;
         }
 
         for (User u : listOfVisibleUsers) {
@@ -98,6 +103,11 @@ public class AdminController {
         this.save();
     }
 
+    
+    /** 
+     * @param e
+     * @throws IOException
+     */
     public void logOut(ActionEvent e) throws IOException {
         FXMLLoader load = new FXMLLoader();
         load.setLocation(getClass().getResource("/view/Login.fxml"));

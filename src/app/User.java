@@ -2,6 +2,8 @@
  * The User class represents a user in the application.
  * It contains information about the user's username, their albums, and their tags.
  * Users can create, delete, and rename albums, as well as add and delete tags.
+ * 
+ * @author Ayush Gupta & Yash Shah
  */
 package app;
 
@@ -117,6 +119,10 @@ public class User implements Serializable {
     public ArrayList<Album> getPhotoAlbum() {
         return allAlbums;
     }
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return this.getUserName();

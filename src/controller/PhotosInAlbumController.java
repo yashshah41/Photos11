@@ -104,6 +104,12 @@ public class PhotosInAlbumController {
 	List<User> members;
 	User user;
 
+	
+	/** 
+	 * @param album
+	 * @param members
+	 * @param user
+	 */
 	public void setData(Album album, List<User> members, User user) {
 		this.album = album;
 		this.members = members;
@@ -170,6 +176,11 @@ public class PhotosInAlbumController {
 		tagNameList.setItems(FXCollections.observableArrayList(uniqueTagNames));
 	}
 
+	
+	/** 
+	 * @param e
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unchecked")
 	public void addPhoto(ActionEvent e) throws IOException {
 		FileChooser fileChooser = new FileChooser();
