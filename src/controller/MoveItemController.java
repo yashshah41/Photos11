@@ -114,11 +114,14 @@ public class MoveItemController {
         this.save();
     }
     
-    public void copyItem(ActionEvent e) throws IOException {
-        Album target = (Album) itemsToCopyList.getSelectionModel().getSelectedItem();
-        target.addPhoto(currentPhoto);
-        this.save();
-    }
+	public void copyItem(ActionEvent e) throws IOException {
+		Album target = itemsToCopyList.getSelectionModel().getSelectedItem();
+		if (target != album) { 
+			target.addPhoto(currentPhoto);
+			save();
+		} 
+	}
+	
     
     public void finish(ActionEvent e) throws IOException {
         FXMLLoader load = new FXMLLoader();
