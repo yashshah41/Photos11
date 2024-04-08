@@ -1,6 +1,8 @@
 /**
  * The Photo class represents a photograph in the application.
  * It contains information such as the file path, tags, creation date, caption, and last modified date.
+ * 
+ * @author Ayush Gupta & Yash Shah
  */
 
 package app;

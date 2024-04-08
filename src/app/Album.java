@@ -1,6 +1,8 @@
 /**
  * The Album class represents a collection of photographs in the application.
  * It contains a list of photos, along with methods to interact with the collection.
+ * 
+ * @author Ayush Gupta & Yash Shah
  */
 
 package app;

@@ -29,12 +29,12 @@
       <Label fx:id="tags" layoutX="50.0" layoutY="600.0" text="Tags:" />
 
       <!-- Button for displaying the previous image -->
-      <Button fx:id="prevButton" layoutX="50.0" layoutY="750.0" mnemonicParsing="false" onAction="#prev" text="Prev"/>
+      <Button fx:id="prevButton" layoutX="50.0" layoutY="500.0" mnemonicParsing="false" onAction="#prev" text="Prev"/>
       
       <!-- Button for displaying the next image -->
-      <Button fx:id="nextButton" layoutX="150.0" layoutY="750.0" mnemonicParsing="false" onAction="#next" text="Next"/>
+      <Button fx:id="nextButton" layoutX="150.0" layoutY="500.0" mnemonicParsing="false" onAction="#next" text="Next"/>
       
       <!-- Button for returning to the previous screen -->
-      <Button fx:id="backButton" layoutX="300.0" layoutY="750.0" mnemonicParsing="false" onAction="#back" text="Back"  />
+      <Button fx:id="backButton" layoutX="300.0" layoutY="500.0" mnemonicParsing="false" onAction="#back" text="Back"  />
    </children>
 </AnchorPane>

@@ -67,6 +67,14 @@ public class ImageInfoController {
 	User user;
 	Photo photo;
 
+	
+	/** 
+	 * @param members
+	 * @param photo
+	 * @param album
+	 * @param user
+	 * @throws MalformedURLException
+	 */
 	public void setData(List<User> members, Photo photo, Album album, User user) throws MalformedURLException{
 		this.members = FXCollections.observableArrayList(members);
 	    this.album = album;
@@ -74,6 +82,12 @@ public class ImageInfoController {
 	    this.photo = photo;
 	}
 
+	
+	/** 
+	 * @param photo
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 	public void initalizeImage(Photo photo) throws MalformedURLException, IOException{
 		String path = photo.getFile().getAbsolutePath();
 		InputStream instream = new FileInputStream(path);

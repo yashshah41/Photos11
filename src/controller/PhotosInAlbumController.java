@@ -104,6 +104,12 @@ public class PhotosInAlbumController {
 	List<User> members;
 	User user;
 
+	
+	/** 
+	 * @param album
+	 * @param members
+	 * @param user
+	 */
 	public void setData(Album album, List<User> members, User user) {
 		this.album = album;
 		this.members = members;
@@ -164,12 +170,21 @@ public class PhotosInAlbumController {
 		}
 
 		// Populate tagNameList with unique tag names
-		Set<String> uniqueTagNames = user.getAllTags().stream()
-		.map(Tag::getName)
-		.collect(Collectors.toSet());
+		Set<String> uniqueTagNames = user.getAllTags().stream().map(Tag::getName).collect(Collectors.toSet());
+		uniqueTagNames.add("location");
+		uniqueTagNames.add("person");
+		uniqueTagNames.add("event");
+		// System.out.println("Unique tag names: " + uniqueTagNames.size() + " names");
 		tagNameList.setItems(FXCollections.observableArrayList(uniqueTagNames));
+		tagNameList.getItems().clear();
+
 	}
 
+	
+	/** 
+	 * @param e
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unchecked")
 	public void addPhoto(ActionEvent e) throws IOException {
 		FileChooser fileChooser = new FileChooser();
@@ -204,7 +219,6 @@ public class PhotosInAlbumController {
 											try {
 												instream = new FileInputStream(path);
 											} catch (FileNotFoundException e) {
-												// TODO Auto-generated catch block
 												e.printStackTrace();
 											}
 											Image image = new Image(instream);
@@ -236,7 +250,6 @@ public class PhotosInAlbumController {
 		picture.setFitHeight(341);
 		picture.setFitWidth(353);
 		picture.setPreserveRatio(true);
-		Calendar calendar = Calendar.getInstance();
 		List<Tag> tags = new ArrayList<Tag>();
 		Photo photo = new Photo(file, tags);
 		this.picturesList.add(photo);
