@@ -35,6 +35,6 @@
       <Button fx:id="nextButton" layoutX="150.0" layoutY="500.0" mnemonicParsing="false" onAction="#next" text="Next"/>
       
       <!-- Button for returning to the previous screen -->
-      <Button fx:id="backButton" layoutX="300.0" layoutY="750.0" mnemonicParsing="false" onAction="#back" text="Back"  />
+      <Button fx:id="backButton" layoutX="300.0" layoutY="500.0" mnemonicParsing="false" onAction="#back" text="Back"  />
    </children>
 </AnchorPane>
