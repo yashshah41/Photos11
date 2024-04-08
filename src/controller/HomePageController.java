@@ -189,6 +189,10 @@ public class HomePageController {
 
 	public void createNewContent(ActionEvent event) throws IOException {
 		String contentNameText = contentName.getText().trim();
+		System.out.println("" + contentNameText + "");
+		if (contentName.getText().isEmpty() || contentNameText == " ") {
+			return;
+		} 
 		boolean albumExists = user.getAllAlbums().stream()
 				.anyMatch(album -> album.getName().equalsIgnoreCase(contentNameText));
 		if (!albumExists) {
@@ -290,8 +294,7 @@ public class HomePageController {
 		pictureStage.show();
 	}
 
-	
-	/** 
+	/**
 	 * @param e
 	 * @throws IOException
 	 */
