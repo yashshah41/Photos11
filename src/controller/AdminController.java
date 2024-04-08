@@ -82,6 +82,7 @@ public class AdminController {
         }
 
         ArrayList<Album> albums = new ArrayList<Album>();
+<<<<<<< HEAD
         // List<Photo> photos = new ArrayList<Photo>();
         // File stock1 = new File("data/imageOne.png");
         // File stock2 = new File("data/imageTwo.png");
@@ -97,14 +98,32 @@ public class AdminController {
         // albums.add(album);
         User newUser = new User(usernameInput, albums);
         // System.out.println(newUser.allAlbums.size());
+=======
+        List<Photo> photos = new ArrayList<Photo>();
+        File stock1 = new File("data/imageOne.png");
+        File stock2 = new File("data/imageTwo.png");
+        File stock3 = new File("data/imageThree.png");
+        File stock4 = new File("data/imageFour.png");
+        File stock5 = new File("data/imageFive.png");
+        photos.add(new Photo(stock1, new ArrayList<Tag>()));
+        photos.add(new Photo(stock2, new ArrayList<Tag>()));
+        photos.add(new Photo(stock3, new ArrayList<Tag>()));
+        photos.add(new Photo(stock4, new ArrayList<Tag>()));
+        photos.add(new Photo(stock5, new ArrayList<Tag>()));
+        Album album = new Album("Stock Album", photos);
+        albums.add(album);
+        User newUser = new User(usernameInput);
+        if (usernameInput == "stock") {
+            newUser = new User(usernameInput, albums);
+        }
+>>>>>>> e553b5294f7acab92ca34e1071de1a92537ed118
         listOfVisibleUsers.add(newUser);
         this.username.clear();
         users.setItems(listOfVisibleUsers);
         this.save();
     }
 
-    
-    /** 
+    /**
      * @param e
      * @throws IOException
      */
