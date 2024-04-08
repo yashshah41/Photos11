@@ -189,7 +189,6 @@ public class HomePageController {
 
 	public void createNewContent(ActionEvent event) throws IOException {
 		String contentNameText = contentName.getText().trim();
-		System.out.println("" + contentNameText + "");
 		if (contentName.getText().isEmpty() || contentNameText == " ") {
 			return;
 		} 

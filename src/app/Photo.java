@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Photo implements Serializable {
+    private static final long serialVersionUID = 5547980979143814855L;
 
     /** The file representing the photograph. */
     public File file;
@@ -127,6 +128,13 @@ public class Photo implements Serializable {
         return this.caption;
     }
     
-    
+    public boolean hasTagValuePair(String name, String value) {
+        for (Tag tag : this.tags) {
+            if (tag.getName().equals(name) && tag.getValue().equals(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
