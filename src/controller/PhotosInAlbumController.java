@@ -190,9 +190,13 @@ public class PhotosInAlbumController {
 		if (file == null) {
 			return;
 		}
+
 		for (User u : members) {
 			for (Album a : u.getAllAlbums()) {
 				for (Photo p : a.getAllPhotos()) {
+					if(p.getFile().equals(file) && a == this.album) {
+						return;
+					}
 					if (p.getFile().equals(file)) {
 						this.picturesList.add(p);
 						this.album.addPhoto(p);
