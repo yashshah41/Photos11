@@ -11,8 +11,8 @@ import java.util.List;
  * It contains information about the user's username, their albums, and their tags.
  * Users can create, delete, and rename albums, as well as add and delete tags.
  * 
- * @author: Yash Shah
- * @version: 1.0
+ * @author Yash Shah
+ * @version 1.0
  */
 
 public class User implements Serializable {
