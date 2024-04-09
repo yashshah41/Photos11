@@ -353,34 +353,46 @@ public class PhotosInAlbumController {
 	public void addTag(ActionEvent e) throws IOException {
 		String name = tag.getText().trim();
 		String value = this.newTagValue.getText().trim();
-
+	
 		if (!name.isEmpty() && !value.isEmpty()) {
 			Photo selectedPhoto = imagesList.getSelectionModel().getSelectedItem();
 			if (selectedPhoto == null) {
 				return;
 			}
-
+	
+		// Check for duplicate tag name, specifically "location" or "event"
+		if (name.equalsIgnoreCase("location") || name.equalsIgnoreCase("event")) {
+			boolean tagExists = selectedPhoto.getTags().stream()
+					.anyMatch(t -> t.getName().equalsIgnoreCase(name));
+			if (tagExists) {
+					tag.clear();
+					newTagValue.clear();
+					return;
+				}
+			}
+	
 			boolean duplicateExists = selectedPhoto.getTags().stream()
 					.anyMatch(t -> t.getName().equalsIgnoreCase(name) && t.getValue().equalsIgnoreCase(value));
-
+	
 			if (!duplicateExists) {
 				List<Photo> photosForNewTag = new ArrayList<>();
 				photosForNewTag.add(selectedPhoto);
-
+	
 				Tag newTag = new Tag(name, value, photosForNewTag);
 				selectedPhoto.addTag(newTag);
 				tagsInPhoto.add(newTag);
 				tagList.setItems(tagsInPhoto);
-
-				user.addTag(newTag);
-				refreshTagNameList();
+	
+				user.addTag(newTag); 
+				refreshTagNameList(); 
 			}
-
+	
 			tag.setText("");
 			this.newTagValue.setText("");
 			this.save();
 		}
 	}
+	
 
 	/**
 	 * Handles click event on the list of tag names.
