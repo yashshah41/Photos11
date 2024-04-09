@@ -8,7 +8,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import app.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -97,6 +101,11 @@ public class SearchController {
 	private void searchPhotosByDate(ActionEvent event) {
 		LocalDate startDate = startDatePicker.getValue();
 		LocalDate endDate = endDatePicker.getValue();
+		
+		
+		if (startDate == null || endDate == null) {
+			return;
+		}
 
 		List<Photo> matchedPhotos = new ArrayList<>();
 		for (Album album : albums) {
@@ -162,7 +171,16 @@ public class SearchController {
 	 */
 
 	public void displayPhotos(List<Photo> photos) {
-		result.setItems(FXCollections.observableArrayList(photos));
+		// Use a set to track unique photo file paths and filter out duplicates
+		Set<String> uniquePaths = new HashSet<>();
+	
+		// Use a stream to filter out photos with duplicate file paths
+		List<Photo> uniquePhotos = photos.stream()
+				.filter(photo -> uniquePaths.add(photo.getFile().getAbsolutePath()))
+				.collect(Collectors.toList());
+	
+		// Set the filtered list of unique photos to the ListView
+		result.setItems(FXCollections.observableArrayList(uniquePhotos));
 		result.setCellFactory(lv -> new ListCell<Photo>() {
 			@Override
 			protected void updateItem(Photo photo, boolean empty) {
@@ -187,7 +205,7 @@ public class SearchController {
 			}
 		});
 	}
-
+	
 	/**
 	 * Creates a new album with the specified name from the search results.
 	 * 
@@ -198,13 +216,18 @@ public class SearchController {
 	@FXML
 	private void createAlbum(ActionEvent event) throws IOException {
 		String name = albumName.getText().trim();
-		if (!name.isEmpty() && !result.getItems().isEmpty()) {
+		// Check if the album name already exists for this user
+		boolean albumExists = user.getAllAlbums().stream().anyMatch(album -> album.getName().equalsIgnoreCase(name));
+		if (!name.isEmpty() && !result.getItems().isEmpty() && !albumExists) {
 			Album newAlbum = new Album(name, new ArrayList<>(result.getItems()));
 			user.addAlbum(newAlbum);
 			backToHome(event);
-			this.save();
+		} else if (albumExists) {
+			albumName.clear();
 		}
+		this.save(); 
 	}
+	
 
 	/**
 	 * Returns the user to the home page.
