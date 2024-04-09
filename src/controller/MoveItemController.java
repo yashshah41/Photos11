@@ -141,10 +141,12 @@ public class MoveItemController {
      */
     public void moveItem(ActionEvent e) throws IOException {
         Album target = (Album) itemsToMoveList.getSelectionModel().getSelectedItem();
-        target.addPhoto(currentPhoto);
-        album.removePhoto(currentPhoto);
-        this.save();
-    }
+        if (target != album && !target.getAllPhotos().contains(currentPhoto)) {
+            target.addPhoto(currentPhoto);
+            album.removePhoto(currentPhoto);
+            this.save();
+        }
+    }    
 
     /**
      * Copies the selected photo to the selected album, retaining it in the current
@@ -155,11 +157,11 @@ public class MoveItemController {
      */
     public void copyItem(ActionEvent e) throws IOException {
         Album target = itemsToCopyList.getSelectionModel().getSelectedItem();
-        if (target != album) {
+        if (target != album && !target.getAllPhotos().contains(currentPhoto)) {
             target.addPhoto(currentPhoto);
             save();
         }
-    }
+    }    
 
     /**
      * Completes the move or copy action and returns to the album view.
@@ -169,7 +171,16 @@ public class MoveItemController {
      */
 
     public void finish(ActionEvent e) throws IOException {
-
+        FXMLLoader load = new FXMLLoader();
+        load.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
+        Parent parentView = (Parent) load.load();
+        PhotosInAlbumController oacontroller = load.getController();
+        oacontroller.setData(album, members, user);
+        Scene adminView = new Scene(parentView);
+        Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        pictureStage.hide();
+        pictureStage.setScene(adminView);
+        pictureStage.show();
     }
 
     /**
