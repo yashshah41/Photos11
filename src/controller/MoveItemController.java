@@ -162,30 +162,18 @@ public class MoveItemController {
     }
 
     /**
-     * Completes the move or copy action and returns to the album view, saving
-     * changes.
+     * Completes the move or copy action and returns to the album view.
      * 
      * @param e The event triggered by clicking the finish button.
      * @throws IOException If loading the PhotosInAlbum view fails.
      */
 
     public void finish(ActionEvent e) throws IOException {
-        FXMLLoader load = new FXMLLoader();
-        load.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
-        Parent parentView = (Parent) load.load();
-        PhotosInAlbumController oacontroller = load.getController();
-        oacontroller.setData(album, members, user);
-        Scene adminView = new Scene(parentView);
-        Stage pictureStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        pictureStage.hide();
-        pictureStage.setScene(adminView);
-        pictureStage.show();
-        this.save();
+
     }
 
     /**
-     * Saves changes to the users or albums, typically called after a photo is moved
-     * or copied.
+     * Saves changes to the users or albums.
      * 
      * @throws IOException If an IO operation fails during the save.
      */
@@ -193,7 +181,7 @@ public class MoveItemController {
     public void save() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/Admin.fxml"));
-        Parent parentView = (Parent) loader.load();
+        Parent parentView = (Parent) loader.load()  ;
         AdminController admincontroller = loader.getController();
         admincontroller.setUsers(this.members);
         admincontroller.save();

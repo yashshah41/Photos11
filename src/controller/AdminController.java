@@ -8,10 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import app.Album;
-import app.Photo;
-import app.Tag;
-import app.User;
+import app.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,10 +24,6 @@ import javafx.scene.control.ListView;
 /**
  * Controller class for the admin panel. It handles user creation, deletion, and
  * serialization of user data.
- * This controller is used for managing the application's user accounts from an
- * administrative perspective.
- * It interacts with a list view displaying users and input fields to manage
- * them.
  * 
  * @author Ayush Gupta
  * @version 1.0
@@ -47,21 +40,10 @@ public class AdminController {
     ObservableList<User> listOfVisibleUsers = FXCollections.observableArrayList();
 
     /**
-     * Called to initialize a controller after its root element has been completely
-     * processed.
-     * It loads users from a serialized file into the application.
+     * It loads users from a serialized file
      */
 
     public void initialize() {
-        loadUsersFromFile();
-    }
-
-    /**
-     * Loads the list of users from a serialized file and adds them to the
-     * observable list for display.
-     */
-
-    private void loadUsersFromFile() {
         try {
             File file = new File("users.ser");
             if (file.exists()) {
@@ -79,7 +61,7 @@ public class AdminController {
     }
 
     /**
-     * Sets the list of visible users in the ListView component.
+     * Sets the list of visible users
      * 
      * @param x The list of users to display in the ListView.
      */
@@ -89,15 +71,12 @@ public class AdminController {
     }
 
     /**
-     * Handles the creation of a new user account. It checks for duplicates and
-     * "admin" as a username,
-     * creates a new user with default albums and photos, and updates the view.
+     * Handles the creation of a new user account
+     * 
      * @param event The event that triggers the creation of a new user.
      */
     public void createUser(ActionEvent event) {
         String usernameInput = this.username.getText();
-
-        // Check if the username is "admin"
         if (usernameInput.equalsIgnoreCase("admin")) {
             this.username.clear();
             return;
@@ -123,16 +102,14 @@ public class AdminController {
         photos.add(new Photo(stock5, new ArrayList<Tag>()));
         Album album = new Album("Stock Album", photos);
         // albums.add(album);
-        User newUser = new User(usernameInput, albums);
-        System.out.println(newUser.allAlbums.size());
-        listOfVisibleUsers.add(newUser);
-        this.username.clear();
+        listOfVisibleUsers.add(new User(usernameInput, albums));
         users.setItems(listOfVisibleUsers);
+        this.username.clear();
         this.save();
     }
 
     /**
-     * Logs the admin out and returns to the login view.
+     * Logs the admin out and sets the location to login view.
      * 
      * @param e The event that triggers the logout.
      * @throws IOException If an I/O error occurs while loading the login view.
@@ -157,12 +134,10 @@ public class AdminController {
      */
 
     public void deleteUser(ActionEvent e) {
-        User selectedUser = users.getSelectionModel().getSelectedItem();
-        if (selectedUser != null) {
-            listOfVisibleUsers.remove(selectedUser);
-            users.setItems(listOfVisibleUsers);
-            this.save();
-        }
+        listOfVisibleUsers.remove(users.getSelectionModel().getSelectedItem());
+        users.setItems(listOfVisibleUsers);
+        this.save();
+
     }
 
     /**

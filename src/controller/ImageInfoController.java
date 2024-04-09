@@ -77,10 +77,10 @@ public class ImageInfoController {
 	 * Sets the data for the ImageInfo view, initializes the view components with
 	 * the given photo, album, user, and the list of members.
 	 *
-	 * @param listOfAlUsers The list of users of the application.
-	 * @param photo   The photo to be displayed.
-	 * @param album   The album containing the photo.
-	 * @param user    The user viewing the photo.
+	 * @param listOfAlUsers The list of users
+	 * @param photo         The photo
+	 * @param album         The album
+	 * @param user          The user (to be used for saving)
 	 * @throws MalformedURLException if the path to the photo is incorrect.
 	 */
 
@@ -92,10 +92,9 @@ public class ImageInfoController {
 	}
 
 	/**
-	 * Initializes the view with the selected photo, setting the image view, date,
-	 * caption, and list of tags associated with the photo.
+	 * Initializes the view with the selected photo.
 	 *
-	 * @param photo The photo to initialize in the view.
+	 * @param photo The photo to be displayed.
 	 * @throws MalformedURLException if the path to the photo is incorrect.
 	 * @throws IOException           if there is an error loading the photo or tags.
 	 */
@@ -122,8 +121,8 @@ public class ImageInfoController {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/PhotosInAlbum.fxml"));
 		Parent oa_parent = (Parent) loader.load();
-		PhotosInAlbumController oacontroller = loader.getController();
-		oacontroller.setData(album, members, user);
+		PhotosInAlbumController PhotosInAlbumController = loader.getController();
+		PhotosInAlbumController.setData(album, members, user);
 		Scene admin_scene = new Scene(oa_parent);
 		Stage photoStage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		photoStage.hide();
@@ -159,12 +158,12 @@ public class ImageInfoController {
 		}
 	}
 
-	 /**
-     * Handles the action to navigate to the previous photo in the album.
-     *
-     * @param e The action event triggered when the previous button is clicked.
-     * @throws FileNotFoundException if the previous photo's file is not found.
-     */
+	/**
+	 * Handles the action to navigate to the previous photo in the album.
+	 *
+	 * @param e The action event.
+	 * @throws FileNotFoundException if the photo's file is not found.
+	 */
 
 	public void prev(ActionEvent e) throws FileNotFoundException {
 		List<Photo> photos = this.album.getAllPhotos();

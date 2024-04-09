@@ -10,8 +10,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
    <children>
-      <!-- Label welcoming the user -->
-      <Label alignment="CENTER" layoutX="200.0" layoutY="15.0" prefHeight="40.0" prefWidth="200.0" text="Welcome to Your Space" />
       
       <!-- ListView to display user's content -->
       <ListView fx:id="allAlbums" layoutX="20.0" layoutY="50.0" prefHeight="310.0" prefWidth="250.0" />
@@ -33,17 +31,16 @@
       <Button fx:id="deleteButton" layoutX="15.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteContent" text="Delete" />
       
       <!-- Button to create new content -->
-      <Button fx:id="createContent" layoutX="410.0" layoutY="310.0" mnemonicParsing="false" onAction="#createNewContent" prefHeight="30.0" prefWidth="140.0" text="Create New Content" />
+      <Button fx:id="createContent" layoutX="410.0" layoutY="310.0" mnemonicParsing="false" onAction="#createNewContent" prefHeight="30.0" prefWidth="140.0" text="Create New Album" />
       
       <!-- Label indicating the section -->
-      <Label layoutX="420.0" layoutY="240.0" prefHeight="20.0" prefWidth="130.0" text="Create New Content:" />
       
       <!-- Text field for input -->
       <TextField fx:id="contentName" layoutX="400.0" layoutY="270.0" promptText="Name" />
       
       <!-- Buttons for navigation -->
-      <Button fx:id="viewContent" layoutX="80.0" layoutY="360.0" mnemonicParsing="false" onAction="#viewContent" prefHeight="30.0" prefWidth="100.0" text="View Content" />
-      <Button fx:id="searchButton" layoutX="190.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToSearch" prefHeight="30.0" prefWidth="108.0" text="Search Items" />
+      <Button fx:id="viewContent" layoutX="80.0" layoutY="360.0" mnemonicParsing="false" onAction="#viewContent" prefHeight="30.0" prefWidth="100.0" text="View" />
+      <Button fx:id="searchButton" layoutX="190.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToSearch" prefHeight="30.0" prefWidth="108.0" text="Search" />
       <Button fx:id="logoutButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#logOut" text="Logout" />
       
       <!-- Label indicating the section -->

@@ -3,7 +3,8 @@
  * It contains information about the user's username, their albums, and their tags.
  * Users can create, delete, and rename albums, as well as add and delete tags.
  * 
- * @author Ayush Gupta & Yash Shah
+ * @author: Yash Shah
+ * @version: 1.0
  */
 package app;
 
@@ -23,7 +24,7 @@ public class User implements Serializable {
     public List<Tag> tags;
 
     /**
-     * Constructor to create a User object with a given username and list of tags.
+     * Constructor to create a User object
      * 
      * @param userName The username of the user.
      * @param tags The list of tags associated with the user's photos.
@@ -67,7 +68,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Add an album to the list of albums belonging to the user.
+     * Add an album to the list of albums.
      * 
      * @param album The album to add.
      */
@@ -111,14 +112,7 @@ public class User implements Serializable {
         this.tags.remove(tag);
     }
 
-    /**
-     * Get the list of albums belonging to the user.
-     * 
-     * @return The list of albums belonging to the user.
-     */
-    public ArrayList<Album> getPhotoAlbum() {
-        return allAlbums;
-    }
+  
     
     /** 
      * @return String

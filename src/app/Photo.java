@@ -1,10 +1,3 @@
-/**
- * The Photo class represents a photograph in the application.
- * It contains information such as the file path, tags, creation date, caption, and last modified date.
- * 
- * @author Ayush Gupta & Yash Shah
- */
-
 package app;
 
 import java.io.File;
@@ -13,32 +6,30 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The Photo class represents a photograph in the application.
+ * It contains information such as the file path, tags, creation date, caption, and last modified date.
+ * 
+ * 
+ * @author Ayush Gupta
+ * @version 1.0
+ */
+
 public class Photo implements Serializable {
     private static final long serialVersionUID = 5547980979143814855L;
 
-    /** The file representing the photograph. */
-    public File file;
-    
-    /** The path to the photograph file. */
+    public File file;    
     public String path;
-    
-    /** The list of tags associated with the photograph. */
-    public List<Tag> tags;
-    
-    /** The calendar representing the creation date of the photograph. */
-    public Calendar calendar;
-    
-    /** The caption of the photograph. */
-    public String caption;
-    
-    /** The last modified date of the photograph file. */
+    public List<Tag> tags;    
+    public Calendar calendar;    
+    public String caption;    
     public Date lastModifiedDate;
 
     /**
      * Constructor to create a new Photo object.
      * 
-     * @param file The file representing the photograph.
-     * @param tags The list of tags associated with the photograph.
+     * @param file The file 
+     * @param tags The list of tags
      */
     public Photo(File file, List<Tag> tags) {
         this.file = file;
@@ -47,7 +38,7 @@ public class Photo implements Serializable {
         this.tags = tags;
     }
 
-        /**
+    /**
      * Get the file of the photograph.
      * 
      * @return The file object of of the photograph.

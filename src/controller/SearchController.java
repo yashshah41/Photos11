@@ -50,8 +50,7 @@ public class SearchController {
 	List<User> users;
 
 	/**
-	 * Initializes the controller class. This method is automatically called
-	 * after the FXML file has been loaded. It sets up the search type choices.
+	 * Initializes the controller class. 
 	 * 
 	 * @version 1.0
 	 * @author Ayush Gupta
@@ -157,8 +156,7 @@ public class SearchController {
 	}
 
 	/**
-	 * Displays the search results in a ListView with custom cell formatting to show
-	 * photo thumbnails.
+	 * Displays the search results in a ListView. 
 	 * 
 	 * @param photos The list of photos that matched the search criteria.
 	 */
@@ -229,7 +227,7 @@ public class SearchController {
 	}
 
 	/**
-	 * Saves the current state, including any changes made to the users' albums.
+	 * Saves the current state.
 	 */
 
 	public void save() {

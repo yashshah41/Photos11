@@ -18,9 +18,8 @@ import java.util.List;
 
 /**
  * The LoginController class handles the user login process.
- * It provides functionality for the login button, differentiating between an
+ * It provides functionality for the login button, helping provide navigation, differentiating between an
  * admin user and other users,
- * and navigating to the appropriate view based on the user type.
  * 
  * @version 1.0
  * @author Yash Shah
@@ -41,11 +40,9 @@ public class LoginController {
 
     /**
      * This method is called when the login button is clicked.
-     * It processes the username entered, determines if the user is an admin or not,
-     * and navigates to the correct view based on user type.
      *
-     * @param e the ActionEvent that triggers this method.
-     * @throws IOException if there is an issue loading the resource files.
+     * @param e the ActionEvent
+     * @throws IOException if there is an issue loading the file
      */
     public void onLoginButtonClick(ActionEvent e) throws IOException {
         if ((Button) e.getSource() == logInButton) {
@@ -89,9 +86,7 @@ public class LoginController {
     }
 
     /**
-     * Sets the list of users for the controller, allowing it to manage which users
-     * can log in.
-     *
+     * Sets the list of users for the controller
      * @param asd the list of users to be managed by the login controller.
      */
     public void setData(List<User> asd) {

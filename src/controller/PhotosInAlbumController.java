@@ -379,8 +379,7 @@ public class PhotosInAlbumController {
 	}
 
 	/**
-	 * Handles click event on tagNameList, filling the tag TextField with the
-	 * selected tag name.
+	 * Handles click event on the list of tag names.
 	 * 
 	 * @param event The mouse event triggered by clicking a tag name.
 	 */
@@ -414,13 +413,14 @@ public class PhotosInAlbumController {
 	 * @throws IOException If an error occurs during tag deletion.
 	 */
 	public void deleteTag(ActionEvent e) throws IOException {
-		Photo target = (Photo) imagesList.getSelectionModel().getSelectedItem();
-		Tag selected = (Tag) tagList.getSelectionModel().getSelectedItem();
-		if (target.getTags().contains(selected)) {
-			target.removeTag(selected);
-			this.user.deleteTag(selected);
+		if (((Photo) imagesList.getSelectionModel().getSelectedItem()).getTags()
+				.contains((Tag) tagList.getSelectionModel().getSelectedItem())) {
+			((Photo) imagesList.getSelectionModel().getSelectedItem())
+					.removeTag((Tag) tagList.getSelectionModel().getSelectedItem());
+			this.user.deleteTag((Tag) tagList.getSelectionModel().getSelectedItem());
 		}
-		tagsInPhoto = FXCollections.observableArrayList(target.getTags());
+		tagsInPhoto = FXCollections
+				.observableArrayList(((Photo) imagesList.getSelectionModel().getSelectedItem()).getTags());
 		tagList.setItems(tagsInPhoto);
 		this.save();
 	}

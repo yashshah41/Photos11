@@ -1,13 +1,18 @@
-/**
- * The Tag class represents a tag that can be associated with photos in the application.
- * It contains information about the name and value of the tag, as well as the list of photos
- * to which the tag is associated.
- */
+
 
 package app;
 import java.io.Serializable;
 import java.util.List;
 
+
+/**
+ * The Tag class represents a tag that can be associated with photos in the application.
+ * It contains information about the name and value of the tag, as well as the list of photos
+ * to which the tag is associated.
+ * 
+ * @author Yash Shah
+ * @version 1.0
+ */
 public class Tag implements Serializable {
 
     /** The name of the tag. */
