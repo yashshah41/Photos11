@@ -1,3 +1,11 @@
+
+package app;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
  * The User class represents a user in the application.
  * It contains information about the user's username, their albums, and their tags.
@@ -6,11 +14,6 @@
  * @author: Yash Shah
  * @version: 1.0
  */
-package app;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class User implements Serializable {
 
