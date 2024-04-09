@@ -1,10 +1,4 @@
-/**
- * The Photos11 class is the main entry point for the Photos11 application.
- * It initializes the application by loading user data, setting up the login scene,
- * and displaying the main application window.
- * 
- * @author Ayush Gupta & Yash Shah
- */
+
 
 package app;
 
@@ -20,6 +14,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+
+/**
+ * The Photos11 class is the main entry point for the Photos11 application.
+ * It initializes the application by loading user data, setting up the login scene,
+ * and displaying the main application window.
+ * 
+ * @author Ayush Gupta and Yash Shah
+ */
 
 public class Photos extends Application {
 
